@@ -17,5 +17,5 @@ body,
 }
 
 .mobile_layout {
-  @apply w-full max-w-[480px] mx-auto;
+  @apply w-full max-w-[480px] mx-auto overflow-hidden;
 }

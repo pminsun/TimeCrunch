@@ -38,3 +38,7 @@ body,
     }
   }
 }
+
+.home_container {
+  @apply flex_center flex-col h-full;
+}

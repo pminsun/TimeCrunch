@@ -9,13 +9,13 @@ export default function BottomNavigationBar() {
           <Link href={'/snak'}>홈</Link>
         </li>
         <li>
-          <Link href={'/snak'}>저장</Link>
+          <Link href={'/space'}>공간찾기</Link>
         </li>
         <li>
-          <Link href={'/map'}>맵</Link>
+          <Link href={'/map'}>위치보기</Link>
         </li>
         <li>
-          <Link href={'/snak'}>로그인</Link>
+          <Link href={'/mypage'}>마이페이지</Link>
         </li>
       </ul>
     </div>

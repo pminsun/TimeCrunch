@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const temData = [
   {
@@ -15,9 +16,20 @@ const temData = [
   },
 ];
 
+// 성수동의 경계 좌표
+const seongsuBoundary = [
+  { lat: 37.543, lng: 127.054 },
+  { lat: 37.543, lng: 127.058 },
+  { lat: 37.546, lng: 127.058 },
+  { lat: 37.546, lng: 127.054 },
+];
+
 export default function Map() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const initMap = (lat: number, lng: number) => {
+    const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
       const currentLocation = new naver.maps.LatLng(lat, lng);
       const mapOptions = {
         center: currentLocation,
@@ -25,6 +37,17 @@ export default function Map() {
       };
 
       const map = new naver.maps.Map('map', mapOptions);
+
+      // 성수동 경계 다각형 추가
+      // new naver.maps.Polygon({
+      //   paths: [
+      //     [new naver.maps.LatLng(37.543, 127.054), new naver.maps.LatLng(37.543, 127.058), new naver.maps.LatLng(37.546, 127.058), new naver.maps.LatLng(37.546, 127.054)]
+      //   ],
+      //   strokeColor: '#FF0000', // 경계 색상
+      //   strokeOpacity: 0.8,
+      //   strokeWeight: 2,
+      //   map: map,
+      // });
 
       // 현재 위치 마커 생성
       const currentLocationMarker = new naver.maps.Marker({
@@ -43,19 +66,27 @@ export default function Map() {
     };
 
     const loadMap = () => {
-      // 우선 기본 중심을 성수역 좌표로 설정
+      // 성수동 중심 좌표
       const defaultLat = 37.544579;
       const defaultLng = 127.055831;
 
       // 성공 콜백 함수
       const success = (position: GeolocationPosition) => {
         const { latitude, longitude } = position.coords;
-        initMap(latitude, longitude); // 현재 위치를 중심으로 지도 초기화
+
+        // 성수동의 대략적인 범위 설정
+        const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
+
+        if (isInSeongsu) {
+          initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
+        } else {
+          initMap(defaultLat, defaultLng, isInSeongsu); // 성수동 외 위치
+        }
       };
 
       // 오류 콜백 함수
       const error = () => {
-        initMap(defaultLat, defaultLng); // 오류가 발생하면 성수역 좌표로 지도 초기화
+        initMap(defaultLat, defaultLng, false); // 오류가 발생하면 성수역 좌표로 지도 초기화
       };
 
       // 현재 위치 확인
@@ -65,7 +96,7 @@ export default function Map() {
         }); // 현재 위치 요청
       } else {
         // Geolocation을 지원하지 않으면 기본 좌표 사용
-        initMap(defaultLat, defaultLng);
+        initMap(defaultLat, defaultLng, false);
       }
     };
 
@@ -80,10 +111,10 @@ export default function Map() {
   }, []);
 
   return (
-    <div className="bg-red-100 w-full h-full">
+    <div className="w-full h-full">
       <div
         id="map"
-        style={{ width: '480px', height: '500px' }}
+        style={{ width: '480px', height: '100%' }}
       ></div>
     </div>
   );

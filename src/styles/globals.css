@@ -17,5 +17,24 @@ body,
 }
 
 .mobile_layout {
-  @apply w-full max-w-[480px] mx-auto overflow-hidden;
+  @apply w-full max-w-[480px] h-full mx-auto overflow-hidden;
+
+  .content_container {
+    @apply bg-red-100;
+  }
+
+  .bottom_gnb {
+    @apply w-full h-[60px] mt-auto;
+
+    ul {
+      @apply flex w-full h-full;
+
+      li {
+        @apply flex-1 h-full;
+        a {
+          @apply flex_center h-full bg-green-300;
+        }
+      }
+    }
+  }
 }

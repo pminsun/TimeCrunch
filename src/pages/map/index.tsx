@@ -74,14 +74,17 @@ export default function Map() {
       const success = (position: GeolocationPosition) => {
         const { latitude, longitude } = position.coords;
 
-        // 성수동의 대략적인 범위 설정
-        const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
+        // watchPosition 테스트
+        initMap(latitude, longitude, false);
 
-        if (isInSeongsu) {
-          initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
-        } else {
-          initMap(defaultLat, defaultLng, isInSeongsu); // 성수동 외 위치
-        }
+        // 성수동의 대략적인 범위 설정
+        // const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
+
+        // if (isInSeongsu) {
+        //   initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
+        // } else {
+        //   initMap(defaultLat, defaultLng, isInSeongsu); // 성수동 외 위치
+        // }
       };
 
       // 오류 콜백 함수

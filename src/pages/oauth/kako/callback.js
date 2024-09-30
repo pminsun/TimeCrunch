@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 // import { fetchKakaoAccessToken, fetchKakaoUserInfo, fetchSaveKakaoLoginDb } from '@/api/fetchData';
+import { useUserStore } from './../../../store/store';
 
 const KakaoCallback = () => {
   const router = useRouter();

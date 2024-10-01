@@ -40,5 +40,33 @@ body,
 }
 
 .home_container {
-  @apply flex_center flex-col h-full;
+  @apply w-full h-full overflow-hidden;
+
+  > .slick-slider {
+    @apply w-full h-full;
+
+    > button {
+      @apply !hidden;
+    }
+
+    > .slick-list {
+      @apply w-full h-full;
+
+      .slick-track {
+        @apply !flex h-full;
+
+        > .slick-slide {
+          @apply w-full h-full;
+
+          > div {
+            @apply w-full h-full;
+          }
+        }
+      }
+    }
+  }
+
+  section {
+    @apply !flex_center flex-col w-full h-full;
+  }
 }

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
 
-export default function Snak({ children }: { children: ReactNode }) {
+export default function Home() {
   return <div>planx 홈</div>;
 }

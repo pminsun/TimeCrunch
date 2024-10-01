@@ -1,3 +1,4 @@
+import { mOne, one, seongsuBoundary, three } from '@/utils/seongsuLocation';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -16,14 +17,6 @@ const temData = [
   },
 ];
 
-// 성수동의 경계 좌표
-const seongsuBoundary = [
-  { lat: 37.543, lng: 127.054 },
-  { lat: 37.543, lng: 127.058 },
-  { lat: 37.546, lng: 127.058 },
-  { lat: 37.546, lng: 127.054 },
-];
-
 export default function Map() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -39,15 +32,41 @@ export default function Map() {
       const map = new naver.maps.Map('map', mapOptions);
 
       // 성수동 경계 다각형 추가
-      // new naver.maps.Polygon({
-      //   paths: [
-      //     [new naver.maps.LatLng(37.543, 127.054), new naver.maps.LatLng(37.543, 127.058), new naver.maps.LatLng(37.546, 127.058), new naver.maps.LatLng(37.546, 127.054)]
-      //   ],
-      //   strokeColor: '#FF0000', // 경계 색상
-      //   strokeOpacity: 0.8,
-      //   strokeWeight: 2,
-      //   map: map,
-      // });
+      const boundaryCoordinates = [seongsuBoundary.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
+      new naver.maps.Polygon({
+        paths: boundaryCoordinates,
+        strokeColor: '#FF0000', // 경계 색상
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        map: map,
+      });
+
+      const mOneCoordinates = [mOne.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
+      new naver.maps.Polygon({
+        paths: mOneCoordinates,
+        strokeColor: '#84119b', // 경계 색상
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        map: map,
+      });
+
+      const oneCoordinates = [one.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
+      new naver.maps.Polygon({
+        paths: oneCoordinates,
+        strokeColor: '#076125', // 경계 색상
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        map: map,
+      });
+
+      const threeCoordinates = [three.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
+      new naver.maps.Polygon({
+        paths: threeCoordinates,
+        strokeColor: '#008cff', // 경계 색상
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        map: map,
+      });
 
       // 현재 위치 마커 생성
       const currentLocationMarker = new naver.maps.Marker({
@@ -74,17 +93,14 @@ export default function Map() {
       const success = (position: GeolocationPosition) => {
         const { latitude, longitude } = position.coords;
 
-        // watchPosition 테스트
-        initMap(latitude, longitude, false);
-
         // 성수동의 대략적인 범위 설정
-        // const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
+        const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
 
-        // if (isInSeongsu) {
-        //   initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
-        // } else {
-        //   initMap(defaultLat, defaultLng, isInSeongsu); // 성수동 외 위치
-        // }
+        if (isInSeongsu) {
+          initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
+        } else {
+          initMap(defaultLat, defaultLng, isInSeongsu); // 성수동 외 위치
+        }
       };
 
       // 오류 콜백 함수

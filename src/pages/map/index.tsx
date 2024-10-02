@@ -17,6 +17,13 @@ const temData = [
   },
 ];
 
+/*
+100m 범위: zoom 값 18
+200m 범위: zoom 값 17
+300m 범위: zoom 값 16
+500m 범위: zoom 값 15
+*/
+
 export default function Map() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -75,11 +82,30 @@ export default function Map() {
         title: '현재 위치', // 마커에 마우스를 올렸을 때 표시될 제목
       });
 
+      // InfoWindow 생성 (마커 클릭 시 표시될 정보 창)
+      const infoWindow = new naver.maps.InfoWindow({
+        content: '', // 내용은 빈 상태로 초기화
+      });
+
       temData.forEach((place) => {
-        new naver.maps.Marker({
+        const marker = new naver.maps.Marker({
           position: new naver.maps.LatLng(place.lat, place.lng),
           map: map,
           title: place.name,
+        });
+
+        // 마커 클릭 이벤트
+        naver.maps.Event.addListener(marker, 'click', () => {
+          const content = `
+            <div style="padding:10px;">
+              <h4>${place.name}</h4>
+              <p>${place.address}</p>
+            </div>
+          `;
+
+          // InfoWindow에 내용 설정 후 해당 마커 위치에 표시
+          infoWindow.setContent(content);
+          infoWindow.open(map, marker);
         });
       });
     };

@@ -9,6 +9,9 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        WantedSans: ['WantedSans'],
+      },
     },
   },
   plugins: [
@@ -60,39 +63,12 @@ const config: Config = {
         },
       };
       const colorUtilities = {
-        '.main_colorBg': {
-          backgroundColor: '#509BF8',
-        },
-        '.main_colorTxt': {
-          color: '#509BF8',
-        },
-        '.gray_colorTxt': {
-          color: '#757575',
-        },
-        '.gray_colorBg': {
-          backgroundColor: '#757575',
-        },
-        '.disabled_color': {
-          backgroundColor: '#EDEDED',
-          color: '#757575',
-        },
-        '.active_color': {
-          backgroundColor: '#509BF8',
-          color: '#FEFEFE',
-        },
-        '.area_border': {
-          border: '0.093vmin solid #C4C4C4',
-          borderRadius: '0.37vmin',
-        },
-      };
-      const layoutUtilities = {
-        '.content_w_size': {
-          width: '66.67vmax',
+        '.colorBg': {
+          backgroundColor: '#FFFCF8',
         },
       };
       addUtilities(newCssUtilities, ['responsive', 'hover']);
       addUtilities(colorUtilities, ['responsive', 'hover']);
-      addUtilities(layoutUtilities, ['responsive', 'hover']);
     }),
   ],
 };

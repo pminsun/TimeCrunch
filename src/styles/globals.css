@@ -13,14 +13,14 @@
 html,
 body,
 #__next {
-  @apply relative w-full h-screen overflow-y-hidden bg-[#fff];
+  @apply relative w-full h-screen overflow-y-hidden font-WantedSans bg-white;
 }
 
 .mobile_layout {
   @apply w-full max-w-[480px] h-full mx-auto overflow-hidden;
 
   .content_container {
-    @apply bg-red-100;
+    @apply colorBg;
   }
 
   .bottom_gnb {
@@ -39,9 +39,49 @@ body,
   }
 }
 
-.home_container {
+.start_container {
   @apply w-full h-full overflow-hidden;
 
+  section {
+    @apply relative w-full h-full;
+  }
+
+  .splash_area {
+    @apply flex_center w-full h-full;
+    > div {
+      @apply flex_center flex-col gap-[46px];
+    }
+
+    > p {
+      @apply absolute_xHalf bottom-[7%] text-[#6B6B6B];
+    }
+  }
+
+  .login_area {
+    @apply bg-[#416b93];
+    .ment_box {
+      @apply w-full h-full px-[11%] pt-[56px];
+
+      > p {
+        @apply font-[700] text-[24px] mb-[15px] text-[#FFFCF8];
+      }
+    }
+    .login_box {
+      @apply absolute_xHalf bottom-0 flex_vertical_center flex-col gap-[35px] w-full h-[204px] pt-[40px] rounded-t-[26px] border-2 border-[#2D2D2D] bg-[#FFFCF8];
+
+      .kakao_login {
+        @apply flex_center w-[215px] h-[56px] font-[700] rounded-[28px] text-[18px] text-[#3D3D3D] bg-[#FFD787] border-2 border-[#3D3D3D];
+      }
+
+      .none_login {
+        @apply underline text-[16px] font-[700] text-[#2D2D2D];
+      }
+    }
+  }
+}
+
+.selectMood_container {
+  @apply relative w-full h-full;
   > .slick-slider {
     @apply w-full h-full;
 
@@ -66,7 +106,42 @@ body,
     }
   }
 
-  section {
-    @apply !flex_center flex-col w-full h-full;
+  .stepInfo_area {
+    @apply flex_xBetween absolute left-[16px] right-[16px] top-[13px] z-10 w-[calc(100%-32px)] h-[38px];
+
+    .step {
+      @apply relative flex_xBetween w-[106px];
+      > span {
+        @apply flex_center gap-[14px] w-[26px] h-[26px] z-10 colorBg rounded-full border-2 border-[#2D2D2D] font-[600] text-[16px] text-[#2D2D2D];
+      }
+
+      &:after {
+        @apply content-[''] absolute_yHalf w-full h-[2px] bg-[#2D2D2D];
+      }
+    }
+
+    .skip {
+      @apply flex_center w-[93px] h-full rounded-[28px] text-[16px] text-[#000000] font-[500] border-2 border-[#2D2D2D] bg-[#ECE9E3];
+    }
+  }
+
+  .select_content {
+    @apply relative w-full h-full pt-[16px] px-[15px];
+
+    .top_ment {
+      @apply mt-[68px] mb-[15px] text-[#2D2D2D] font-[600] text-[22px];
+    }
+
+    .select_area {
+      @apply h-[calc(100%-149px)];
+    }
+
+    /* 무드 선택 */
+    .mood_area {
+      @apply grid grid-cols-2 gap-[10px];
+      .mood_box {
+        @apply bg-[#D0D0D0] aspect-square;
+      }
+    }
   }
 }

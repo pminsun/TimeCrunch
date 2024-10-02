@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 400;
+  src: url('/fonts/wantedSans/WantedSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 500;
+  src: url('/fonts/wantedSans/WantedSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 600;
+  src: url('/fonts/wantedSans/WantedSans-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 700;
+  src: url('/fonts/wantedSans/WantedSans-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 800;
+  src: url('/fonts/wantedSans/WantedSans-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 900;
+  src: url('/fonts/wantedSans/WantedSans-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'WantedSans';
+  font-weight: 950;
+  src: url('/fonts/wantedSans/WantedSans-ExtraBlack.ttf') format('truetype');
+}

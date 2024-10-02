@@ -66,6 +66,15 @@ const config: Config = {
         '.colorBg': {
           backgroundColor: '#FFFCF8',
         },
+        '.thick_border': {
+          border: '2px solid #2D2D2D',
+        },
+        '.thick_gray_border': {
+          border: '2px solid #3D3D3D',
+        },
+        '.thick_lightGray_border': {
+          border: '2px solid #B1AEAB',
+        },
       };
       addUtilities(newCssUtilities, ['responsive', 'hover']);
       addUtilities(colorUtilities, ['responsive', 'hover']);

@@ -1,8 +1,9 @@
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '@/styles/fonts.css';
+import Seo from '@/components/Seo';
 
 export default function App({ Component, pageProps }: AppProps) {
   function setScreenSize() {
@@ -14,8 +15,11 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <React.Fragment>
+      <Seo />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </React.Fragment>
   );
 }

@@ -30,7 +30,7 @@ export default function Home() {
             </div>
             <div>
               <Image
-                src={LocalImages.TitleLogoMain}
+                src={LocalImages.logoMain}
                 alt="TitleLogoMain"
                 width={154}
                 height={35}

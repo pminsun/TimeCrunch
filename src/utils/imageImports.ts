@@ -10,6 +10,7 @@ import rangeThumb from '@/public/images/range_thumb.svg';
 import iconEmptyStar from '@/public/images/icon_empty_star.svg';
 import iconFillStar from '@/public/images/icon_fill_star.svg';
 import iconDropArrow from '@/public/images/icon_drop_arrow.svg';
+import iconClose from '@/public/images/icon_close.svg';
 
 import placeCafe from '@/public/images/icon_cafe.svg';
 import placeArt from '@/public/images/icon_art.svg';
@@ -20,6 +21,7 @@ import markerCafe from '@/public/images/marker_cafe.svg';
 import markerTree from '@/public/images/marker_tree.svg';
 import markerArt from '@/public/images/marker_art.svg';
 import markerLike from '@/public/images/marker_like.svg';
+import markerEmpty from '@/public/images/marker_empty.svg';
 
 import iconBottomHome from '@/public/images/icon_bottom_home.svg';
 import iconBottomMap from '@/public/images/icon_bottom_map.svg';
@@ -30,9 +32,9 @@ import iconfilterLike from '@/public/images/filter_like.svg';
 
 export { logoMain, logoSnak, TitleLogoPink, characterMain };
 
-export { iconCheck, rangeThumb, iconFillStar, iconEmptyStar, iconfilterLike, iconDropArrow };
+export { iconClose, iconCheck, rangeThumb, iconFillStar, iconEmptyStar, iconfilterLike, iconDropArrow };
 
 export { placeCafe, placeArt, placeTree };
-export { markerMy, markerCafe, markerTree, markerArt, markerLike };
+export { markerMy, markerCafe, markerTree, markerArt, markerLike, markerEmpty };
 
 export { iconBottomHome, iconBottomMap, iconBottomLike, iconBottomMypage };

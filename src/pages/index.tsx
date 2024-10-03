@@ -40,13 +40,14 @@ export default function Home() {
   };
 
   const loginHandler = async () => {
-    try {
-      const res = await kkk();
-      console.log(res);
-      router.push('/signup');
-    } catch (e: any) {
-      console.error('Error Login:', e); // 에러 메시지 수정
-    }
+    router.push('/signup');
+    // try {
+    //   const res = await kkk();
+    //   console.log(res);
+    //   router.push('/signup');
+    // } catch (e: any) {
+    //   console.error('Error Login:', e); // 에러 메시지 수정
+    // }
   };
 
   return (
@@ -97,7 +98,7 @@ export default function Home() {
             >
               카카오 로그인
             </p>
-            {/* <Link
+            <Link
               href={'/home'}
               className="none_login"
             >
@@ -108,7 +109,7 @@ export default function Home() {
               onClick={kakaoLogOut}
             >
               로그아웃
-            </button> */}
+            </button>
           </div>
         </section>
       )}

@@ -1,6 +1,6 @@
 import { mOne, one, seongsuBoundary, three } from '@/utils/seongsuLocation';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import { cls } from '@/utils/config';
@@ -32,6 +32,7 @@ export default function Map() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [showLike, setShowLike] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
   const { likeList, setLikeList } = useLikeStore();
 
@@ -154,62 +155,119 @@ export default function Map() {
   }, []);
 
   return (
-    <div className="map_container">
-      <div className="filter_area">
-        <ul>
-          <li className="bg-[#FFFFFF]">
-            무드
-            <Image
-              src={LocalImages.iconDropArrow}
-              alt="iconDropArrow"
-              width={20}
-              height={20}
-            />
-          </li>
-          <li className="bg-[#ECE9E3]">
-            시간
-            <Image
-              src={LocalImages.iconDropArrow}
-              alt="iconDropArrow"
-              width={20}
-              height={20}
-            />
-          </li>
-          <li
-            onClick={() => selectPlace('카페')}
-            className={cls(place.includes('카페') ? 'selectCafe' : 'noneSelectCafe')}
-          >
-            카페
-          </li>
-          <li
-            onClick={() => selectPlace('공연/전시')}
-            className={cls(place.includes('공연/전시') ? 'selectArt' : 'noneSelectArt')}
-          >
-            공연/전시
-          </li>
-          <li
-            onClick={() => selectPlace('산책/공원')}
-            className={cls(place.includes('산책/공원') ? 'selectTree' : 'noneSelectTree')}
-          >
-            산책/공원
-          </li>
-          <li
-            onClick={() => setShowLike(!showLike)}
-            className={cls('like', showLike ? 'selectLike' : 'noneSelectLike')}
-          >
-            <Image
-              src={LocalImages.iconfilterLike}
-              alt="iconfilterLike"
-              width={20}
-              height={20}
-            />
-          </li>
-        </ul>
+    <React.Fragment>
+      <div className="map_container">
+        <div className="filter_area">
+          <ul>
+            <li
+              onClick={() => setShowFilter(true)}
+              className="bg-[#FFFFFF]"
+            >
+              조용한, 10분이내
+              <Image
+                src={LocalImages.iconDropArrow}
+                alt="iconDropArrow"
+                width={20}
+                height={20}
+              />
+            </li>
+            <li
+              onClick={() => selectPlace('카페')}
+              className={cls(place.includes('카페') ? 'selectCafe' : 'noneSelectCafe')}
+            >
+              카페
+            </li>
+            <li
+              onClick={() => selectPlace('공연/전시')}
+              className={cls(place.includes('공연/전시') ? 'selectArt' : 'noneSelectArt')}
+            >
+              공연/전시
+            </li>
+            <li
+              onClick={() => selectPlace('산책/공원')}
+              className={cls(place.includes('산책/공원') ? 'selectTree' : 'noneSelectTree')}
+            >
+              산책/공원
+            </li>
+            <li
+              onClick={() => setShowLike(!showLike)}
+              className={cls('like', showLike ? 'selectLike' : 'noneSelectLike')}
+            >
+              <Image
+                src={LocalImages.iconfilterLike}
+                alt="iconfilterLike"
+                width={20}
+                height={20}
+              />
+            </li>
+          </ul>
+        </div>
+        <div
+          id="map"
+          style={{ width: '480px', height: '100%' }}
+        ></div>
+        <div className="placeInfo_area">
+          <div className="bar"></div>
+          <div className="placeInfo_box">
+            <div className="info_area">
+              <div className="left">
+                <p className="place_name">서울숲글자수는글자수여기</p>
+                <div>
+                  <p>200m</p>
+                  <p>산책/공원</p>
+                </div>
+                <div className="mt-[4px]">
+                  <p className="orange">영업 전</p>
+                  <p>7:00시 영업시작</p>
+                </div>
+              </div>
+              <div className="right">
+                <div className="mood"># 조용한</div>
+                <div className="mb-1">
+                  {likeList.includes('임시') ? (
+                    <Image
+                      src={LocalImages.iconFillStar}
+                      alt="iconEmptyStar"
+                      width={24}
+                      height={24}
+                    />
+                  ) : (
+                    <Image
+                      src={LocalImages.iconEmptyStar}
+                      alt="iconEmptyStar"
+                      width={24}
+                      height={24}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="img_area">
+              {[1, 2, 3].map((img) => (
+                <div key={img}></div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        id="map"
-        style={{ width: '480px', height: '100%' }}
-      ></div>
-    </div>
+      {showFilter && (
+        <section className="mapFilter_container">
+          <div>
+            <Image
+              src={LocalImages.iconClose}
+              alt="iconClose"
+              width={30}
+              height={30}
+            />
+          </div>
+          <div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <button type="button">필터 적용하기</button>
+        </section>
+      )}
+    </React.Fragment>
   );
 }

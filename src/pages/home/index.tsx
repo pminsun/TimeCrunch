@@ -2,7 +2,7 @@ import MoodSelect from '@/components/MoodSelect';
 import { useLikeStore, useMoodSettingStore } from '@/store/store';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 export default function Home() {
   const { mood, findPlace, setFindPlace } = useMoodSettingStore();
@@ -34,46 +34,77 @@ export default function Home() {
         </p>
       </div>
       <div className="filterPlace_area">
-        <button
-          className="re_selectMood"
-          type="button"
-          onClick={() => setFindPlace(false)}
-        >
-          나의 <span>#성수스낵</span> 다시찾기
-        </button>
-        <div className="randomPlace_area">
-          {['1', '2', '3', '4'].map((item) => (
-            <div
-              key={item}
-              className="randomPlace"
-              onClick={() => selectLike(item)}
-            >
-              <div className="placeImage_area">
-                <div className="like">
-                  {likeList.includes(item) ? (
-                    <Image
-                      src={LocalImages.iconFillStar}
-                      alt="iconEmptyStar"
-                      width={24}
-                      height={24}
-                    />
-                  ) : (
-                    <Image
-                      src={LocalImages.iconEmptyStar}
-                      alt="iconEmptyStar"
-                      width={24}
-                      height={24}
-                    />
-                  )}
-                </div>
+        {likeList.length === 0 ? (
+          <div className="none_list_area">
+            <div className="none_list">
+              <Image
+                src={LocalImages.markerEmpty}
+                alt="markerEmpty"
+                width={21}
+                height={24}
+              />
+              <div>
+                <p>추천 장소가 주변에 없어요</p>
+                <p>필터 범위를 확대해 주세요</p>
               </div>
-              <p>장소타이틀명은10자로</p>
             </div>
-          ))}
-        </div>
+            <button
+              className="re_selectMood"
+              type="button"
+              onClick={() => setFindPlace(false)}
+            >
+              나의 <span>#성수스낵</span> 다시찾기
+            </button>
+          </div>
+        ) : (
+          <React.Fragment>
+            <button
+              className="re_selectMood"
+              type="button"
+              onClick={() => setFindPlace(false)}
+            >
+              나의 <span>#성수스낵</span> 다시찾기
+            </button>
+            <div className="randomPlace_area">
+              {['1', '2', '3', '4'].map((item) => (
+                <div
+                  key={item}
+                  className="randomPlace"
+                  onClick={() => selectLike(item)}
+                >
+                  <div className="placeImage_area">
+                    <div className="like">
+                      {likeList.includes(item) ? (
+                        <Image
+                          src={LocalImages.iconFillStar}
+                          alt="iconEmptyStar"
+                          width={24}
+                          height={24}
+                        />
+                      ) : (
+                        <Image
+                          src={LocalImages.iconEmptyStar}
+                          alt="iconEmptyStar"
+                          width={24}
+                          height={24}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <p>장소타이틀명은10자로</p>
+                </div>
+              ))}
+            </div>
+          </React.Fragment>
+        )}
       </div>
       <div className="re_watchMood">
         <p>#무드 다시찾기</p>
+        <div>
+          {['1', '2', '3', '4', '5', '6'].map((mood: string) => (
+            <div key={mood}># {mood}</div>
+          ))}
+        </div>
       </div>
     </section>
   ) : (

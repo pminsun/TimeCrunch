@@ -386,6 +386,10 @@ input {
       > li {
         @apply flex_center gap-[4px] h-full px-[20px] py-[9px] rounded-[28px] thick_border text-[16px] font-[600] text-black;
 
+        > span {
+          @apply text-[16px] font-[600] text-black;
+        }
+
         &.selectCafe {
           @apply bg-[#EAC69B] thick_bold_border;
         }
@@ -480,6 +484,94 @@ input {
   }
 }
 
-/* .mapFilter_container {
-  @apply bg-[#FFFCF8];
-} */
+.mapFilter_container {
+  @apply absolute top-0 z-[200] w-full h-[calc(100%+72px)] pt-[36px] pb-[26px] px-[15px] bg-[#2D2D2D]/95;
+
+  .close_btn {
+    @apply w-[30px] h-[30px] ml-auto;
+  }
+
+  .filter_area {
+    @apply flex flex-col gap-[18px] mx-[4px];
+    > div {
+      > p {
+        @apply ml-[10px] text-white text-[14px] font-[600] mb-[4px];
+      }
+
+      > div {
+        @apply flex flex-col;
+        > ul {
+          @apply flex;
+
+          > li {
+            @apply px-[20px] py-[9px] rounded-[28px] text-[16px] font-[600];
+
+            .check {
+              @apply flex_center h-[24px] aspect-square thick_border rounded-full;
+
+              &.noneChecked {
+                @apply bg-[#F0EDE9];
+              }
+
+              &.checked {
+                @apply bg-[#FFD787];
+              }
+            }
+
+            &.art {
+              @apply bg-[#FEAD97];
+            }
+
+            &.shop {
+              @apply bg-[#CCD4FF];
+            }
+
+            &.cafe {
+              @apply bg-[#EAC69B];
+            }
+
+            &.park {
+              @apply bg-[#BBF0DC];
+            }
+          }
+        }
+      }
+    }
+
+    .mood_area {
+      > div {
+        @apply gap-y-[9px];
+        ul {
+          @apply gap-x-[4px];
+        }
+      }
+    }
+
+    .time_area {
+      > div {
+        @apply gap-y-[9px];
+        ul {
+          @apply gap-x-[4px];
+        }
+      }
+    }
+
+    .place_area,
+    .like_area {
+      > div {
+        @apply gap-y-[10px];
+        ul {
+          @apply gap-x-[11px];
+
+          > li {
+            @apply flex_vertical_center gap-[8px];
+          }
+        }
+      }
+    }
+  }
+
+  > button {
+    @apply flex_center absolute bottom-[26px] w-[calc(100%-30px)] h-[60px] mt-[41px] rounded-[16px] text-[#3D3D3D] text-[18px] font-[700] bg-[#FDB8A5];
+  }
+}

@@ -154,6 +154,21 @@ export default function Map() {
     }
   }, []);
 
+  const changeName = (text: string) => {
+    if (text === '공연/전시') {
+      return 'art';
+    }
+    if (text === '편집샵/쇼핑') {
+      return 'shop';
+    }
+    if (text === '카페') {
+      return 'cafe';
+    }
+    if (text === '산책/공원') {
+      return 'park';
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="map_container">
@@ -163,7 +178,7 @@ export default function Map() {
               onClick={() => setShowFilter(true)}
               className="bg-[#FFFFFF]"
             >
-              조용한, 10분이내
+              <span>{mood}</span>, <span>{walkTime}</span>분이내
               <Image
                 src={LocalImages.iconDropArrow}
                 alt="iconDropArrow"
@@ -188,6 +203,12 @@ export default function Map() {
               className={cls(place.includes('산책/공원') ? 'selectTree' : 'noneSelectTree')}
             >
               산책/공원
+            </li>
+            <li
+              onClick={() => selectPlace('편집샵/쇼핑')}
+              className={cls(place.includes('편집샵/쇼핑') ? 'selectTree' : 'noneSelectTree')}
+            >
+              편집샵/쇼핑
             </li>
             <li
               onClick={() => setShowLike(!showLike)}
@@ -252,7 +273,10 @@ export default function Map() {
       </div>
       {showFilter && (
         <section className="mapFilter_container">
-          <div>
+          <div
+            className="close_btn"
+            onClick={() => setShowFilter(false)}
+          >
             <Image
               src={LocalImages.iconClose}
               alt="iconClose"
@@ -260,12 +284,138 @@ export default function Map() {
               height={30}
             />
           </div>
-          <div>
-            <div></div>
-            <div></div>
-            <div></div>
+          <div className="filter_area">
+            <div className="mood_area">
+              <p>무드</p>
+              <div>
+                <ul>
+                  {['분위기 좋은', '조용한', '이국적인'].map((moodType: string) => (
+                    <li
+                      key={moodType}
+                      onClick={() => setMod(moodType)}
+                      className={mood === moodType ? 'bg-[#ECE9E3]' : 'bg-[#726F6C]'}
+                    >
+                      {moodType}
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  {['힐링', '즐거운', '트렌디한'].map((moodType: string) => (
+                    <li
+                      key={moodType}
+                      onClick={() => setMod(moodType)}
+                      className={mood === moodType ? 'bg-[#ECE9E3]' : 'bg-[#726F6C]'}
+                    >
+                      {moodType}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="time_area">
+              <p>도보시간</p>
+              <div>
+                <ul>
+                  {[5, 10, 15].map((time: number) => (
+                    <li
+                      key={time}
+                      onClick={() => setWalkTime(time)}
+                      className={walkTime === time ? 'bg-[#ECE9E3]' : 'bg-[#726F6C]'}
+                    >
+                      {time}분
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  {[20, 25, 30].map((time: number) => (
+                    <li
+                      key={time}
+                      onClick={() => setWalkTime(time)}
+                      className={walkTime === time ? 'bg-[#ECE9E3]' : 'bg-[#726F6C]'}
+                    >
+                      {time}분
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="place_area">
+              <p>장소</p>
+              <div>
+                <ul>
+                  {['카페', '산책/공원'].map((placeName: string) => (
+                    <li
+                      key={placeName}
+                      className={cls(changeName(placeName))}
+                      onClick={() => selectPlace(placeName)}
+                    >
+                      <div className={cls('check', place.includes(placeName) ? 'checked' : 'noneChecked')}>
+                        {place.includes(placeName) && (
+                          <Image
+                            src={LocalImages.iconCheck}
+                            alt="iconCheck"
+                            width={18}
+                            height={18}
+                          />
+                        )}
+                      </div>
+                      {placeName}
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  {['공연/전시', '편집샵/쇼핑'].map((placeName: string) => (
+                    <li
+                      key={placeName}
+                      className={cls(changeName(placeName))}
+                      onClick={() => selectPlace(placeName)}
+                    >
+                      <div className={cls('check', place.includes(placeName) ? 'checked' : 'noneChecked')}>
+                        {place.includes(placeName) && (
+                          <Image
+                            src={LocalImages.iconCheck}
+                            alt="iconCheck"
+                            width={18}
+                            height={18}
+                          />
+                        )}
+                      </div>
+                      {placeName}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="like_area">
+              <p>LIKE</p>
+              <div>
+                <ul>
+                  <li
+                    className="!bg-[#FFD787]"
+                    onClick={() => setShowLike(!showLike)}
+                  >
+                    <div className={cls('check', showLike ? 'checked' : 'noneChecked')}>
+                      {showLike && (
+                        <Image
+                          src={LocalImages.iconCheck}
+                          alt="iconCheck"
+                          width={18}
+                          height={18}
+                        />
+                      )}
+                    </div>
+                    저장한
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <button type="button">필터 적용하기</button>
+          <button
+            type="button"
+            onClick={() => setShowFilter(false)}
+          >
+            필터 적용하기
+          </button>
         </section>
       )}
     </React.Fragment>

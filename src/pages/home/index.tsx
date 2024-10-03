@@ -5,7 +5,7 @@ import * as LocalImages from '@/utils/imageImports';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 export default function Home() {
-  const { mood, findPlace, setFindPlace } = useMoodSettingStore();
+  const { mood, findPlace, walkTime, setFindPlace } = useMoodSettingStore();
   const { likeList, setLikeList } = useLikeStore();
 
   const selectLike = (item: string) => {
@@ -30,7 +30,7 @@ export default function Home() {
         <p>
           SeongSu님을 위한
           <br />
-          <span>30분 이내</span>의 <span>조용한 </span> 성수스낵
+          <span>{walkTime}분 이내</span>의 <span>{mood}</span> 성수스낵
         </p>
       </div>
       <div className="filterPlace_area">
@@ -101,7 +101,7 @@ export default function Home() {
       <div className="re_watchMood">
         <p>#무드 다시찾기</p>
         <div>
-          {['1', '2', '3', '4', '5', '6'].map((mood: string) => (
+          {['분위기 좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((mood: string) => (
             <div key={mood}># {mood}</div>
           ))}
         </div>

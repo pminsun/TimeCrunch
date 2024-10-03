@@ -21,6 +21,7 @@ export default function MoodSelect() {
   const min = 0;
   const selectWalkTime = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
+
     const gradientValue = 100 / max;
     setWalkTime(value);
     event.target.style.background = `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${gradientValue * value}%, #FFFCF8 ${gradientValue * value}%, #FFFCF8 100%)`;
@@ -105,7 +106,7 @@ export default function MoodSelect() {
             </p>
             <div className="select_area">
               <div className="mood_area">
-                {['1', '2', '3', '4', '5', '6', '7', '8'].map((item, index) => (
+                {['분위기 좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((item, index) => (
                   <div
                     key={item}
                     className={cls('mood_box', mood === item ? 'bg-[#A2A2A2]' : 'bg-[#D0D0D0]')}
@@ -179,7 +180,7 @@ export default function MoodSelect() {
             <p className="top_ment">어떤 공간에 가고 싶으세요?</p>
             <div className="select_area">
               <div className="place_area">
-                {['카페', '공연/전시', '산책/공원'].map((placeItem) => (
+                {['카페', '공연/전시', '산책/공원', '편집샵/쇼핑'].map((placeItem) => (
                   <div
                     className={cls('place_box', place.includes(placeItem) ? 'selectBox' : 'noneSelectBox')}
                     key={placeItem}
@@ -208,6 +209,13 @@ export default function MoodSelect() {
                           <Image
                             src={LocalImages.placeArt}
                             alt="placeArt"
+                            width={40}
+                            height={40}
+                          />
+                        ) : placeItem === '편집샵/쇼핑' ? (
+                          <Image
+                            src={LocalImages.placeShop}
+                            alt="placeShop"
                             width={40}
                             height={40}
                           />

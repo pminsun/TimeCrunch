@@ -20,10 +20,6 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  const loginHandler = () => {
-    router.push(authorizationCodeLink);
-  };
-
   // 카카오 로그아웃
   const kakaoLogOut = async () => {
     try {
@@ -85,12 +81,12 @@ export default function Home() {
             </div>
           </div>
           <div className="login_box">
-            <p
+            <Link
+              href={'/signup'}
               className="kakao_login"
-              onClick={loginHandler}
             >
               카카오 로그인
-            </p>
+            </Link>
             <Link
               href={'/home'}
               className="none_login"

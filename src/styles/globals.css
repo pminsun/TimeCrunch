@@ -87,6 +87,26 @@ input {
   }
 }
 
+.signUp_container {
+  @apply relative flex flex-col pt-[40%] h-[calc(100%+60px)] z-30;
+
+  .signNickName_area {
+    @apply px-[15px];
+
+    input {
+      @apply w-full h-[53px] px-[14px] my-[10px] thick_lightGray_border;
+    }
+
+    button {
+      @apply flex_center w-full h-[53px] bg-[#F36F47] text-white;
+    }
+  }
+
+  .signUp_btn {
+    @apply flex_center absolute left-0 right-0 bottom-0 w-full h-[108px] bg-[#F36F47] text-white;
+  }
+}
+
 .selectMood_container {
   @apply relative w-full h-[calc(100%+60px)] z-30 colorBg;
   > .slick-slider {

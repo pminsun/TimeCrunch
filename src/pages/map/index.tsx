@@ -38,43 +38,6 @@ export default function Map() {
 
       const map = new naver.maps.Map('map', mapOptions);
 
-      // 성수동 경계 다각형 추가
-      const boundaryCoordinates = [seongsuBoundary.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
-      new naver.maps.Polygon({
-        paths: boundaryCoordinates,
-        strokeColor: '#FF0000', // 경계 색상
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        map: map,
-      });
-
-      const mOneCoordinates = [mOne.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
-      new naver.maps.Polygon({
-        paths: mOneCoordinates,
-        strokeColor: '#84119b', // 경계 색상
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        map: map,
-      });
-
-      const oneCoordinates = [one.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
-      new naver.maps.Polygon({
-        paths: oneCoordinates,
-        strokeColor: '#076125', // 경계 색상
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        map: map,
-      });
-
-      const threeCoordinates = [three.map((point) => new naver.maps.LatLng(point.lat, point.lng))];
-      new naver.maps.Polygon({
-        paths: threeCoordinates,
-        strokeColor: '#008cff', // 경계 색상
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        map: map,
-      });
-
       // 현재 위치 마커 생성
       const currentLocationMarker = new naver.maps.Marker({
         position: currentLocation,

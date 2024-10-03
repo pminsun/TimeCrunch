@@ -1,6 +1,8 @@
 import MoodSelect from '@/components/MoodSelect';
+import { useMoodSettingStore } from '@/store/store';
 import { ReactNode, useEffect, useState } from 'react';
 
 export default function Home() {
-  return <MoodSelect />;
+  const { mood, findPlace } = useMoodSettingStore();
+  return mood !== '' && findPlace ? <div>home</div> : <MoodSelect />;
 }

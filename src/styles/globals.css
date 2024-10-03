@@ -27,11 +27,11 @@ input {
   @apply w-full max-w-[480px] h-full mx-auto overflow-hidden;
 
   .content_container {
-    @apply colorBg;
+    @apply relative colorBg;
   }
 
   .bottom_gnb {
-    @apply w-full h-[60px] mt-auto;
+    @apply w-full h-[72px] mt-auto border-t-2 border-[#3D3D3D];
 
     ul {
       @apply flex w-full h-full;
@@ -39,7 +39,15 @@ input {
       li {
         @apply flex-1 h-full;
         a {
-          @apply flex_center h-full bg-green-300;
+          @apply flex_center h-full;
+
+          > div {
+            @apply flex_center w-[58px] h-[44px];
+          }
+
+          .currnetPage {
+            @apply rounded-[14px] thick_border bg-[#C9F9DD];
+          }
         }
       }
     }
@@ -88,7 +96,7 @@ input {
 }
 
 .signUp_container {
-  @apply relative flex flex-col pt-[40%] h-[calc(100%+60px)] z-30;
+  @apply relative flex flex-col pt-[40%] h-[calc(100%+72px)] z-30;
 
   .signNickName_area {
     @apply px-[15px];
@@ -108,7 +116,7 @@ input {
 }
 
 .selectMood_container {
-  @apply relative w-full h-[calc(100%+60px)] z-30 colorBg;
+  @apply relative w-full h-[calc(100%+72px)] z-30 colorBg;
   > .slick-slider {
     @apply w-full h-full;
 
@@ -270,4 +278,8 @@ input {
       }
     }
   }
+}
+
+.loading_container {
+  @apply flex_center absolute_fullPage z-50 !h-[calc(100%+72px)] colorBg;
 }

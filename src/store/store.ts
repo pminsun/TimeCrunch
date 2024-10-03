@@ -37,6 +37,8 @@ interface MoodSettingState {
   setWalkTime: (value: number) => void;
   place: string[]; // place를 문자열 배열로 지정
   setPlace: (value: string[]) => void; // place를 설정하는 함수
+  findPlace: boolean;
+  setFindPlace: (value: boolean) => void;
 }
 
 export const useMoodSettingStore = create(
@@ -48,6 +50,8 @@ export const useMoodSettingStore = create(
       setWalkTime: (value: number) => set({ walkTime: value }),
       place: [], // 문자열 배열로 초기화
       setPlace: (value: string[]) => set({ place: value }), // 문자열 배열을 받는 setPlace
+      findPlace: true,
+      setFindPlace: (value: boolean) => set({ findPlace: value }),
     }),
     {
       name: 'moodSetting', // 로컬 스토리지 키

@@ -11,8 +11,15 @@ import placeCafe from '@/public/images/icon_cafe.svg';
 import placeArt from '@/public/images/icon_art.svg';
 import placeTree from '@/public/images/icon_tree.svg';
 
+import iconBottomHome from '@/public/images/icon_bottom_home.svg';
+import iconBottomMap from '@/public/images/icon_bottom_map.svg';
+import iconBottomLike from '@/public/images/icon_bottom_like.svg';
+import iconBottomMypage from '@/public/images/icon_bottom_mypage.svg';
+
 export { logoMain, TitleLogoPink, characterMain };
 
 export { iconCheck, rangeThumb };
 
 export { placeCafe, placeArt, placeTree };
+
+export { iconBottomHome, iconBottomMap, iconBottomLike, iconBottomMypage };

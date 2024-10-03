@@ -381,7 +381,7 @@ input {
     }
 
     > ul {
-      @apply flex gap-[8px] w-[160%] h-full;
+      @apply flex gap-[8px] w-[200%] h-full;
 
       > li {
         @apply flex_center gap-[4px] h-full px-[20px] py-[9px] rounded-[28px] thick_border text-[16px] font-[600] text-black;

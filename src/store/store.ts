@@ -58,3 +58,14 @@ export const useMoodSettingStore = create(
     },
   ),
 );
+
+//// 좋아요 선택 ////
+interface LikeState {
+  likeList: string[];
+  setLikeList: (value: string[]) => void;
+}
+
+export const useLikeStore = create<LikeState>((set) => ({
+  likeList: [],
+  setLikeList: (value: string[]) => set({ likeList: value }),
+}));

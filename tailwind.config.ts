@@ -11,6 +11,7 @@ const config: Config = {
       },
       fontFamily: {
         WantedSans: ['WantedSans'],
+        Jalnan: ['Jalnan'],
       },
     },
   },

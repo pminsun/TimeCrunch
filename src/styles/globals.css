@@ -31,7 +31,7 @@ input {
   }
 
   .bottom_gnb {
-    @apply w-full h-[72px] mt-auto border-t-2 border-[#3D3D3D];
+    @apply w-full h-[72px] mt-auto border-t-2 border-[#3D3D3D] bg-[##fffcf7];
 
     ul {
       @apply flex w-full h-full;
@@ -282,4 +282,64 @@ input {
 
 .loading_container {
   @apply flex_center absolute_fullPage z-50 !h-[calc(100%+72px)] colorBg;
+}
+
+/* home */
+.home_conatiner {
+  @apply h-full pt-[27px] px-[16px] overflow-y-auto;
+
+  .top_info {
+    @apply relative w-full pt-[24px] min-h-[98px];
+
+    .logo {
+      @apply absolute right-0 top-0;
+    }
+
+    > p {
+      @apply text-[22px] text-black font-Jalnan;
+      > span {
+        @apply text-[#F36F47];
+      }
+    }
+  }
+
+  .filterPlace_area {
+    @apply flex_center flex-col mt-[22px];
+
+    .re_selectMood {
+      @apply thick_border px-[30px] py-[7px] text-[16px] font-[600] text-black rounded-[28px];
+
+      > span {
+        @apply font-[800];
+      }
+    }
+
+    .randomPlace_area {
+      @apply grid grid-cols-2 gap-x-[9px] gap-y-[26px] w-full mt-[29px];
+
+      > .randomPlace {
+        @apply min-h-[193px];
+
+        > div.placeImage_area {
+          @apply relative w-full aspect-square rounded-[10px] bg-[#ECE9E3];
+
+          .like {
+            @apply absolute right-[16px] top-[13px];
+          }
+        }
+
+        p {
+          @apply mt-[9px] font-[700] text-[16px] text-[#2D2D2D];
+        }
+      }
+    }
+  }
+
+  .re_watchMood {
+    @apply mt-[31px];
+
+    > p {
+      @apply font-Jalnan text-[18px] text-[#000000];
+    }
+  }
 }

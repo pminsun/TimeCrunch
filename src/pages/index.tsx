@@ -39,6 +39,10 @@ export default function Home() {
     }
   };
 
+  const loginHandler = () => {
+    router.push('http://211.188.48.22:8080/oauth2/authorization/kakao');
+  };
+
   return (
     <section className="start_container">
       {showSplash ? (
@@ -81,13 +85,13 @@ export default function Home() {
             </div>
           </div>
           <div className="login_box">
-            <Link
-              href={'/signup'}
+            <p
               className="kakao_login"
+              onClick={loginHandler}
             >
               카카오 로그인
-            </Link>
-            <Link
+            </p>
+            {/* <Link
               href={'/home'}
               className="none_login"
             >
@@ -98,7 +102,7 @@ export default function Home() {
               onClick={kakaoLogOut}
             >
               로그아웃
-            </button>
+            </button> */}
           </div>
         </section>
       )}

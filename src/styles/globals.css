@@ -197,13 +197,26 @@ input {
     .place_area {
       @apply absolute_xHalf top-[23%] flex flex-col gap-[13px] w-[calc(100%-30px)];
       > div.place_box {
-        @apply flex_vertical_center w-full h-[88px] pl-[30px] thick_lightGray_border rounded-[12px];
+        @apply flex_vertical_center w-full h-[88px] pl-[30px] rounded-[12px];
+
+        &.selectBox {
+          @apply thick_border;
+        }
+
+        &.noneSelectBox {
+          @apply thick_lightGray_border;
+        }
 
         .check {
-          @apply w-[26px] aspect-square mr-[20px] rounded-full thick_border bg-[#F0EDE9];
+          @apply flex_center w-[26px] aspect-square mr-[20px] rounded-full thick_border bg-[#F0EDE9];
+
+          &.checked {
+            @apply bg-[#FFD787];
+          }
         }
 
         .place {
+          @apply flex_vertical_center gap-[4px];
           p {
             @apply font-[500] text-[18px] text-[#2D2D2D];
           }

@@ -22,15 +22,15 @@ export default function MoodSelect() {
     event.target.style.background = `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${gradientValue * value}%, #FFFCF8 ${gradientValue * value}%, #FFFCF8 100%)`;
   };
 
-  // const selectPlace = (place: string) => {
-  //   if (place.includes(place)) {
-  //     // 이미 선택된 경우, 배열에서 해당 항목 제거
-  //     setPlace(place.filter((selected) => selected !== place));
-  //   } else {
-  //     // 선택되지 않은 경우, 배열에 추가
-  //     setPlace([...place, place]);
-  //   }
-  // };
+  const selectPlace = (placeName: string) => {
+    if (place.includes(placeName)) {
+      // 이미 선택된 경우, 배열에서 해당 항목 제거
+      setPlace(place.filter((selected: string) => selected !== placeName));
+    } else {
+      // 선택되지 않은 경우, 배열에 추가
+      setPlace([...place, placeName]);
+    }
+  };
 
   // 진입시 첫번째 슬라이드 시작
   useEffect(() => {
@@ -162,32 +162,65 @@ export default function MoodSelect() {
           <p className="top_ment">어떤 공간에 가고 싶으세요?</p>
           <div className="select_area">
             <div className="place_area">
-              {['카페', '공연/전시', '산책/공원'].map((place) => (
+              {['카페', '공연/전시', '산책/공원'].map((placeItem) => (
                 <div
-                  className="place_box"
-                  key={place}
-                  // onClick={() => selectPlace(place)}
+                  className={cls('place_box', place.includes(placeItem) ? 'selectBox' : 'noneSelectBox')}
+                  key={placeItem}
+                  onClick={() => selectPlace(placeItem)}
                 >
-                  <div className="check"></div>
+                  <div className={cls('check', place.includes(placeItem) ? 'checked' : '')}>
+                    {place.includes(placeItem) && (
+                      <Image
+                        src={LocalImages.iconCheck}
+                        alt="iconCheck"
+                        width={20}
+                        height={20}
+                      />
+                    )}
+                  </div>
                   <div className="place">
-                    <p>{place}</p>
+                    <div>
+                      {placeItem === '카페' ? (
+                        <Image
+                          src={LocalImages.placeCafe}
+                          alt="placeCafe"
+                          width={40}
+                          height={40}
+                        />
+                      ) : placeItem === '공연/전시' ? (
+                        <Image
+                          src={LocalImages.placeArt}
+                          alt="placeArt"
+                          width={40}
+                          height={40}
+                        />
+                      ) : (
+                        <Image
+                          src={LocalImages.placeTree}
+                          alt="placeTree"
+                          width={40}
+                          height={40}
+                        />
+                      )}
+                    </div>
+                    <p>{placeItem}</p>
                   </div>
                 </div>
               ))}
             </div>
             <div className="stepBottom_btn">
               <div className="skip">SKIP</div>
-              {/* <div
+              <div
                 onClick={() => {
-                  if (place !== '') {
+                  if (place.length !== 0) {
                     setCurrentSlide(2);
                     sliderRef.current.slickGoTo(2);
                   }
                 }}
                 className="next_btn"
               >
-                <p className={cls('next', place === '' ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}>추천받기</p>
-              </div> */}
+                <p className={cls('next', place.length === 0 ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}>추천받기</p>
+              </div>
             </div>
           </div>
         </div>

@@ -7,6 +7,12 @@ import characterMain from '@/public/images/snack_character_main.svg';
 import iconCheck from '@/public/images/icon_check.svg';
 import rangeThumb from '@/public/images/range_thumb.svg';
 
+import placeCafe from '@/public/images/icon_cafe.svg';
+import placeArt from '@/public/images/icon_art.svg';
+import placeTree from '@/public/images/icon_tree.svg';
+
 export { logoMain, TitleLogoPink, characterMain };
 
 export { iconCheck, rangeThumb };
+
+export { placeCafe, placeArt, placeTree };

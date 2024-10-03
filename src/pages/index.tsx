@@ -3,7 +3,7 @@ import * as LocalImages from '@/utils/imageImports';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { authorizationCodeLink, fetchKakaoLogOut } from '@/api/fetchData';
+import { authorizationCodeLink, fetchKakaoLogOut, kkk } from '@/api/fetchData';
 import { useUserStore } from '@/store/store';
 
 export default function Home() {
@@ -39,8 +39,13 @@ export default function Home() {
     }
   };
 
-  const loginHandler = () => {
-    router.push('http://211.188.48.22:8080/oauth2/authorization/kakao');
+  const loginHandler = async () => {
+    try {
+      const res = await kkk();
+      console.error(res);
+    } catch (e: any) {
+      console.error('Error LogOut:', e);
+    }
   };
 
   return (

@@ -198,6 +198,32 @@ input {
 
       > input {
         @apply w-full h-[20px] appearance-none rounded-[10px] colorBg thick_border;
+
+        /* Chrome, Safari, Edge */
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 28px;
+          height: 28px;
+          background: url('/images/range_thumb.svg') no-repeat center;
+          background-size: contain;
+          border-radius: 50%;
+          border: none;
+          cursor: pointer;
+          position: relative;
+          z-index: 30;
+        }
+
+        /* Firefox */
+        &::-moz-range-thumb {
+          width: 28px;
+          height: 28px;
+          background: url('/images/range_thumb.svg') no-repeat center;
+          background-size: contain;
+          border-radius: 50%;
+          border: none;
+          cursor: pointer;
+        }
       }
 
       .time_display {

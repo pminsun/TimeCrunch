@@ -70,6 +70,9 @@ const config: Config = {
         '.thick_border': {
           border: '2px solid #2D2D2D',
         },
+        '.thick_bold_border': {
+          border: '4px solid #2D2D2D',
+        },
         '.thick_gray_border': {
           border: '2px solid #3D3D3D',
         },

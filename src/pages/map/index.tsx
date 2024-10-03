@@ -1,6 +1,10 @@
 import { mOne, one, seongsuBoundary, three } from '@/utils/seongsuLocation';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import * as LocalImages from '@/utils/imageImports';
+import { cls } from '@/utils/config';
+import { useLikeStore, useMoodSettingStore } from '@/store/store';
 
 const temData = [
   {
@@ -27,6 +31,17 @@ const temData = [
 export default function Map() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [showLike, setShowLike] = useState(false);
+  const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
+  const { likeList, setLikeList } = useLikeStore();
+
+  const selectPlace = (placeName: string) => {
+    if (place.includes(placeName)) {
+      setPlace(place.filter((selected: string) => selected !== placeName));
+    } else {
+      setPlace([...place, placeName]);
+    }
+  };
 
   useEffect(() => {
     const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
@@ -41,8 +56,27 @@ export default function Map() {
       // 현재 위치 마커 생성
       const currentLocationMarker = new naver.maps.Marker({
         position: currentLocation,
-        map: map, // 지도의 마커로 추가
-        title: '현재 위치', // 마커에 마우스를 올렸을 때 표시될 제목
+        map: map,
+        title: '현재 위치',
+        clickable: true,
+        icon: {
+          url: '/images/marker_my.svg',
+          size: new naver.maps.Size(43, 53),
+          origin: new naver.maps.Point(0, 0),
+          anchor: new naver.maps.Point(21.5, 53),
+        },
+      });
+
+      // 반경 100m 서클 생성
+      const circle = new naver.maps.Circle({
+        map: map,
+        center: currentLocation,
+        radius: 100, // 반경 100m
+        strokeColor: '#FF977A',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fillColor: '#FEAD97',
+        fillOpacity: 0.11,
       });
 
       // InfoWindow 생성 (마커 클릭 시 표시될 정보 창)
@@ -55,6 +89,7 @@ export default function Map() {
           position: new naver.maps.LatLng(place.lat, place.lng),
           map: map,
           title: place.name,
+          clickable: true,
         });
 
         // 마커 클릭 이벤트
@@ -119,7 +154,58 @@ export default function Map() {
   }, []);
 
   return (
-    <div className="w-full h-full">
+    <div className="map_container">
+      <div className="filter_area">
+        <ul>
+          <li className="bg-[#FFFFFF]">
+            무드
+            <Image
+              src={LocalImages.iconDropArrow}
+              alt="iconDropArrow"
+              width={20}
+              height={20}
+            />
+          </li>
+          <li className="bg-[#ECE9E3]">
+            시간
+            <Image
+              src={LocalImages.iconDropArrow}
+              alt="iconDropArrow"
+              width={20}
+              height={20}
+            />
+          </li>
+          <li
+            onClick={() => selectPlace('카페')}
+            className={cls(place.includes('카페') ? 'selectCafe' : 'noneSelectCafe')}
+          >
+            카페
+          </li>
+          <li
+            onClick={() => selectPlace('공연/전시')}
+            className={cls(place.includes('공연/전시') ? 'selectArt' : 'noneSelectArt')}
+          >
+            공연/전시
+          </li>
+          <li
+            onClick={() => selectPlace('산책/공원')}
+            className={cls(place.includes('산책/공원') ? 'selectTree' : 'noneSelectTree')}
+          >
+            산책/공원
+          </li>
+          <li
+            onClick={() => setShowLike(!showLike)}
+            className={cls('like', showLike ? 'selectLike' : 'noneSelectLike')}
+          >
+            <Image
+              src={LocalImages.iconfilterLike}
+              alt="iconfilterLike"
+              width={20}
+              height={20}
+            />
+          </li>
+        </ul>
+      </div>
       <div
         id="map"
         style={{ width: '480px', height: '100%' }}

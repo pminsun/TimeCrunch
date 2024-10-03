@@ -9,20 +9,30 @@ import iconCheck from '@/public/images/icon_check.svg';
 import rangeThumb from '@/public/images/range_thumb.svg';
 import iconEmptyStar from '@/public/images/icon_empty_star.svg';
 import iconFillStar from '@/public/images/icon_fill_star.svg';
+import iconDropArrow from '@/public/images/icon_drop_arrow.svg';
 
 import placeCafe from '@/public/images/icon_cafe.svg';
 import placeArt from '@/public/images/icon_art.svg';
 import placeTree from '@/public/images/icon_tree.svg';
+
+import markerMy from '@/public/images/marker_my.svg';
+import markerCafe from '@/public/images/marker_cafe.svg';
+import markerTree from '@/public/images/marker_tree.svg';
+import markerArt from '@/public/images/marker_art.svg';
+import markerLike from '@/public/images/marker_like.svg';
 
 import iconBottomHome from '@/public/images/icon_bottom_home.svg';
 import iconBottomMap from '@/public/images/icon_bottom_map.svg';
 import iconBottomLike from '@/public/images/icon_bottom_like.svg';
 import iconBottomMypage from '@/public/images/icon_bottom_mypage.svg';
 
+import iconfilterLike from '@/public/images/filter_like.svg';
+
 export { logoMain, logoSnak, TitleLogoPink, characterMain };
 
-export { iconCheck, rangeThumb, iconFillStar, iconEmptyStar };
+export { iconCheck, rangeThumb, iconFillStar, iconEmptyStar, iconfilterLike, iconDropArrow };
 
 export { placeCafe, placeArt, placeTree };
+export { markerMy, markerCafe, markerTree, markerArt, markerLike };
 
 export { iconBottomHome, iconBottomMap, iconBottomLike, iconBottomMypage };

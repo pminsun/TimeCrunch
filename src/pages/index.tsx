@@ -45,7 +45,7 @@ export default function Home() {
       console.log(res);
       router.push('/signup');
     } catch (e: any) {
-      console.error('Error LogOut:', e);
+      console.error('Error Login:', e); // 에러 메시지 수정
     }
   };
 

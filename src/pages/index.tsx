@@ -2,8 +2,11 @@ import Link from 'next/link';
 import * as LocalImages from '@/utils/imageImports';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { authorizationCodeLink } from '@/api/fetchData';
 
 export default function Home() {
+  const router = useRouter();
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
@@ -14,6 +17,10 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const loginHandler = () => {
+    router.push(authorizationCodeLink);
+  };
 
   return (
     <section className="start_container">
@@ -57,7 +64,12 @@ export default function Home() {
             </div>
           </div>
           <div className="login_box">
-            <p className="kakao_login">카카오 로그인</p>
+            <p
+              className="kakao_login"
+              onClick={loginHandler}
+            >
+              카카오 로그인
+            </p>
             <Link
               href={'/home'}
               className="none_login"

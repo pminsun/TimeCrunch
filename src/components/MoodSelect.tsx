@@ -22,22 +22,22 @@ export default function MoodSelect() {
     event.target.style.background = `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${gradientValue * value}%, #FFFCF8 ${gradientValue * value}%, #FFFCF8 100%)`;
   };
 
-  const selectPlace = (place: string) => {
-    if (place.includes(place)) {
-      // 이미 선택된 경우, 배열에서 해당 항목 제거
-      setPlace(place.filter((selected) => selected !== place));
-    } else {
-      // 선택되지 않은 경우, 배열에 추가
-      setPlace([...place, place]);
-    }
-  };
+  // const selectPlace = (place: string) => {
+  //   if (place.includes(place)) {
+  //     // 이미 선택된 경우, 배열에서 해당 항목 제거
+  //     setPlace(place.filter((selected) => selected !== place));
+  //   } else {
+  //     // 선택되지 않은 경우, 배열에 추가
+  //     setPlace([...place, place]);
+  //   }
+  // };
 
   // 진입시 첫번째 슬라이드 시작
   useEffect(() => {
     setCurrentSlide(0);
     setMod('');
     setWalkTime(0);
-    setPlace('');
+    setPlace([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -166,7 +166,7 @@ export default function MoodSelect() {
                 <div
                   className="place_box"
                   key={place}
-                  onClick={() => selectPlace(place)}
+                  // onClick={() => selectPlace(place)}
                 >
                   <div className="check"></div>
                   <div className="place">

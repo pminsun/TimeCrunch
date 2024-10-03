@@ -3,12 +3,11 @@ import Image from 'next/image';
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import * as LocalImages from '@/utils/imageImports';
+import { useMoodSettingStore } from '@/store/store';
 
 export default function MoodSelect() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [mood, setMod] = useState('');
-  const [walkTime, setWalkTime] = useState<number>(0);
-  const [place, setPlace] = useState('');
+  const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
 
   const selectMood = (mood: string) => {
     setMod(mood);
@@ -16,7 +15,6 @@ export default function MoodSelect() {
 
   const max = 4;
   const min = 0;
-
   const selectWalkTime = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     const gradientValue = 100 / max;
@@ -24,9 +22,23 @@ export default function MoodSelect() {
     event.target.style.background = `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${gradientValue * value}%, #FFFCF8 ${gradientValue * value}%, #FFFCF8 100%)`;
   };
 
+  const selectPlace = (place: string) => {
+    if (place.includes(place)) {
+      // 이미 선택된 경우, 배열에서 해당 항목 제거
+      setPlace(place.filter((selected) => selected !== place));
+    } else {
+      // 선택되지 않은 경우, 배열에 추가
+      setPlace([...place, place]);
+    }
+  };
+
   // 진입시 첫번째 슬라이드 시작
   useEffect(() => {
     setCurrentSlide(0);
+    setMod('');
+    setWalkTime(0);
+    setPlace('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sliderRef: any = useRef(null);
@@ -49,11 +61,21 @@ export default function MoodSelect() {
         <div className="step">
           {[1, 2, 3].map((step) => (
             <React.Fragment key={step}>
-              <span className={cls(currentSlide + 1 === step || currentSlide + 1 > step ? 'bg-[#FF8C6D]' : 'colorBg')}>{step}</span>
+              <span className={cls(currentSlide + 1 === step || currentSlide + 1 > step ? 'bg-[#FF8C6D]' : 'colorBg')}>
+                {currentSlide + 1 > step ? (
+                  <Image
+                    src={LocalImages.iconCheck}
+                    alt="iconCheck"
+                    width={20}
+                    height={20}
+                  />
+                ) : (
+                  step
+                )}
+              </span>
             </React.Fragment>
           ))}
         </div>
-        {currentSlide !== 0 && <div className="skip">SKIP</div>}
       </div>
       <Slider
         ref={sliderRef}
@@ -93,9 +115,9 @@ export default function MoodSelect() {
                   sliderRef.current.slickGoTo(1);
                 }
               }}
-              className={cls('next_btn', mood === '' ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}
+              className="stepBottom_btn"
             >
-              <p>다음</p>
+              <p className={cls('next', mood === '' ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}>다음</p>
             </div>
           </div>
         </div>
@@ -120,16 +142,19 @@ export default function MoodSelect() {
                 <span>30분</span>
               </div>
             </div>
-            <div
-              onClick={() => {
-                if (walkTime !== 0) {
-                  setCurrentSlide(2);
-                  sliderRef.current.slickGoTo(2);
-                }
-              }}
-              className={cls('next_btn', walkTime === 0 ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}
-            >
-              <p>다음</p>
+            <div className="stepBottom_btn">
+              <div className="skip">SKIP</div>
+              <div
+                onClick={() => {
+                  if (walkTime !== 0) {
+                    setCurrentSlide(2);
+                    sliderRef.current.slickGoTo(2);
+                  }
+                }}
+                className="next_btn"
+              >
+                <p className={cls('next', walkTime === 0 ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}>다음</p>
+              </div>
             </div>
           </div>
         </div>
@@ -138,19 +163,35 @@ export default function MoodSelect() {
           <div className="select_area">
             <div className="place_area">
               {['카페', '공연/전시', '산책/공원'].map((place) => (
-                <div key={place}>
-                  <div></div>
-                  <div>
+                <div
+                  className="place_box"
+                  key={place}
+                  onClick={() => selectPlace(place)}
+                >
+                  <div className="check"></div>
+                  <div className="place">
                     <p>{place}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className={cls('next_btn', place === '' ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}>
-              <p>장소 추천하기</p>
+            <div className="stepBottom_btn">
+              <div className="skip">SKIP</div>
+              {/* <div
+                onClick={() => {
+                  if (place !== '') {
+                    setCurrentSlide(2);
+                    sliderRef.current.slickGoTo(2);
+                  }
+                }}
+                className="next_btn"
+              >
+                <p className={cls('next', place === '' ? 'bg-[#CFCCC8]' : 'bg-[#FDB8A5]')}>추천받기</p>
+              </div> */}
             </div>
           </div>
         </div>
+        <div className="select_content">lll</div>
       </Slider>
     </section>
   );

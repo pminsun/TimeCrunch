@@ -126,10 +126,6 @@ input {
         @apply content-[''] absolute_yHalf w-full h-[2px] bg-[#2D2D2D];
       }
     }
-
-    .skip {
-      @apply flex_center w-[93px] h-full rounded-[28px] text-[16px] text-[#000000] font-[500] thick_border bg-[#ECE9E3];
-    }
   }
 
   .select_content {
@@ -147,11 +143,19 @@ input {
         display: none;
       }
 
-      .next_btn {
-        @apply flex_center absolute bottom-[26px] left-[15px] right-[15px] w-[calc(100%-30px)] h-[60px] rounded-[16px] thick_gray_border;
+      .stepBottom_btn {
+        @apply flex gap-[15px] absolute bottom-[26px] left-[15px] right-[15px] w-[calc(100%-30px)] h-[60px] rounded-[16px];
 
-        > p {
-          @apply text-[#3D3D3D] text-[18px] font-[700];
+        .skip {
+          @apply flex_center w-[119px] h-full rounded-[16px] text-[18px] text-[#000000] font-[700] thick_border bg-[#ECE9E3];
+        }
+
+        .next_btn {
+          @apply w-[calc(100%-119px)];
+        }
+
+        p.next {
+          @apply flex_center w-full h-full rounded-[16px] text-[#3D3D3D] text-[18px] font-[700] thick_gray_border;
         }
       }
     }
@@ -192,8 +196,18 @@ input {
     /* 장소 선택 */
     .place_area {
       @apply absolute_xHalf top-[23%] flex flex-col gap-[13px] w-[calc(100%-30px)];
-      > div {
+      > div.place_box {
         @apply flex_vertical_center w-full h-[88px] pl-[30px] thick_lightGray_border rounded-[12px];
+
+        .check {
+          @apply w-[26px] aspect-square mr-[20px] rounded-full thick_border bg-[#F0EDE9];
+        }
+
+        .place {
+          p {
+            @apply font-[500] text-[18px] text-[#2D2D2D];
+          }
+        }
       }
     }
   }

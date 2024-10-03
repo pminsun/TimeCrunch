@@ -42,7 +42,8 @@ export default function Home() {
   const loginHandler = async () => {
     try {
       const res = await kkk();
-      console.error(res);
+      console.log(res);
+      router.push('/signup');
     } catch (e: any) {
       console.error('Error LogOut:', e);
     }

@@ -2,8 +2,18 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 //// 유저정보 - 로컬 스토리지 저장(user) ////
+interface UserState {
+  userEmail: string;
+  setUserEmail: (value: string) => void;
+  accessToken: string;
+  setAccessToken: (value: string) => void;
+  userAccessToken: string;
+  setUserAccessToken: (value: string) => void;
+  clearUser: () => void;
+}
+
 export const useUserStore = create(
-  persist(
+  persist<UserState>(
     (set) => ({
       userEmail: '',
       setUserEmail: (value: string) => set({ userEmail: value }),

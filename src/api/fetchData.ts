@@ -36,3 +36,15 @@ export const fetchKakaoUserInfo = async (accessToken: any) => {
     },
   );
 };
+
+// 카카오 로그아웃
+export const fetchKakaoLogOut = async (accessToken: any) => {
+  return await axios({
+    method: 'post',
+    url: `https://kapi.kakao.com/v1/user/logout`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+};

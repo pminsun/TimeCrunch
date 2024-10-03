@@ -3,11 +3,13 @@ import * as LocalImages from '@/utils/imageImports';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { authorizationCodeLink } from '@/api/fetchData';
+import { authorizationCodeLink, fetchKakaoLogOut } from '@/api/fetchData';
+import { useUserStore } from '@/store/store';
 
 export default function Home() {
   const router = useRouter();
   const [showSplash, setShowSplash] = useState(true);
+  const { accessToken, clearUser } = useUserStore();
 
   useEffect(() => {
     // 2초 후 splash 화면을 숨기고 login 화면을 보이도록 설정
@@ -20,6 +22,25 @@ export default function Home() {
 
   const loginHandler = () => {
     router.push(authorizationCodeLink);
+  };
+
+  // 카카오 로그아웃
+  const kakaoLogOut = async () => {
+    try {
+      const res = await fetchKakaoLogOut(accessToken);
+      if (res) {
+        router.push('/');
+        clearUser();
+      }
+    } catch (e: any) {
+      // 이미 만료된 토큰일 경우
+      if (e.response && e.response.status === 401) {
+        clearUser();
+        router.push('/');
+      } else {
+        console.error('Error LogOut:', e);
+      }
+    }
   };
 
   return (
@@ -76,6 +97,12 @@ export default function Home() {
             >
               로그인 안하고 둘러보기
             </Link>
+            <button
+              type="button"
+              onClick={kakaoLogOut}
+            >
+              로그아웃
+            </button>
           </div>
         </section>
       )}

@@ -298,19 +298,19 @@ input {
     }
 
     .nickName_box {
-      @apply relative mt-[63px];
+      @apply relative mt-[63px] px-[14px];
 
       input {
-        @apply w-full h-[66px] px-[20px] rounded-[10px] my-[10px] thick_border;
+        @apply w-full h-[66px] px-[20px] rounded-[10px] text-black text-[16px] font-[500] my-[10px] thick_border;
       }
 
       button {
-        @apply absolute_yHalf right-[19px] flex_center text-black text-[16px] font-[600] w-[90px] h-[36px] rounded-[18px] bg-[#F0EDE9] thick_border;
+        @apply absolute_yHalf right-[35px] flex_center text-black text-[16px] font-[600] w-[90px] h-[36px] rounded-[18px] bg-[#F0EDE9] thick_border;
       }
     }
 
     .duplicateCheck {
-      @apply pl-[18px] text-[18px] font-[500] font-WantedSans;
+      @apply pl-[32px] text-[18px] font-[500] font-WantedSans;
 
       &.possible {
         @apply text-[#26C27E];

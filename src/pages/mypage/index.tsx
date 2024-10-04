@@ -4,9 +4,7 @@ import { useRouter } from 'next/router';
 export default function Mypage() {
   const router = useRouter();
   const loginHandler = async () => {
-    const loginHandler = async () => {
-      router.push(authorizationCodeLink);
-    };
+    router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
   };
 
   return (

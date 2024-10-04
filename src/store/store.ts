@@ -5,11 +5,6 @@ import { persist } from 'zustand/middleware';
 interface UserState {
   userEmail: string;
   setUserEmail: (value: string) => void;
-  accessToken: string;
-  setAccessToken: (value: string) => void;
-  userAccessToken: string;
-  setUserAccessToken: (value: string) => void;
-  clearUser: () => void;
 }
 
 export const useUserStore = create(
@@ -17,11 +12,6 @@ export const useUserStore = create(
     (set) => ({
       userEmail: '',
       setUserEmail: (value: string) => set({ userEmail: value }),
-      accessToken: '',
-      setAccessToken: (value: string) => set({ accessToken: value }),
-      userAccessToken: '',
-      setUserAccessToken: (value: string) => set({ userAccessToken: value }),
-      clearUser: () => set({ userEmail: '', accessToken: '', userAccessToken: '' }),
     }),
     {
       name: 'user', // 로컬 스토리지 키

@@ -839,6 +839,9 @@ input {
 }
 
 .mypage_container {
+  .content {
+    @apply pt-[31px];
+  }
 }
 
 .likepage_container {

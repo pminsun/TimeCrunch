@@ -1,12 +1,14 @@
 import { authorizationCodeLink, kkk } from '@/api/fetchData';
-import { useLikeStore } from '@/store/store';
+import { useLikeStore, useUserStore } from '@/store/store';
 import * as LocalImages from '@/utils/imageImports';
+import { jwtDecode } from 'jwt-decode';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 export default function Like() {
   const router = useRouter();
   const { likeList, setLikeList } = useLikeStore();
+  const { setUserEmail } = useUserStore();
 
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
@@ -26,18 +28,55 @@ export default function Like() {
     if (parts.length === 2) return parts.pop()?.split(';').shift();
   };
 
-  const loginHandler = async () => {
-    // router.push('/signup');
+  // const loginHandler = async () => {
+  //   // router.push('/signup');
+  //   try {
+  //     const res = await kkk();
+  //     console.log(res);
+  //     // router.push('/signup');
+
+  //     // 쿠키에서 accessToken 가져오기
+  //     const accessToken = getCookie('accessToken');
+  //     console.log('Access Token:', accessToken);
+  //   } catch (e: any) {
+  //     console.error('Error Login:', e); // 에러 메시지 수정
+  //   }
+  // };
+
+  const decodeToken = (token: string) => {
     try {
-      const res = await kkk();
+      return jwtDecode(token); // 토큰을 디코딩해서 페이로드 추출
+    } catch (e) {
+      console.error('Invalid Token:', e);
+      return null;
+    }
+  };
+
+  const loginHandler = async () => {
+    try {
+      const res = await kkk(); // 토큰을 생성하는 함수 호출
       console.log(res);
-      // router.push('/signup');
 
       // 쿠키에서 accessToken 가져오기
       const accessToken = getCookie('accessToken');
-      console.log('Access Token:', accessToken);
+
+      if (accessToken) {
+        // accessToken 디코딩
+        const decodedToken = decodeToken(accessToken);
+        console.log('Decoded JWT:', decodedToken);
+
+        // 화면에 가져오고 싶은 정보 예시: 사용자 이름
+        const userName = decodedToken?.sub || 'Unknown User';
+        console.log('User Name:', userName);
+        // 화면에 userName 표시
+        setUserEmail(userName);
+      } else {
+        console.error('No access token found');
+      }
+
+      router.push('/signup');
     } catch (e: any) {
-      console.error('Error Login:', e); // 에러 메시지 수정
+      console.error('Error Login:', e);
     }
   };
 

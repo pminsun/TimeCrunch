@@ -23,7 +23,20 @@ export default function Mypage() {
             카카오 로그인
           </p>
         </div> */}
-        <div className="login"></div>
+        <div className="login">
+          <div>
+            <div>
+              <div></div>
+              <p></p>
+            </div>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+          <button type="button">로그아웃</button>
+        </div>
       </div>
     </div>
   );

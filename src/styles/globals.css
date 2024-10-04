@@ -186,17 +186,134 @@ input {
 }
 
 .signUp_container {
-  @apply relative flex flex-col pt-[40%] h-[calc(100%+72px)] z-30;
+  @apply relative flex flex-col h-[calc(100%+72px)] px-[15px] z-50 colorBg;
 
-  .signNickName_area {
-    @apply px-[15px];
+  > .slick-slider {
+    @apply w-full h-full;
 
-    input {
-      @apply w-full h-[53px] px-[14px] my-[10px] thick_lightGray_border;
+    > button {
+      @apply !hidden;
     }
 
-    button {
-      @apply flex_center w-full h-[53px] bg-[#F36F47] text-white;
+    > .slick-list {
+      @apply w-full h-full;
+
+      .slick-track {
+        @apply !flex h-full;
+
+        > .slick-slide {
+          @apply w-full h-full;
+
+          > div {
+            @apply w-full h-full;
+          }
+        }
+      }
+    }
+  }
+
+  .stepBottom_btn {
+    @apply flex gap-[15px] absolute bottom-[26px] left-[15px] right-[15px] w-[calc(100%-30px)] h-[60px] rounded-[16px];
+
+    .next_btn {
+      @apply w-full;
+    }
+
+    p.next {
+      @apply flex_center w-full h-full rounded-[16px] text-[#3D3D3D] text-[18px] font-[700] thick_gray_border;
+    }
+  }
+
+  .agree_area {
+    @apply relative w-full overflow-hidden pt-[61px] h-full colorBg;
+
+    > p {
+      @apply font-Jalnan text-[18px] text-[#2D2D2D];
+    }
+
+    > div.agree_list {
+      @apply absolute bottom-[151px] left-[25px] right-[25px] rounded-[20px] w-[calc(100%-50px)] px-[20px] bg-[#FFFFFF] pt-[34px] pb-[23px];
+
+      .allbtn {
+        @apply flex gap-[11px] border-b-2 border-[#CFCCC8] pb-[27px];
+
+        .allCheck {
+          @apply flex_center w-[26px] h-[26px] rounded-full thick_border;
+
+          &.on {
+            @apply bg-[#76ECB9];
+          }
+
+          &.none {
+            @apply bg-[#F0EDE9];
+          }
+        }
+
+        > p {
+          @apply text-black text-[18px] font-[600];
+        }
+      }
+
+      ul {
+        @apply flex flex-col gap-[24px] pt-[21px];
+        li {
+          @apply flex_xBetween;
+
+          > div {
+            @apply flex gap-[12px];
+            .check {
+              @apply flex_center w-[24px] h-[24px] rounded-full border border-[#2D2D2D];
+
+              &.on {
+                @apply bg-[#76ECB9];
+              }
+
+              &.none {
+                @apply bg-[#F0EDE9];
+              }
+            }
+          }
+
+          a {
+            @apply block;
+            img {
+              transform: scaleX(-1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .signNickName_area {
+    @apply relative px-[15px] pt-[61px] w-full h-full colorBg overflow-hidden;
+
+    > p {
+      @apply font-Jalnan text-[18px] text-[#2D2D2D];
+    }
+
+    .nickName_box {
+      @apply relative mt-[63px];
+
+      input {
+        @apply w-full h-[66px] px-[20px] rounded-[10px] my-[10px] thick_border;
+      }
+
+      button {
+        @apply absolute_yHalf right-[19px] flex_center text-black text-[16px] font-[600] w-[90px] h-[36px] rounded-[18px] bg-[#F0EDE9] thick_border;
+      }
+    }
+
+    .duplicateCheck {
+      @apply pl-[18px] text-[18px] font-[500] font-WantedSans;
+
+      &.possible {
+        @apply text-[#26C27E];
+      }
+
+      &.error {
+        @apply text-[#FC7651];
+      }
     }
   }
 
@@ -314,7 +431,7 @@ input {
 
     /* 시간 선택 */
     .tempMap_area {
-      @apply w-full px-[30px] h-[203px] mt-[27px] rounded-[10px] overflow-hidden bg-red-200;
+      @apply w-full px-[30px] h-[203px] mt-[27px] rounded-[10px] overflow-hidden;
     }
     .time_area {
       @apply mt-[36px] rounded-[10px];
@@ -841,6 +958,9 @@ input {
 .mypage_container {
   .content {
     @apply pt-[31px];
+
+    .loggin {
+    }
   }
 }
 

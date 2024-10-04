@@ -5,6 +5,9 @@ const grant_type = 'authorization_code';
 const client_id = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
 const redirect_uri = process.env.NEXT_PUBLIC_REDIRECT_URI;
 const client_secret = process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET;
+
+const base_url = 'https://api.seongsu-snack.site';
+
 // 인가코드 Link
 export const authorizationCodeLink = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&prompt=login`;
 
@@ -53,5 +56,15 @@ export const kkk = async () => {
   return await axios({
     method: 'get',
     url: 'https://api.seongsu-snack.site/oauth2/authorization/kakao ', // 문자열로 감싸기
+  });
+};
+
+export const noneDuplicateNickName = async (nickName: any) => {
+  return await axios({
+    method: 'get',
+    url: `${base_url}/api/member/check-nickname`,
+    data: {
+      nickname: nickName,
+    },
   });
 };

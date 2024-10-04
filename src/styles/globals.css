@@ -965,6 +965,8 @@ input {
     @apply pt-[31px];
 
     .loggin {
+      .top {
+      }
     }
   }
 }

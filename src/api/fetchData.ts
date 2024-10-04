@@ -62,9 +62,6 @@ export const kkk = async () => {
 export const noneDuplicateNickName = async (nickName: any) => {
   return await axios({
     method: 'get',
-    url: `${base_url}/api/member/check-nickname`,
-    data: {
-      nickname: nickName,
-    },
+    url: `${base_url}/api/member/check-nickname?nickname=${nickName}`,
   });
 };

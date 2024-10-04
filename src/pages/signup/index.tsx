@@ -1,7 +1,7 @@
 import { authorizationCodeLink, noneDuplicateNickName } from '@/api/fetchData';
 import { cls } from '@/utils/config';
 import { useRouter } from 'next/router';
-import React, { SetStateAction, useRef, useState } from 'react';
+import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
@@ -43,19 +43,17 @@ export default function SignUp() {
     },
   };
 
+  useEffect(() => {
+    setIsDuplicate(null);
+  }, []);
+
   const checkNickName = async () => {
     try {
-      const response = await noneDuplicateNickName(userNickName);
-      if (response.data.isDuplicate) {
-        setIsDuplicate(true);
-        alert('닉네임이 중복되었습니다.');
-      } else {
-        setIsDuplicate(false);
-        alert('사용 가능한 닉네임입니다.');
-      }
+      await noneDuplicateNickName(userNickName);
+      setIsDuplicate(true);
     } catch (error) {
+      setIsDuplicate(false);
       console.error('닉네임 확인 중 오류 발생:', error);
-      alert('닉네임 확인 중 오류가 발생했습니다.');
     }
   };
 
@@ -187,10 +185,15 @@ export default function SignUp() {
                 placeholder="닉네임을 입력해주세요"
               />
             </div>
-            <button type="button">중복 확인</button>
+            <button
+              type="button"
+              onClick={() => checkNickName()}
+            >
+              중복 확인
+            </button>
           </div>
-          <p className="possible duplicateCheck">등록이 가능해요!</p>
-          <p className="error duplicateCheck">중복된 닉네임이에요</p>
+          {isDuplicate && <p className="possible duplicateCheck">등록이 가능해요!</p>}
+          {isDuplicate === false && <p className="error duplicateCheck">중복된 닉네임이에요</p>}
           <div className="stepBottom_btn">
             <div
               onClick={() => {

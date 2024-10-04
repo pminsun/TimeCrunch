@@ -60,7 +60,7 @@ export default function Map() {
     const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
       const currentLocation = new naver.maps.LatLng(lat, lng);
       // walkTime에 따른 줌 레벨 설정
-      const zoomLevel = walkTime === 0 ? 17 : walkTime === 5 ? 15 : walkTime === 10 ? 14 : walkTime === 15 ? 13 : walkTime === 20 ? 13 : 11;
+      const zoomLevel = walkTime === 0 ? 17 : walkTime === 5 ? 16 : walkTime === 10 ? 15 : walkTime === 15 ? 14 : walkTime === 20 ? 14 : walkTime === 25 ? 13.5 : 13;
       const mapOptions = {
         center: currentLocation,
         zoom: zoomLevel,
@@ -84,7 +84,7 @@ export default function Map() {
 
       // 반경 100m 서클 생성
       // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
-      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 100;
+      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
       const circle = new naver.maps.Circle({
         map: map,
         center: currentLocation,
@@ -179,7 +179,7 @@ export default function Map() {
       mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_ID}&submodules=geocoder`;
       document.head.appendChild(mapScript);
     }
-  }, []);
+  }, [walkTime]);
 
   return (
     <React.Fragment>

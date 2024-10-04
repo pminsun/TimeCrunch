@@ -839,4 +839,31 @@ input {
 }
 
 .likepage_container {
+  .content {
+    @apply mt-[26px];
+  }
+  .noneLike {
+    @apply flex_center flex-col gap-[15px] h-full;
+    > p {
+      @apply text-[#2D2D2D] text-[16px] font-[500];
+    }
+  }
+
+  .listLike {
+    @apply grid grid-cols-2 gap-x-[10px] gap-y-[20px];
+
+    > div {
+      > div.img_area {
+        @apply relative aspect-square bg-[#ECE9E3] mb-[9px] rounded-[10px] overflow-hidden;
+
+        .star {
+          @apply absolute right-[16px] top-[11px];
+        }
+
+        .mood {
+          @apply absolute left-[5px] bottom-[11px] py-[3px] px-[14px] bg-[#FFFFFF] thick_border rounded-[28px];
+        }
+      }
+    }
+  }
 }

@@ -28,7 +28,7 @@ export default function Home() {
     try {
       const res = await kkk();
       console.log(res);
-      router.push('/signup');
+      // router.push('/signup');
     } catch (e: any) {
       console.error('Error Login:', e); // 에러 메시지 수정
     }

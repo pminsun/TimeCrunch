@@ -22,6 +22,7 @@ export default function Like() {
           alt="markerLike"
           width={30}
           height={30}
+          className="-mt-1"
         />
         LIKE
       </p>

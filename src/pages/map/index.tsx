@@ -56,6 +56,8 @@ export default function Map() {
     }
   };
 
+  useEffect(() => {}, [mood, walkTime, place]);
+
   useEffect(() => {
     const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
       const currentLocation = new naver.maps.LatLng(lat, lng);

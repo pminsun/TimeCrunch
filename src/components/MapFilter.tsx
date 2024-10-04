@@ -23,7 +23,7 @@ export default function MapFilter({ showLike, setShowFilter, setShowLike }: any)
   const applyFilter = () => {
     setMod(tempMood);
     setWalkTime(tempTime);
-    setTempPlace(tempPlace);
+    setPlace(tempPlace);
     setShowLike(tempLike);
     setShowFilter(false);
   };

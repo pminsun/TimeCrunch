@@ -11,7 +11,6 @@ import { cls } from '@/utils/config';
 export default function Home() {
   const router = useRouter();
   const [showSplash, setShowSplash] = useState(true);
-  const { accessToken, clearUser } = useUserStore();
   const [currentOnBoradingSlide, setCurrentOnBoradingSlide] = useState(0);
 
   useEffect(() => {

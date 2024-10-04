@@ -5,6 +5,10 @@ import logoMain from '@/public/images/mainLogo.png';
 import logoSnak from '@/public/images/snakLogo.svg';
 import characterMain from '@/public/images/snack_character_main.svg';
 
+import onBoardingOne from '@/public/images/onBoarding_one.svg';
+import onBoardingTwo from '@/public/images/onBoarding_two.svg';
+import onBoardingThree from '@/public/images/onBoarding_three.svg';
+
 import iconCheck from '@/public/images/icon_check.svg';
 import rangeThumb from '@/public/images/range_thumb.svg';
 import iconEmptyStar from '@/public/images/icon_empty_star.svg';
@@ -31,6 +35,8 @@ import iconBottomLike from '@/public/images/icon_bottom_like.svg';
 import iconBottomMypage from '@/public/images/icon_bottom_mypage.svg';
 
 import iconfilterLike from '@/public/images/filter_like.svg';
+
+export { onBoardingOne, onBoardingTwo, onBoardingThree };
 
 export { logoMain, logoSnak, TitleLogoPink, characterMain };
 

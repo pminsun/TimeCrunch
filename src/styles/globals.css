@@ -815,11 +815,12 @@ input {
   }
 }
 
-.mypage_container {
+.mypage_container,
+.likepage_container {
   @apply px-[13px] pb-[37px] h-full;
 
   > p {
-    @apply font-Jalnan text-[20px] text-black py-[12px];
+    @apply flex_vertical_center gap-[9px] font-Jalnan text-[20px] text-black py-[12px];
   }
   .content {
     @apply h-[calc(100%-54px)];
@@ -835,4 +836,7 @@ input {
       @apply flex_center h-[56px] w-[215px] mb-[32px] mx-auto text-[18px] font-[700] bg-[#FFD787] thick_border rounded-[28px];
     }
   }
+}
+
+.likepage_container {
 }

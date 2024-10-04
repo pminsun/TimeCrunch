@@ -1,15 +1,12 @@
-import { kkk } from '@/api/fetchData';
+import { authorizationCodeLink } from '@/api/fetchData';
+import { useRouter } from 'next/router';
 
 export default function Mypage() {
+  const router = useRouter();
   const loginHandler = async () => {
-    // router.push('/signup');
-    try {
-      const res = await kkk();
-      console.log(res);
-      // router.push('/signup');
-    } catch (e: any) {
-      console.error('Error Login:', e); // 에러 메시지 수정
-    }
+    const loginHandler = async () => {
+      router.push(authorizationCodeLink);
+    };
   };
 
   return (

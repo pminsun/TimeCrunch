@@ -23,14 +23,6 @@ const temData = [
   },
 ];
 
-/*
-도보 5분: 약 400m
-도보 10분: 약 800m
-도보 15분: 약 1.2km
-도보 20분: 약 1.6km
-도보 30분: 약 2.4km 까지 축소
-*/
-
 export default function Map() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);

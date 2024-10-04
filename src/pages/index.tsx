@@ -24,14 +24,7 @@ export default function Home() {
   }, []);
 
   const loginHandler = async () => {
-    // router.push('/signup');
-    try {
-      const res = await kkk();
-      console.log(res);
-      // router.push('/signup');
-    } catch (e: any) {
-      console.error('Error Login:', e); // 에러 메시지 수정
-    }
+    router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
   };
 
   const sliderOnBoradingRef: any = useRef(null);

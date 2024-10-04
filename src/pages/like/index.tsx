@@ -1,17 +1,14 @@
-import { kkk } from '@/api/fetchData';
+import { authorizationCodeLink } from '@/api/fetchData';
 import * as LocalImages from '@/utils/imageImports';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export default function Like() {
+  const router = useRouter();
   const loginHandler = async () => {
-    // router.push('/signup');
-    try {
-      const res = await kkk();
-      console.log(res);
-      // router.push('/signup');
-    } catch (e: any) {
-      console.error('Error Login:', e); // 에러 메시지 수정
-    }
+    const loginHandler = async () => {
+      router.push(authorizationCodeLink);
+    };
   };
 
   return (

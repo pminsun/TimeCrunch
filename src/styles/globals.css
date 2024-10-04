@@ -206,7 +206,7 @@ input {
 }
 
 .selectMood_container {
-  @apply relative w-full h-[calc(100%+72px)] z-30 colorBg;
+  @apply relative w-full h-[calc(100%+72px)] z-50 colorBg;
   > .slick-slider {
     @apply w-full h-full;
 

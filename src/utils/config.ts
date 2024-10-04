@@ -2,6 +2,27 @@ export function cls(...classnames: any[]) {
   return classnames.join(' ');
 }
 
+export const changeMoodName = (text: string) => {
+  if (text === '분위기 좋은') {
+    return 'good';
+  }
+  if (text === '조용한') {
+    return 'quiet';
+  }
+  if (text === '이국적인') {
+    return 'exotic';
+  }
+  if (text === '힐링') {
+    return 'healing';
+  }
+  if (text === '즐거운') {
+    return 'joy';
+  }
+  if (text === '트렌디한') {
+    return 'trendy';
+  }
+};
+
 export const changePlaceName = (text: string) => {
   if (text === '공연/전시') {
     return 'art';
@@ -32,3 +53,5 @@ export const changeTime = (time: number) => {
     return 0;
   }
 };
+
+export const rangeMapDistancce = (time: number) => {};

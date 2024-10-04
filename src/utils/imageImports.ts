@@ -11,6 +11,7 @@ import iconEmptyStar from '@/public/images/icon_empty_star.svg';
 import iconFillStar from '@/public/images/icon_fill_star.svg';
 import iconDropArrow from '@/public/images/icon_drop_arrow.svg';
 import iconClose from '@/public/images/icon_close.svg';
+import iconBack from '@/public/images/icon_back.svg';
 
 import placeCafe from '@/public/images/icon_cafe.svg';
 import placeArt from '@/public/images/icon_art.svg';
@@ -33,7 +34,7 @@ import iconfilterLike from '@/public/images/filter_like.svg';
 
 export { logoMain, logoSnak, TitleLogoPink, characterMain };
 
-export { iconClose, iconCheck, rangeThumb, iconFillStar, iconEmptyStar, iconfilterLike, iconDropArrow };
+export { iconClose, iconCheck, rangeThumb, iconFillStar, iconBack, iconEmptyStar, iconfilterLike, iconDropArrow };
 
 export { placeCafe, placeArt, placeTree, placeShop };
 export { markerMy, markerCafe, markerTree, markerArt, markerLike, markerEmpty };

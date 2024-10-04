@@ -3,10 +3,14 @@ import { useLikeStore, useMoodSettingStore } from '@/store/store';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import React, { ReactNode, useEffect, useState } from 'react';
+import { changeMoodName, cls } from '@/utils/config';
+import MoodCollection from '@/components/MoodCollection';
 
 export default function Home() {
   const { mood, findPlace, walkTime, setFindPlace } = useMoodSettingStore();
   const { likeList, setLikeList } = useLikeStore();
+  const [showMoodCollection, setShowMoodCollection] = useState(false);
+  const [moodCollectionType, setMoodCollectionType] = useState('');
 
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
@@ -14,6 +18,11 @@ export default function Home() {
     } else {
       setLikeList([...likeList, item]);
     }
+  };
+
+  const openMoodCollection = (mood: React.SetStateAction<string>) => {
+    setMoodCollectionType(mood);
+    setShowMoodCollection(true);
   };
 
   return mood !== '' && findPlace ? (
@@ -34,7 +43,7 @@ export default function Home() {
         </p>
       </div>
       <div className="filterPlace_area">
-        {likeList.length === 0 ? (
+        {likeList.length !== 0 ? (
           <div className="none_list_area">
             <div className="none_list">
               <Image
@@ -102,10 +111,23 @@ export default function Home() {
         <p>#무드 다시찾기</p>
         <div>
           {['분위기 좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((mood: string) => (
-            <div key={mood}># {mood}</div>
+            <React.Fragment key={mood}>
+              <div
+                className={cls(changeMoodName(mood))}
+                onClick={() => openMoodCollection(mood)}
+              >
+                # {mood}
+              </div>
+            </React.Fragment>
           ))}
         </div>
       </div>
+      {showMoodCollection && (
+        <MoodCollection
+          title={mood}
+          setShowMoodCollection={setShowMoodCollection}
+        />
+      )}
     </section>
   ) : (
     <MoodSelect />

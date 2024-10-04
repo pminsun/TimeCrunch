@@ -74,6 +74,13 @@ export default function MoodSelect() {
     return () => clearTimeout(timer);
   };
 
+  const clickSkip = () => {
+    findPlaceLoading();
+    if (walkTime === 0) {
+      setWalkTime(30);
+    }
+  };
+
   return (
     <>
       <section className="selectMood_container">
@@ -163,7 +170,12 @@ export default function MoodSelect() {
                 </div>
               </div>
               <div className="stepBottom_btn">
-                <div className="skip">SKIP</div>
+                <div
+                  className="skip"
+                  onClick={clickSkip}
+                >
+                  SKIP
+                </div>
                 <div
                   onClick={() => {
                     if (walkTime !== 0) {
@@ -236,7 +248,12 @@ export default function MoodSelect() {
                 ))}
               </div>
               <div className="stepBottom_btn">
-                <div className="skip">SKIP</div>
+                <div
+                  className="skip"
+                  onClick={clickSkip}
+                >
+                  SKIP
+                </div>
                 <div
                   onClick={() => {
                     if (place.length !== 0) {

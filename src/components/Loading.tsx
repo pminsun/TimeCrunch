@@ -1,8 +1,17 @@
+import Lottie from 'react-lottie-player';
+import lottieJson from '../../public/images/loading_icon.json';
+
 export default function Loading() {
   return (
     <div className="loading_container">
-      <div></div>
-      <p>장소를 찾고 있어요 </p>
+      <div>
+        <Lottie
+          loop
+          animationData={lottieJson}
+          play
+          style={{ width: 250, height: 157 }}
+        />
+      </div>
     </div>
   );
 }

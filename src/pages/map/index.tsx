@@ -6,6 +6,7 @@ import * as LocalImages from '@/utils/imageImports';
 import { cls } from '@/utils/config';
 import { useLikeStore, useMoodSettingStore } from '@/store/store';
 import MapFilter from '@/components/MapFilter';
+import DetailPlace from '@/components/DetailPlace';
 
 const temData = [
   {
@@ -37,6 +38,15 @@ export default function Map() {
   const [showFilter, setShowFilter] = useState(false);
   const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
   const { likeList, setLikeList } = useLikeStore();
+  const [showPlace, setShowPlace] = useState(false);
+  const [showPlaceType, setShowPlaceType] = useState(false);
+  const [singlePlaceInfo, setSinglePlaceInfo] = useState(false);
+  const [modalContent, setModalContent] = useState({});
+
+  const openPlaceDetail = (placeName: any) => {
+    setShowPlace(true);
+    setShowPlaceType(placeName);
+  };
 
   const selectPlace = (placeName: string) => {
     if (place.includes(placeName)) {
@@ -49,9 +59,11 @@ export default function Map() {
   useEffect(() => {
     const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
       const currentLocation = new naver.maps.LatLng(lat, lng);
+      // walkTime에 따른 줌 레벨 설정
+      const zoomLevel = walkTime === 0 ? 17 : walkTime === 5 ? 15 : walkTime === 10 ? 14 : walkTime === 15 ? 13 : walkTime === 20 ? 13 : 11;
       const mapOptions = {
         center: currentLocation,
-        zoom: 15,
+        zoom: zoomLevel,
       };
 
       const map = new naver.maps.Map('map', mapOptions);
@@ -71,10 +83,12 @@ export default function Map() {
       });
 
       // 반경 100m 서클 생성
+      // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
+      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 100;
       const circle = new naver.maps.Circle({
         map: map,
         center: currentLocation,
-        radius: 100, // 반경 100m
+        radius: radius,
         strokeColor: '#FF977A',
         strokeOpacity: 1,
         strokeWeight: 1,
@@ -87,6 +101,11 @@ export default function Map() {
         content: '', // 내용은 빈 상태로 초기화
       });
 
+      // 지도 클릭 이벤트 - 빈 공간 클릭 시 placeInfo_area 닫기
+      naver.maps.Event.addListener(map, 'click', () => {
+        setSinglePlaceInfo(false); // 지도를 클릭하면 placeInfo_area가 닫힘
+      });
+
       temData.forEach((place) => {
         const marker = new naver.maps.Marker({
           position: new naver.maps.LatLng(place.lat, place.lng),
@@ -97,16 +116,22 @@ export default function Map() {
 
         // 마커 클릭 이벤트
         naver.maps.Event.addListener(marker, 'click', () => {
-          const content = `
-            <div style="padding:10px;">
-              <h4>${place.name}</h4>
-              <p>${place.address}</p>
-            </div>
-          `;
+          // const content = `
+          //   <div style="padding:10px;">
+          //     <h4>${place.name}</h4>
+          //     <p>${place.address}</p>
+          //   </div>
+          // `;
 
-          // InfoWindow에 내용 설정 후 해당 마커 위치에 표시
-          infoWindow.setContent(content);
-          infoWindow.open(map, marker);
+          // // InfoWindow에 내용 설정 후 해당 마커 위치에 표시
+          // infoWindow.setContent(content);
+          // infoWindow.open(map, marker);
+
+          setModalContent({
+            name: place.name,
+            address: place.address,
+          });
+          setSinglePlaceInfo(true);
         });
       });
     };
@@ -214,50 +239,62 @@ export default function Map() {
           id="map"
           style={{ width: '480px', height: '100%' }}
         ></div>
-        <div className="placeInfo_area">
-          <div className="bar"></div>
-          <div className="placeInfo_box">
-            <div className="info_area">
-              <div className="left">
-                <p className="place_name">서울숲글자수는글자수여기</p>
-                <div>
-                  <p>200m</p>
-                  <p>산책/공원</p>
+        {singlePlaceInfo && (
+          <div className="placeInfo_area">
+            <div className="bar"></div>
+            <div
+              className="placeInfo_box"
+              onClick={() => openPlaceDetail('장소타이틀명은10자로')}
+            >
+              <div className="info_area">
+                <div className="left">
+                  <p className="place_name">서울숲글자수는글자수여기</p>
+                  <div>
+                    <p>200m</p>
+                    <p>산책/공원</p>
+                  </div>
+                  <div className="mt-[4px]">
+                    <p className="orange">영업 전</p>
+                    <p>7:00시 영업시작</p>
+                  </div>
                 </div>
-                <div className="mt-[4px]">
-                  <p className="orange">영업 전</p>
-                  <p>7:00시 영업시작</p>
+                <div className="right">
+                  <div className="mood"># 조용한</div>
+                  <div className="mb-1">
+                    {likeList.includes('임시') ? (
+                      <Image
+                        src={LocalImages.iconFillStar}
+                        alt="iconEmptyStar"
+                        width={24}
+                        height={24}
+                      />
+                    ) : (
+                      <Image
+                        src={LocalImages.iconEmptyStar}
+                        alt="iconEmptyStar"
+                        width={24}
+                        height={24}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="right">
-                <div className="mood"># 조용한</div>
-                <div className="mb-1">
-                  {likeList.includes('임시') ? (
-                    <Image
-                      src={LocalImages.iconFillStar}
-                      alt="iconEmptyStar"
-                      width={24}
-                      height={24}
-                    />
-                  ) : (
-                    <Image
-                      src={LocalImages.iconEmptyStar}
-                      alt="iconEmptyStar"
-                      width={24}
-                      height={24}
-                    />
-                  )}
-                </div>
+              <div className="img_area">
+                {[1, 2, 3].map((img) => (
+                  <div key={img}></div>
+                ))}
               </div>
-            </div>
-            <div className="img_area">
-              {[1, 2, 3].map((img) => (
-                <div key={img}></div>
-              ))}
             </div>
           </div>
-        </div>
+        )}
+        {showPlace && (
+          <DetailPlace
+            showPlaceType={showPlaceType}
+            setShowPlace={setShowPlace}
+          />
+        )}
       </div>
+
       {showFilter && (
         <MapFilter
           showLike={showLike}

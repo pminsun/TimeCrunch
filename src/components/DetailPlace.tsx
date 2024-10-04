@@ -2,8 +2,11 @@ import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import { useLikeStore } from '@/store/store';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { cls } from '@/utils/config';
 
 export default function DetailPlace({ showPlaceType, setShowPlace }: any) {
+  const router = useRouter();
   const { likeList, setLikeList } = useLikeStore();
 
   const openNaverMap = (address: string) => {
@@ -12,15 +15,17 @@ export default function DetailPlace({ showPlaceType, setShowPlace }: any) {
   };
 
   return (
-    <section className="detailPlace_container">
+    <section className={cls('detailPlace_container', router.pathname === '/map' ? 'absolute' : 'sticky')}>
       <div className="btn_area">
-        <Image
-          onClick={() => setShowPlace(false)}
-          src={LocalImages.iconBack}
-          alt="iconBack"
-          width={30}
-          height={30}
-        />
+        {router.pathname !== '/map' && (
+          <Image
+            onClick={() => setShowPlace(false)}
+            src={LocalImages.iconBack}
+            alt="iconBack"
+            width={30}
+            height={30}
+          />
+        )}
         <Image
           onClick={() => setShowPlace(false)}
           src={LocalImages.iconClose}

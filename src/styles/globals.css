@@ -568,7 +568,7 @@ input {
   }
 
   .placeInfo_area {
-    @apply absolute_xHalf bottom-0 z-[100] w-[101%] h-[243px] pt-[15px] px-[18px] pb-[23px] rounded-t-[40px] thick_border bg-[#FFFCF8];
+    @apply absolute_xHalf bottom-[-2px] z-[100] w-[101%] h-[245px] pt-[15px] px-[18px] pb-[23px] rounded-t-[40px] thick_border bg-[#FFFCF8];
 
     .bar {
       @apply w-[80px] h-[3px] mx-auto rounded-md bg-[#524F4C];
@@ -747,7 +747,7 @@ input {
 }
 
 .detailPlace_container {
-  @apply sticky top-0 bottom-0 left-0 right-0 w-full h-full overflow-y-auto colorBg;
+  @apply top-0 bottom-0 left-0 right-0 w-full h-full z-[200] overflow-y-auto colorBg;
   /* scrollbar */
   &::-webkit-scrollbar {
     display: none;
@@ -758,6 +758,7 @@ input {
 
     img:last-of-type {
       filter: invert(1);
+      margin-left: auto;
     }
   }
 

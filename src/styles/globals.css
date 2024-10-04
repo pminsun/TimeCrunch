@@ -966,6 +966,13 @@ input {
 
     .loggin {
       .top {
+        @apply flex_vertical_center flex-col;
+
+        .userInfo {
+          .userImage {
+            @apply overflow-hidden;
+          }
+        }
       }
     }
   }

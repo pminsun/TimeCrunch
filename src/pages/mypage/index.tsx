@@ -31,7 +31,7 @@ export default function Mypage() {
           <div>
             <div className="top">
               <div className="userInfo">
-                <div></div>
+                <div className="userImage"></div>
                 <p>닉네임</p>
               </div>
               <button

@@ -65,3 +65,14 @@ export const noneDuplicateNickName = async (nickName: any) => {
     url: `${base_url}/api/member/check-nickname?nickname=${nickName}`,
   });
 };
+
+export const authNew = async (nickName: any) => {
+  console.log('nickName', nickName);
+  return await axios({
+    method: 'post',
+    url: `${base_url}/api/auth/signup`,
+    data: {
+      nickname: nickName,
+    },
+  });
+};

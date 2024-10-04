@@ -1,4 +1,4 @@
-import { authorizationCodeLink, noneDuplicateNickName } from '@/api/fetchData';
+import { authNew, authorizationCodeLink, noneDuplicateNickName } from '@/api/fetchData';
 import { cls } from '@/utils/config';
 import { useRouter } from 'next/router';
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
@@ -53,6 +53,15 @@ export default function SignUp() {
       setIsDuplicate(true);
     } catch (error) {
       setIsDuplicate(false);
+      console.error('닉네임 확인 중 오류 발생:', error);
+    }
+  };
+
+  const signUpWithNickName = async () => {
+    try {
+      const response = await authNew(userNickName);
+      console.log(response);
+    } catch (error) {
       console.error('닉네임 확인 중 오류 발생:', error);
     }
   };
@@ -197,14 +206,13 @@ export default function SignUp() {
           <div className="stepBottom_btn">
             <div
               onClick={() => {
-                if (userArgee.every(Boolean)) {
-                  setCurrentLoginSlide(1);
-                  sliderLoginRef.current.slickGoTo(1);
+                if (isDuplicate) {
+                  signUpWithNickName();
                 }
               }}
               className="next_btn"
             >
-              <p className={cls('next', userArgee.every(Boolean) ? 'bg-[#FDB8A5]' : 'bg-[#CFCCC8]')}>가입하기</p>
+              <p className={cls('next', isDuplicate ? 'bg-[#FDB8A5]' : 'bg-[#CFCCC8]')}>가입하기</p>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ export default function Mypage() {
     <div className="mypage_container">
       <p># MY PAGE</p>
       <div className="content">
-        <div className="noLogin">
+        {/* <div className="noLogin">
           <p className="ment">
             LIKE, MY PAGE는
             <br /> 로그인 후 이용이 가능해요
@@ -22,7 +22,8 @@ export default function Mypage() {
           >
             카카오 로그인
           </p>
-        </div>
+        </div> */}
+        <div className="login"></div>
       </div>
     </div>
   );

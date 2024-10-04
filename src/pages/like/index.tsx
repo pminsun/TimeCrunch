@@ -1,4 +1,4 @@
-import { authorizationCodeLink, kkk } from '@/api/fetchData';
+import { authorizationCodeLink, fetchKakaoUserInfo, kkk } from '@/api/fetchData';
 import { useLikeStore } from '@/store/store';
 import * as LocalImages from '@/utils/imageImports';
 import Image from 'next/image';
@@ -16,9 +16,9 @@ export default function Like() {
     }
   };
 
-  const loginHandler = async () => {
-    router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
-  };
+  // const loginHandler = async () => {
+  //   router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
+  // };
 
   // const getCookie = (name: string) => {
   //   const value = `; ${document.cookie}`;
@@ -26,20 +26,22 @@ export default function Like() {
   //   if (parts.length === 2) return parts.pop()?.split(';').shift();
   // };
 
-  // const loginHandler = async () => {
-  //   // router.push('/signup');
-  //   try {
-  //     const res = await kkk();
-  //     console.log(res);
-  //     // router.push('/signup');
+  const loginHandler = async () => {
+    // router.push('/signup');
+    try {
+      const res = await fetchKakaoUserInfo(
+        'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjgwMzczNzcsImV4cCI6MTcyODA0ODE3Nywic3ViIjoic3BtMDMwOUBuYXZlci5jb20iLCJyb2xlIjoiUk9MRV9TSUdOVVAiLCJhdXRoUHJvdmlkZXIiOiJrYWthbyJ9.3xhAgTm9eM6GoojnDqPy_j1vc6Xihz_zIjv7WSUSFn0',
+      );
+      console.log(res);
+      // router.push('/signup');
 
-  //     // 쿠키에서 accessToken 가져오기
-  //     const accessToken = getCookie('accessToken');
-  //     console.log('Access Token:', accessToken);
-  //   } catch (e: any) {
-  //     console.error('Error Login:', e); // 에러 메시지 수정
-  //   }
-  // };
+      // 쿠키에서 accessToken 가져오기
+      // const accessToken = getCookie('accessToken');
+      // console.log('Access Token:', accessToken);
+    } catch (e: any) {
+      console.error('Error Login:', e); // 에러 메시지 수정
+    }
+  };
 
   return (
     <div className="likepage_container">
@@ -54,7 +56,7 @@ export default function Like() {
         LIKE
       </p>
       <div className="content">
-        {/* <div className="noLogin">
+        <div className="noLogin">
           <p className="ment">
             LIKE, MY PAGE는
             <br /> 로그인 후 이용이 가능해요
@@ -65,7 +67,7 @@ export default function Like() {
           >
             카카오 로그인
           </p>
-        </div> */}
+        </div>
         {/* <div className="noneLike">
           <Image
             src={LocalImages.iconEmptyStar}
@@ -75,8 +77,8 @@ export default function Like() {
           />
           <p>아직 찜한 컨텐츠가 없어요</p>
         </div> */}
-        <div className="listLike">
-          {['1', '2', '3'].map((item) => (
+        {/* <div className="listLike">
+          {['1', '2', '3', '4', '5', '6'].map((item) => (
             <div
               key={item}
               onClick={() => selectLike(item)}
@@ -95,7 +97,7 @@ export default function Like() {
               <p>{item}</p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

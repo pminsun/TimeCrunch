@@ -1,4 +1,4 @@
-import { cls } from '@/utils/config';
+import { changeTime, cls } from '@/utils/config';
 import Image from 'next/image';
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
@@ -12,6 +12,7 @@ export default function MoodSelect() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { mood, setMod, walkTime, setWalkTime, place, setPlace, setFindPlace } = useMoodSettingStore();
   const [loading, setLoading] = useState(false);
+  const [rangeWalkTime, setRangeWalkTime] = useState(0);
 
   const selectMood = (mood: string) => {
     setMod(mood);
@@ -21,9 +22,10 @@ export default function MoodSelect() {
   const min = 0;
   const selectWalkTime = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
-
+    const timeNum = changeTime(value);
     const gradientValue = 100 / max;
-    setWalkTime(value);
+    setRangeWalkTime(value);
+    setWalkTime(timeNum);
     event.target.style.background = `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${gradientValue * value}%, #FFFCF8 ${gradientValue * value}%, #FFFCF8 100%)`;
   };
 
@@ -147,10 +149,10 @@ export default function MoodSelect() {
                   type="range"
                   min={min}
                   max={max}
-                  value={walkTime}
+                  value={rangeWalkTime}
                   onChange={selectWalkTime}
                   step="1"
-                  style={{ background: `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${walkTime * (100 / max)}%, #FFFCF8 ${walkTime * (100 / max)}%, #FFFCF8 100%)` }}
+                  style={{ background: `linear-gradient(to right, #BBF0DC 0%, #BBF0DC ${rangeWalkTime * (100 / max)}%, #FFFCF8 ${rangeWalkTime * (100 / max)}%, #FFFCF8 100%)` }}
                 />
                 <div className="time_display">
                   <span>0분</span>

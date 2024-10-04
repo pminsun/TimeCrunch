@@ -251,6 +251,10 @@ input {
 
     .top_ment {
       @apply mt-[68px] mb-[15px] text-[#2D2D2D] font-[600] text-[22px];
+
+      > span {
+        @apply text-[#FF8C6D] font-[600] text-[22px];
+      }
     }
 
     .select_area {
@@ -282,7 +286,25 @@ input {
     .mood_area {
       @apply grid grid-cols-2 gap-[10px] pb-[16px];
       .mood_box {
-        @apply flex_center relative aspect-square;
+        @apply flex_center relative h-[101px] overflow-hidden rounded-[6px];
+
+        &.on {
+          @apply border-2 border-[#FC7651];
+        }
+        &.none {
+          @apply border-2 border-transparent;
+        }
+
+        > .img_area {
+          @apply w-full object-cover;
+          img {
+            @apply w-full scale-[1.1] object-cover;
+          }
+        }
+
+        > p {
+          @apply absolute bottom-[13px] left-[17px] text-white font-[600] text-[18px];
+        }
 
         .check {
           @apply absolute top-[12px] right-[11px] flex_center w-[26px] aspect-square rounded-full thick_border;
@@ -291,8 +313,11 @@ input {
     }
 
     /* 시간 선택 */
+    .tempMap_area {
+      @apply w-full px-[30px] h-[203px] mt-[27px] rounded-[10px] overflow-hidden bg-red-200;
+    }
     .time_area {
-      @apply absolute_xHalf top-[40%] w-[calc(100%-30px)];
+      @apply mt-[36px] rounded-[10px];
 
       > input {
         @apply w-full h-[20px] appearance-none rounded-[10px] colorBg thick_border;

@@ -36,7 +36,15 @@ import iconBottomMypage from '@/public/images/icon_bottom_mypage.svg';
 
 import iconfilterLike from '@/public/images/filter_like.svg';
 
+import moodTrandy from '@/public/images/mood_trandy.svg';
+import moodExotic from '@/public/images/mood_exotic.svg';
+import moodHealing from '@/public/images/mood_healing.svg';
+import moodJoy from '@/public/images/mood_joy.svg';
+import moodGood from '@/public/images/mood_good.svg';
+import moodQuiet from '@/public/images/mood_quiet.svg';
+
 export { onBoardingOne, onBoardingTwo, onBoardingThree };
+export { moodTrandy, moodGood, moodQuiet, moodJoy, moodHealing, moodExotic };
 
 export { logoMain, logoSnak, TitleLogoPink, characterMain };
 

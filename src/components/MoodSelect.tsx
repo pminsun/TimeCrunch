@@ -1,4 +1,4 @@
-import { changeTime, cls } from '@/utils/config';
+import { changeMoodName, changeTime, cls } from '@/utils/config';
 import Image from 'next/image';
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
@@ -81,6 +81,78 @@ export default function MoodSelect() {
     }
   };
 
+  useEffect(() => {
+    const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
+      const currentLocation = new naver.maps.LatLng(lat, lng);
+      // walkTime에 따른 줌 레벨 설정
+      const zoomLevel = walkTime === 0 ? 17 : walkTime === 5 ? 15 : walkTime === 10 ? 14 : walkTime === 15 ? 13 : walkTime === 20 ? 13 : 11;
+      const mapOptions = {
+        center: currentLocation,
+        zoom: zoomLevel,
+      };
+
+      const map = new naver.maps.Map('tempap', mapOptions);
+
+      // 반경 서클 생성
+      // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
+      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 100;
+      const circle = new naver.maps.Circle({
+        map: map,
+        center: currentLocation,
+        radius: radius,
+        strokeColor: '#FF977A',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        fillColor: '#FEAD97',
+        fillOpacity: 0.11,
+      });
+    };
+
+    const loadMap = () => {
+      // 성수동 중심 좌표
+      const defaultLat = 37.544579;
+      const defaultLng = 127.055831;
+
+      // 성공 콜백 함수
+      const success = (position: GeolocationPosition) => {
+        const { latitude, longitude } = position.coords;
+
+        // 성수동의 대략적인 범위 설정
+        const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
+
+        if (isInSeongsu) {
+          initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
+        } else {
+          initMap(defaultLat, defaultLng, isInSeongsu); // 성수동 외 위치
+        }
+      };
+
+      // 오류 콜백 함수
+      const error = () => {
+        initMap(defaultLat, defaultLng, false); // 오류가 발생하면 성수역 좌표로 지도 초기화
+      };
+
+      // 현재 위치 확인
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(success, error, {
+          enableHighAccuracy: true, // 높은 정확도 사용
+        }); // 현재 위치 요청
+      } else {
+        // Geolocation을 지원하지 않으면 기본 좌표 사용
+        initMap(defaultLat, defaultLng, false);
+      }
+    };
+
+    if (window.naver && window.naver.maps) {
+      loadMap();
+    } else {
+      const mapScript = document.createElement('script');
+      mapScript.onload = () => loadMap();
+      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_ID}&submodules=geocoder`;
+      document.head.appendChild(mapScript);
+    }
+  }, [walkTime]);
+
   return (
     <>
       <section className="selectMood_container">
@@ -111,18 +183,68 @@ export default function MoodSelect() {
           <div className="select_content">
             <p className="top_ment">
               SeongSu님이 원하는 공간의
-              <br /> 무드를 1개 골라보세요
+              <br /> 무드를 <span>1개</span> 골라보세요
             </p>
             <div className="select_area">
               <div className="mood_area">
                 {['분위기 좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((item, index) => (
                   <div
                     key={item}
-                    className={cls('mood_box', mood === item ? 'bg-[#A2A2A2]' : 'bg-[#D0D0D0]')}
+                    className={cls('mood_box', changeMoodName(item), mood === item ? 'on' : '')}
                     onClick={() => selectMood(item)}
                   >
-                    {item}
-                    <div className={cls('check', mood === item ? 'bg-[#FFD787]' : 'bg-[#F0EDE9]')}>
+                    <div className="img_area">
+                      {changeMoodName(item) === 'good' && (
+                        <Image
+                          src={LocalImages.moodGood}
+                          alt="moodGood"
+                          width={160}
+                          height={101}
+                        />
+                      )}
+                      {changeMoodName(item) === 'quiet' && (
+                        <Image
+                          src={LocalImages.moodQuiet}
+                          alt="moodQuiet"
+                          width={160}
+                          height={101}
+                        />
+                      )}
+                      {changeMoodName(item) === 'exotic' && (
+                        <Image
+                          src={LocalImages.moodExotic}
+                          alt="moodExotic"
+                          width={160}
+                          height={101}
+                        />
+                      )}
+                      {changeMoodName(item) === 'joy' && (
+                        <Image
+                          src={LocalImages.moodJoy}
+                          alt="moodJoy"
+                          width={160}
+                          height={101}
+                        />
+                      )}
+                      {changeMoodName(item) === 'healing' && (
+                        <Image
+                          src={LocalImages.moodHealing}
+                          alt="moodHealing"
+                          width={160}
+                          height={101}
+                        />
+                      )}
+                      {changeMoodName(item) === 'trendy' && (
+                        <Image
+                          src={LocalImages.moodTrandy}
+                          alt="moodTrandy"
+                          width={160}
+                          height={101}
+                        />
+                      )}
+                    </div>
+                    <p>{item}</p>
+                    <div className={cls('check', mood === item ? 'bg-[#FFD787]' : 'bg-[#726F6C]')}>
                       {mood === item && (
                         <Image
                           src={LocalImages.iconCheck}
@@ -151,6 +273,10 @@ export default function MoodSelect() {
           <div className="select_content">
             <p className="top_ment">도보로 몇 분 걸을 수 있나요? </p>
             <div className="select_area">
+              <div
+                className="tempMap_area"
+                id="tempap"
+              ></div>
               <div className="time_area">
                 <input
                   type="range"

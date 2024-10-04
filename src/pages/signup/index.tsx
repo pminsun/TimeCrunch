@@ -10,9 +10,9 @@ export default function SignUp() {
     setUserNickName(e.target.value);
   };
 
-  const loginHandler = () => {
-    router.push(authorizationCodeLink);
-  };
+  // const loginHandler = () => {
+  //   router.push(authorizationCodeLink);
+  // };
 
   return (
     <div className="signUp_container">
@@ -32,7 +32,7 @@ export default function SignUp() {
       </div>
       <div
         className="signUp_btn"
-        onClick={loginHandler}
+        // onClick={loginHandler}
       >
         가입하기
       </div>

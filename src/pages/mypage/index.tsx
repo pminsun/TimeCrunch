@@ -1,3 +1,8 @@
 export default function Mypage() {
-  return <div>Mypage</div>;
+  return (
+    <div className="mypage_container">
+      <p># MY PAGE</p>
+      <div className="content"></div>
+    </div>
+  );
 }

@@ -814,3 +814,11 @@ input {
     }
   }
 }
+
+.mypage_container {
+  @apply px-[13px] pb-[37px];
+
+  > p {
+    @apply font-Jalnan text-[20px] text-black py-[12px];
+  }
+}

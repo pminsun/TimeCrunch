@@ -52,6 +52,6 @@ export const fetchKakaoLogOut = async (accessToken: any) => {
 export const kkk = async () => {
   return await axios({
     method: 'get',
-    url: 'http://211.188.48.22:8080/oauth2/authorization/kakao', // 문자열로 감싸기
+    url: 'https://api.seongsu-snack.site/oauth2/authorization/kakao ', // 문자열로 감싸기
   });
 };

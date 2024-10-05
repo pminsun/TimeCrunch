@@ -22,8 +22,13 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  // const loginHandler = async () => {
+  //   router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
+  // };
+
   const loginHandler = async () => {
-    router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
+    // 리다이렉션 처리
+    window.location.href = 'https://api.seongsu-snack.site/oauth2/authorization/kakao';
   };
 
   const sliderOnBoradingRef: any = useRef(null);

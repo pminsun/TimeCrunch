@@ -1,6 +1,6 @@
 import { mOne, one, seongsuBoundary, three } from '@/utils/seongsuLocation';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import { cls } from '@/utils/config';
@@ -35,6 +35,7 @@ export default function Map() {
   const [singlePlaceInfo, setSinglePlaceInfo] = useState(false);
   const [modalContent, setModalContent] = useState({});
   const noneLikeFilter = true;
+  const circleRef = useRef<naver.maps.Circle | null>(null);
 
   const openPlaceDetail = (placeName: any) => {
     setShowPlace(true);
@@ -79,17 +80,25 @@ export default function Map() {
 
       // 반경 100m 서클 생성
       // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
+      // walkTime에 따른 반경 값 설정
       const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
-      const circle = new naver.maps.Circle({
-        map: map,
-        center: currentLocation,
-        radius: radius,
-        strokeColor: '#FF977A',
-        strokeOpacity: 1,
-        strokeWeight: 1,
-        fillColor: '#FEAD97',
-        fillOpacity: 0.11,
-      });
+      // 서클 객체가 없으면 생성, 있으면 업데이트
+      if (!circleRef.current) {
+        circleRef.current = new naver.maps.Circle({
+          map: map,
+          center: currentLocation,
+          radius: radius,
+          strokeColor: '#FF977A',
+          strokeOpacity: 1,
+          strokeWeight: 1,
+          fillColor: '#FEAD97',
+          fillOpacity: 0.11,
+        });
+      } else {
+        circleRef.current.setMap(map);
+        circleRef.current.setCenter(currentLocation);
+        circleRef.current.setRadius(radius);
+      }
 
       // InfoWindow 생성 (마커 클릭 시 표시될 정보 창)
       const infoWindow = new naver.maps.InfoWindow({

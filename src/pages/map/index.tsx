@@ -1,4 +1,3 @@
-import { mOne, one, seongsuBoundary, three } from '@/utils/seongsuLocation';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
@@ -6,27 +5,18 @@ import * as LocalImages from '@/utils/imageImports';
 import { cls } from '@/utils/config';
 import { useLikeStore, useMoodSettingStore } from '@/store/store';
 import MapFilter from '@/components/MapFilter';
-import DetailPlace from '@/components/DetailPlace';
+import SinglePlaceModal from '@/components/SinglePlaceModal';
 import { seongSuData } from '../../../src/api/temData';
 
 export default function Map() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const [showLike, setShowLike] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
-  const { likeList, setLikeList } = useLikeStore();
-  const [showPlace, setShowPlace] = useState(false);
-  const [showPlaceType, setShowPlaceType] = useState(false);
   const [singlePlaceInfo, setSinglePlaceInfo] = useState(false);
   const [modalContent, setModalContent] = useState({});
   const noneLikeFilter = true;
   const circleRef = useRef<naver.maps.Circle | null>(null);
-
-  const openPlaceDetail = (placeName: any) => {
-    setShowPlace(true);
-    setShowPlaceType(placeName);
-  };
 
   const selectPlace = (placeName: string) => {
     if (place.includes(placeName)) {
@@ -134,6 +124,11 @@ export default function Map() {
                 name: place.name,
                 address: place.address,
                 description: place.description,
+                hours: place.hours,
+                distance: distance,
+                placeType: place.placeType,
+                mood: place.mood,
+                submood: place.submood,
               });
               setSinglePlaceInfo(true);
             });
@@ -262,60 +257,7 @@ export default function Map() {
           id="map"
           style={{ width: '480px', height: '100%' }}
         ></div>
-        {singlePlaceInfo && (
-          <div className="placeInfo_area">
-            <div className="bar"></div>
-            <div
-              className="placeInfo_box"
-              onClick={() => openPlaceDetail('장소타이틀명은10자로')}
-            >
-              <div className="info_area">
-                <div className="left">
-                  <p className="place_name">서울숲글자수는글자수여기</p>
-                  <div>
-                    <p>200m</p>
-                    <p>산책/공원</p>
-                  </div>
-                  <div className="mt-[4px]">
-                    <p className="orange">영업 전</p>
-                    <p>7:00시 영업시작</p>
-                  </div>
-                </div>
-                <div className="right">
-                  <div className="mood"># 조용한</div>
-                  <div className="mb-1">
-                    {likeList.includes('임시') ? (
-                      <Image
-                        src={LocalImages.iconFillStar}
-                        alt="iconEmptyStar"
-                        width={24}
-                        height={24}
-                      />
-                    ) : (
-                      <Image
-                        src={LocalImages.iconEmptyStar}
-                        alt="iconEmptyStar"
-                        width={24}
-                        height={24}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="img_area">
-                {[1, 2, 3].map((img) => (
-                  <div key={img}></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-        {showPlace && (
-          <DetailPlace
-            showPlaceType={showPlaceType}
-            setShowPlace={setShowPlace}
-          />
-        )}
+        {singlePlaceInfo && <SinglePlaceModal modalContent={modalContent}/>}
       </div>
 
       {showFilter && (

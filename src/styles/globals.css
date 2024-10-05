@@ -722,7 +722,7 @@ input {
           }
 
           > div {
-            @apply flex gap-[12px];
+            @apply flex_vertical_center  gap-[12px];
 
             > p:first-of-type {
               @apply text-[#2D2D2D] text-[14px] font-[600];
@@ -939,7 +939,11 @@ input {
     }
 
     .mood {
-      @apply w-auto mr-[23px] ml-[19px] px-[17px] py-[6px] thick_border text-[16px] font-[600] rounded-[18px] text-black;
+      @apply w-auto mr-[8px] px-[17px] py-[6px] thick_border text-[16px] font-[600] rounded-[18px] text-black;
+
+      &:first-of-type {
+        @apply ml-[19px];
+      }
     }
     .info_detailMent {
       @apply w-full mt-[15px] mb-[30px] pr-[23px] pl-[19px] text-[14px] font-[400];

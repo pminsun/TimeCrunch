@@ -54,4 +54,32 @@ export const changeTime = (time: number) => {
   }
 };
 
-export const rangeMapDistancce = (time: number) => {};
+// 시간 비교 함수
+export const getBusinessStatus = (hours: string) => {
+  const currentTime = new Date(); // 현재 시간
+  const currentHours = currentTime.getHours();
+  const currentMinutes = currentTime.getMinutes();
+
+  if (!hours || hours === '24시간') {
+    return '상시 개방'; // 24시간인 경우
+  }
+
+  // '11:00 - 22:00' 형식에서 영업 시작과 종료 시간 추출
+  const [openTime, closeTime] = hours.split(' - ');
+
+  const [openHour, openMinute] = openTime.split(':').map(Number); // 시작 시간
+  const [closeHour, closeMinute] = closeTime.split(':').map(Number); // 종료 시간
+
+  // 현재 시간이 영업 시작 시간보다 이전이면 "영업 전"
+  if (currentHours < openHour || (currentHours === openHour && currentMinutes < openMinute)) {
+    return '영업 전';
+  }
+
+  // 현재 시간이 영업 종료 시간보다 늦으면 "영업 종료"
+  if (currentHours > closeHour || (currentHours === closeHour && currentMinutes > closeMinute)) {
+    return '영업 종료';
+  }
+
+  // 영업 중
+  return '영업 중';
+};

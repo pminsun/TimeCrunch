@@ -3,7 +3,7 @@ export const seongSuData = {
     {
       name: '자그마치',
       address: '성수이로 88',
-      hours: '매일 11:00 - 23:00',
+      hours: '11:00 - 23:00',
       latitude: 37.5426704339174,
       longitude: 127.056766212447,
       mood: ['트렌디한'],
@@ -13,7 +13,7 @@ export const seongSuData = {
     {
       name: '대림창고',
       address: '성수이로 78',
-      hours: '매일 11:00 - 23:00',
+      hours: '11:00 - 23:00',
       latitude: 37.5416392066484,
       longitude: 127.056647865179,
       mood: ['이국적인', '힐링'],
@@ -23,7 +23,7 @@ export const seongSuData = {
     {
       name: '훔볼트',
       address: '성수이로 58',
-      hours: '평일 07:00 - 22:00 / 주말 10:00 - 22:00',
+      hours: '07:00 - 22:00',
       latitude: 37.5400995344191,
       longitude: 127.055602663956,
       mood: ['조용한'],
@@ -33,7 +33,7 @@ export const seongSuData = {
     {
       name: '양면성',
       address: '성수이로12길 13',
-      hours: '화-일 11:30 - 21:00 (월요일 휴무)',
+      hours: '11:30 - 21:00',
       latitude: 37.5397823826391,
       longitude: 127.056738790521,
       mood: ['트렌디한', '즐거운'],
@@ -43,7 +43,7 @@ export const seongSuData = {
     {
       name: '카멜커피',
       address: '성덕정19길 6',
-      hours: '매일 11:30 - 20:00',
+      hours: '11:30 - 20:00',
       latitude: 37.5372437584684,
       longitude: 127.055912373351,
       mood: ['조용한', '트렌디한'],
@@ -53,7 +53,7 @@ export const seongSuData = {
     {
       name: '레필로소피',
       address: '성수이로 65',
-      hours: '평일 08:00 - 23:00 / 주말 13:00 - 23:00',
+      hours: '08:00 - 23:00',
       latitude: 37.5409753805242,
       longitude: 127.055444676004,
       mood: ['분위기좋은'],
@@ -63,7 +63,7 @@ export const seongSuData = {
     {
       name: '사진창고',
       address: '성수이로7길 26',
-      hours: '매일 09:30 - 22:00',
+      hours: '09:30 - 22:00',
       latitude: 37.5415884366623,
       longitude: 127.05424639,
       mood: ['이국적인'],
@@ -73,7 +73,7 @@ export const seongSuData = {
     {
       name: '쉐어드테이블',
       address: '연무장길 47',
-      hours: '매일 09:00 - 23:00',
+      hours: '09:00 - 23:00',
       latitude: 37.5427988846981,
       longitude: 127.05473417315,
       mood: ['트렌디한', '즐거운'],
@@ -83,7 +83,7 @@ export const seongSuData = {
     {
       name: '멜로워',
       address: '성수이로7길 39',
-      hours: '평일 08:00 - 22:00 / 주말 10:00 - 22:00',
+      hours: '08:00 - 22:00',
       latitude: 37.5425331453144,
       longitude: 127.053233219739,
       mood: ['조용한'],
@@ -93,7 +93,7 @@ export const seongSuData = {
     {
       name: '오르에르',
       address: '연무장길 18',
-      hours: '매일 11:00 - 22:00',
+      hours: '11:00 - 22:00',
       latitude: 37.5435207423,
       longitude: 127.051376477438,
       mood: ['힐링', '이국적인'],
@@ -152,7 +152,7 @@ export const seongSuData = {
     {
       name: '성수문화예술마당',
       address: '고산자로 71',
-      hours: '상시 개방 (변동 있음)',
+      hours: '24시간',
       latitude: 37.5456933072032,
       longitude: 127.036089109561,
       mood: ['조용한'],
@@ -163,7 +163,7 @@ export const seongSuData = {
     {
       name: '디뮤지엄',
       address: '왕십리로 83-21 디뮤지엄',
-      hours: '11:00 - 18:00 (금, 토 ~19:00)',
+      hours: '11:00 - 18:00',
       latitude: 37.5441547484979,
       longitude: 127.043357753557,
       mood: ['힐링', '이국적인'],

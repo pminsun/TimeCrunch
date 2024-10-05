@@ -110,7 +110,7 @@ export default function Home() {
       <div className="re_watchMood">
         <p>#무드 다시찾기</p>
         <div>
-          {['분위기 좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((mood: string) => (
+          {['분위기좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((mood: string) => (
             <React.Fragment key={mood}>
               <div
                 className={cls(changeMoodName(mood))}

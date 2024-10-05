@@ -675,10 +675,6 @@ input {
           @apply bg-[#BBF0DC]/50 thick_border;
         }
 
-        &.like {
-          @apply px-[14px] py-[11px];
-        }
-
         &.selectLike {
           @apply bg-[#FFD787] thick_bold_border;
         }
@@ -687,6 +683,18 @@ input {
           @apply bg-[#FFD787]/50 thick_border;
         }
       }
+    }
+  }
+
+  .like {
+    @apply flex_center absolute left-[17px] rounded-full z-50 w-[38px] h-[38px];
+
+    &.selectLike {
+      @apply bg-[#FFD787] thick_bold_border;
+    }
+
+    &.noneSelectLike {
+      @apply bg-[#FFFCF8] thick_border;
     }
   }
 

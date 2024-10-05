@@ -46,7 +46,7 @@ export default function MapFilter({ showLike, setShowFilter, setShowLike, noneLi
           <p>무드</p>
           <div>
             <ul>
-              {['분위기 좋은', '조용한', '이국적인'].map((moodType: string) => (
+              {['분위기좋은', '조용한', '이국적인'].map((moodType: string) => (
                 <li
                   key={moodType}
                   onClick={() => setTempMood(moodType)}

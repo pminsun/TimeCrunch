@@ -197,7 +197,7 @@ export default function MoodSelect() {
             </p>
             <div className="select_area">
               <div className="mood_area">
-                {['분위기 좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((item, index) => (
+                {['분위기좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((item, index) => (
                   <div
                     key={item}
                     className={cls('mood_box', changeMoodName(item), mood === item ? 'on' : '')}

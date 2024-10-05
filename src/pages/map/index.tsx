@@ -226,18 +226,18 @@ export default function Map() {
             >
               편집샵/쇼핑
             </li>
-            <li
-              onClick={() => setShowLike(!showLike)}
-              className={cls('like', showLike ? 'selectLike' : 'noneSelectLike')}
-            >
-              <Image
-                src={LocalImages.iconfilterLike}
-                alt="iconfilterLike"
-                width={20}
-                height={20}
-              />
-            </li>
           </ul>
+        </div>
+        <div
+          onClick={() => setShowLike(!showLike)}
+          className={cls('like', showLike ? 'selectLike' : 'noneSelectLike', singlePlaceInfo ? 'bottom-[254px]' : 'bottom-[15px]')}
+        >
+          <Image
+            src={LocalImages.iconfilterLike}
+            alt="iconfilterLike"
+            width={20}
+            height={20}
+          />
         </div>
         <div
           id="map"

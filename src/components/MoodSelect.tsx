@@ -3,14 +3,15 @@ import Image from 'next/image';
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import * as LocalImages from '@/utils/imageImports';
-import { useMoodSettingStore } from '@/store/store';
+import { useMoodSettingStore, useTempMoodStore } from '@/store/store';
 import Loading from './Loading';
 import { useRouter } from 'next/router';
 
 export default function MoodSelect() {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { mood, setMod, walkTime, setWalkTime, place, setPlace, setFindPlace } = useMoodSettingStore();
+  const { mood, setMod, walkTime, setWalkTime, place, setPlace, setFindPlace, findPlace } = useMoodSettingStore();
+  const { tempStoreMood, setTempStoreMood, tempStoreWalkTime, setTempStoreWalkTime, tempStorePlace, setTempStorPlace } = useTempMoodStore();
   const [loading, setLoading] = useState(false);
   const [rangeWalkTime, setRangeWalkTime] = useState(0);
 
@@ -42,9 +43,6 @@ export default function MoodSelect() {
   // 진입시 첫번째 슬라이드 시작
   useEffect(() => {
     setCurrentSlide(0);
-    setMod('');
-    setWalkTime(0);
-    setPlace([]);
     setFindPlace(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -68,6 +66,9 @@ export default function MoodSelect() {
     const timer = setTimeout(() => {
       setLoading(false);
       setFindPlace(true);
+      setTempStoreMood(mood);
+      setTempStoreWalkTime(walkTime);
+      setTempStorPlace(place);
       router.push('/home');
     }, 2000);
 
@@ -94,7 +95,7 @@ export default function MoodSelect() {
         zoom: zoomLevel,
       };
 
-      const map = new naver.maps.Map('tempap', mapOptions);
+      const map = new naver.maps.Map('temmap', mapOptions);
 
       // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
       const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 100;
@@ -166,7 +167,31 @@ export default function MoodSelect() {
   return (
     <>
       <section className="selectMood_container">
-        <div className="stepInfo_area">
+        {tempStoreMood && (
+          <div
+            className="backBtn"
+            onClick={() => {
+              if (currentSlide === 2) {
+                sliderRef.current.slickGoTo(1);
+              } else if (currentSlide === 1) {
+                sliderRef.current.slickGoTo(0);
+              } else if (currentSlide === 0) {
+                setMod(tempStoreMood);
+                setWalkTime(tempStoreWalkTime);
+                setPlace(tempStorePlace);
+                setFindPlace(true);
+              }
+            }}
+          >
+            <Image
+              src={LocalImages.iconBack}
+              alt="iconBack"
+              width={30}
+              height={30}
+            />
+          </div>
+        )}
+        <div className={cls('stepInfo_area', tempStoreMood ? 'top-[60px]' : 'top-[13px]')}>
           <div className="step">
             {[1, 2, 3].map((step) => (
               <React.Fragment key={step}>
@@ -191,7 +216,7 @@ export default function MoodSelect() {
           {...sliderSettings}
         >
           <div className="select_content">
-            <p className="top_ment">
+            <p className={cls('top_ment', tempStoreMood ? 'mt-[96px]' : 'mt-[68px]')}>
               SeongSu님이 원하는 공간의
               <br /> 무드를 <span>1개</span> 골라보세요
             </p>
@@ -281,11 +306,11 @@ export default function MoodSelect() {
             </div>
           </div>
           <div className="select_content">
-            <p className="top_ment">도보로 몇 분 걸을 수 있나요? </p>
+            <p className={cls('top_ment', tempStoreMood ? 'mt-[96px]' : 'mt-[68px]')}>도보로 몇 분 걸을 수 있나요? </p>
             <div className="select_area">
               <div
                 className="tempMap_area"
-                id="tempap"
+                id="temmap"
               ></div>
               <div className="time_area">
                 <input
@@ -327,7 +352,7 @@ export default function MoodSelect() {
             </div>
           </div>
           <div className="select_content">
-            <p className="top_ment">어떤 공간에 가고 싶으세요?</p>
+            <p className={cls('top_ment', tempStoreMood ? 'mt-[96px]' : 'mt-[68px]')}>어떤 공간에 가고 싶으세요?</p>
             <div className="select_area">
               <div className="place_area">
                 {['카페', '공연/전시', '산책/공원', '편집샵/쇼핑'].map((placeItem) => (

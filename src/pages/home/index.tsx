@@ -1,5 +1,5 @@
 import MoodSelect from '@/components/MoodSelect';
-import { useLikeStore, useMoodSettingStore } from '@/store/store';
+import { useLikeStore, useMoodSettingStore, useTempMoodStore } from '@/store/store';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import React, { ReactNode, useEffect, useState } from 'react';
@@ -7,7 +7,8 @@ import { changeMoodName, cls } from '@/utils/config';
 import MoodCollection from '@/components/MoodCollection';
 
 export default function Home() {
-  const { mood, findPlace, walkTime, setFindPlace } = useMoodSettingStore();
+  const { mood, findPlace, walkTime, setFindPlace, place } = useMoodSettingStore();
+  const { tempStoreMood, setTempStoreMood, setTempStoreWalkTime, setTempStorPlace } = useTempMoodStore();
   const { likeList, setLikeList } = useLikeStore();
   const [showMoodCollection, setShowMoodCollection] = useState(false);
   const [moodCollectionType, setMoodCollectionType] = useState('');
@@ -24,6 +25,13 @@ export default function Home() {
     setMoodCollectionType(mood);
     setShowMoodCollection(true);
   };
+
+  useEffect(() => {
+    setTempStoreMood(mood);
+    setTempStoreWalkTime(walkTime);
+    setTempStorPlace(place)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return mood !== '' && findPlace ? (
     <section className="home_conatiner">

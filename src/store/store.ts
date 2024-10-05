@@ -49,6 +49,31 @@ export const useMoodSettingStore = create(
   ),
 );
 
+interface TempMoodState {
+  tempStoreMood: string;
+  setTempStoreMood: (value: string) => void;
+  tempStoreWalkTime: number;
+  setTempStoreWalkTime: (value: number) => void;
+  tempStorePlace: string[]; // place를 문자열 배열로 지정
+  setTempStorPlace: (value: string[]) => void; // place를 설정하는 함수
+}
+
+export const useTempMoodStore = create(
+  persist<TempMoodState>(
+    (set) => ({
+      tempStoreMood: '',
+      setTempStoreMood: (value: string) => set({ tempStoreMood: value }),
+      tempStoreWalkTime: 0,
+      setTempStoreWalkTime: (value: number) => set({ tempStoreWalkTime: value }),
+      tempStorePlace: [],
+      setTempStorPlace: (value: string[]) => set({ tempStorePlace: value }),
+    }),
+    {
+      name: 'tempmoodSetting', // 로컬 스토리지 키
+    },
+  ),
+);
+
 //// 좋아요 선택 ////
 interface LikeState {
   likeList: string[];

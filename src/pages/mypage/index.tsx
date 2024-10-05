@@ -31,7 +31,14 @@ export default function Mypage() {
           <div>
             <div className="top">
               <div className="userInfo">
-                <div className="userImage"></div>
+                <div className="userImage">
+                  <Image
+                    src={LocalImages.defaultProfile}
+                    alt="defaultProfile"
+                    width={80}
+                    height={80}
+                  />
+                </div>
                 <p>닉네임</p>
               </div>
               <button

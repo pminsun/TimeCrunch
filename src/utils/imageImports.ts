@@ -43,10 +43,12 @@ import moodJoy from '@/public/images/mood_joy.svg';
 import moodGood from '@/public/images/mood_good.svg';
 import moodQuiet from '@/public/images/mood_quiet.svg';
 
+import defaultProfile from '@/public/images/default_profile.png';
+
 export { onBoardingOne, onBoardingTwo, onBoardingThree };
 export { moodTrandy, moodGood, moodQuiet, moodJoy, moodHealing, moodExotic };
 
-export { logoMain, logoSnak, TitleLogoPink, characterMain };
+export { logoMain, logoSnak, TitleLogoPink, characterMain, defaultProfile };
 
 export { iconClose, iconCheck, rangeThumb, iconFillStar, iconBack, iconEmptyStar, iconfilterLike, iconDropArrow };
 

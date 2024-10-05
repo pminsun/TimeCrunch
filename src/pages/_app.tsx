@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import '@/styles/fonts.css';
 import Seo from '@/components/Seo';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CookiesProvider } from 'react-cookie';
 
 const queryClient = new QueryClient();
 
@@ -21,9 +22,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <React.Fragment>
       <Seo />
       <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <CookiesProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </CookiesProvider>
       </QueryClientProvider>
     </React.Fragment>
   );

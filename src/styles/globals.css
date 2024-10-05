@@ -970,7 +970,15 @@ input {
 
         .userInfo {
           .userImage {
-            @apply overflow-hidden;
+            @apply w-[80px] h-[80px] object-cover rounded-[14px] thick_border overflow-hidden;
+
+            img {
+              @apply object-cover scale-110;
+            }
+          }
+
+          > p {
+            @apply text-center;
           }
         }
       }

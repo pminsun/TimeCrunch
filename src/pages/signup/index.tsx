@@ -6,6 +6,8 @@ import Slider from 'react-slick';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import Link from 'next/link';
+import { useCookies } from 'react-cookie';
+import { getCookie, setCookie } from 'cookies-next';
 
 export default function SignUp() {
   const router = useRouter();
@@ -13,6 +15,7 @@ export default function SignUp() {
   const [currentLoginSlide, setCurrentLoginSlide] = useState(0);
   const [userNickName, setUserNickName] = useState('');
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(null);
+  const [click, setClick] = useState(false);
 
   const writeNickName = (e: { target: { value: SetStateAction<string> } }) => {
     setUserNickName(e.target.value);
@@ -58,12 +61,9 @@ export default function SignUp() {
   };
 
   const signUpWithNickName = async () => {
-    try {
-      const response = await authNew(userNickName);
-      console.log(response);
-    } catch (error) {
-      console.error('닉네임 확인 중 오류 발생:', error);
-    }
+    setClick(true);
+    const accessToken = getCookie('accessToken', { domain: 'api.seongsu-snack.site', path: '/' });
+    console.log('accessToken', accessToken);
   };
 
   return (
@@ -219,4 +219,7 @@ export default function SignUp() {
       </Slider>
     </div>
   );
+}
+function setToken(arg0: string) {
+  throw new Error('Function not implemented.');
 }

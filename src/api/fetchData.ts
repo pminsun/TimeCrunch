@@ -66,13 +66,16 @@ export const noneDuplicateNickName = async (nickName: any) => {
   });
 };
 
-export const authNew = async (nickName: any) => {
-  console.log('nickName', nickName);
+export const authNew = async (nickName: any, userAccessToken: string) => {
   return await axios({
     method: 'post',
     url: `${base_url}/api/auth/signup`,
     data: {
       nickname: nickName,
+    },
+    headers: {
+      Authorization: `Bearer ${userAccessToken}`,
+      'Content-Type': 'application/json; charset=utf-8',
     },
   });
 };

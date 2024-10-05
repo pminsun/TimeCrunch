@@ -63,6 +63,7 @@ export const noneDuplicateNickName = async (nickName: any) => {
   return await axios({
     method: 'get',
     url: `${base_url}/api/member/check-nickname?nickname=${nickName}`,
+    withCredentials: true,
   });
 };
 

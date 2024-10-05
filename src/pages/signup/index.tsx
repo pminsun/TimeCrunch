@@ -60,10 +60,27 @@ export default function SignUp() {
     }
   };
 
+  function getCookie(name: string) {
+    var nameOfCookie = name + '=';
+    var x = 0;
+    while (x <= document.cookie.length) {
+      var y = x + nameOfCookie.length;
+      if (document.cookie.substring(x, y) == nameOfCookie) {
+        var endOfCookie = document.cookie.indexOf(';', y);
+        if (endOfCookie == -1) {
+          endOfCookie = document.cookie.length;
+        }
+        return unescape(document.cookie.substring(y, endOfCookie));
+      }
+      x = document.cookie.indexOf(' ', x) + 1;
+      if (x == 0) break;
+    }
+    return '';
+  }
+
   const signUpWithNickName = async () => {
     setClick(true);
-    const accessToken = getCookie('accessToken', { domain: 'api.seongsu-snack.site', path: '/' });
-    console.log('accessToken', accessToken);
+    console.log(document.cookie);
   };
 
   return (

@@ -328,7 +328,7 @@ input {
 }
 
 .selectMood_container {
-  @apply relative w-full h-[calc(100%+72px)] z-50 colorBg;
+  @apply absolute top-0 w-full h-[calc(100%+72px)] z-50 colorBg;
   > .slick-slider {
     @apply w-full h-full;
 
@@ -961,10 +961,12 @@ input {
 }
 
 .mypage_container {
+  @apply relative;
   .content {
     @apply pt-[31px];
 
     .loggin {
+      @apply flex flex-col items-center;
       .top {
         @apply flex_vertical_center flex-col;
 
@@ -978,10 +980,41 @@ input {
           }
 
           > p {
-            @apply text-center;
+            @apply text-center mt-[12px] text-black text-[18px] font-[600];
+          }
+        }
+
+        button.re_selectMood {
+          @apply thick_border px-[30px] py-[7px] text-[16px] font-[600] text-black rounded-[28px];
+
+          > span {
+            @apply font-[800];
           }
         }
       }
+
+      ul {
+        @apply w-full mt-[35px] py-[12px] px-[30px] rounded-[20px] bg-[#FFFFFF];
+
+        li {
+          @apply flex_xBetween h-[58px] border-b-2 border-[#CFCCC8];
+
+          > a {
+            @apply w-full flex_xBetween;
+            > p {
+              @apply flex items-center h-[40px] pl-[3px] text-[#2D2D2D] font-[600] text-[14px];
+            }
+
+            > img {
+              transform: scaleX(-1);
+            }
+          }
+        }
+      }
+    }
+
+    .logOut {
+      @apply text-center underline mt-[30px] font-[600] text-[16px] text-[#2D2D2D];
     }
   }
 }

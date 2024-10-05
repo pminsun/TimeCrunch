@@ -999,6 +999,10 @@ input {
         li {
           @apply flex_xBetween h-[58px] border-b-2 border-[#CFCCC8];
 
+          &:last-of-type {
+            @apply border-none;
+          }
+
           > a,
           div {
             @apply w-full flex_xBetween;

@@ -112,7 +112,7 @@ input {
       }
 
       > div {
-        @apply mt-[44px] w-[205px] h-[344px];
+        @apply mt-[5%] w-[205px] h-[344px];
       }
     }
 

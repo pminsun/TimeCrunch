@@ -3,7 +3,7 @@ export function cls(...classnames: any[]) {
 }
 
 export const changeMoodName = (text: string) => {
-  if (text === '분위기 좋은') {
+  if (text === '분위기좋은') {
     return 'good';
   }
   if (text === '조용한') {

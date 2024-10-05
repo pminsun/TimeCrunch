@@ -7,21 +7,7 @@ import { cls } from '@/utils/config';
 import { useLikeStore, useMoodSettingStore } from '@/store/store';
 import MapFilter from '@/components/MapFilter';
 import DetailPlace from '@/components/DetailPlace';
-
-const temData = [
-  {
-    name: '마를리',
-    address: '서울 성동구 연무장길 47 홍원빌딩',
-    lat: 37.544953,
-    lng: 127.058436,
-  },
-  {
-    name: '센터커피 서울숲점',
-    address: '서울 성동구 서울숲2길 28-11',
-    lat: 37.544889,
-    lng: 127.041935,
-  },
-];
+import { seongSuData } from '../../../src/api/temData';
 
 export default function Map() {
   const router = useRouter();
@@ -50,7 +36,21 @@ export default function Map() {
     }
   };
 
-  useEffect(() => {}, [mood, walkTime, place]);
+  // 하버사인 공식을 이용한 거리 계산 함수
+  const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+    const R = 6371e3; // 지구 반지름 (미터 단위)
+    const toRad = (x: number) => (x * Math.PI) / 180;
+
+    const φ1 = toRad(lat1);
+    const φ2 = toRad(lat2);
+    const Δφ = toRad(lat2 - lat1);
+    const Δλ = toRad(lng2 - lng1);
+
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c; // 두 지점 사이의 거리 반환 (미터 단위)
+  };
 
   useEffect(() => {
     const initMap = (lat: number, lng: number, isInSeongsu: boolean) => {
@@ -110,33 +110,124 @@ export default function Map() {
         setSinglePlaceInfo(false); // 지도를 클릭하면 placeInfo_area가 닫힘
       });
 
-      temData.forEach((place) => {
-        const marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(place.lat, place.lng),
-          map: map,
-          title: place.name,
-          clickable: true,
-        });
+      //cafe
+      seongSuData.cafe.forEach((place) => {
+        const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
 
-        // 마커 클릭 이벤트
-        naver.maps.Event.addListener(marker, 'click', () => {
-          // const content = `
-          //   <div style="padding:10px;">
-          //     <h4>${place.name}</h4>
-          //     <p>${place.address}</p>
-          //   </div>
-          // `;
-
-          // // InfoWindow에 내용 설정 후 해당 마커 위치에 표시
-          // infoWindow.setContent(content);
-          // infoWindow.open(map, marker);
-
-          setModalContent({
-            name: place.name,
-            address: place.address,
+        if (distance <= radius) {
+          // 반경 내에 있는 장소만 마커로 표시
+          const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(place.latitude, place.longitude),
+            map: map,
+            title: place.name,
+            clickable: true,
+            icon: {
+              url: '/images/marker_cafe_two.svg',
+              size: new naver.maps.Size(34, 42),
+              origin: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(17, 42),
+            },
           });
-          setSinglePlaceInfo(true);
-        });
+
+          naver.maps.Event.addListener(marker, 'click', () => {
+            setModalContent({
+              name: place.name,
+              address: place.address,
+              description: place.description,
+            });
+            setSinglePlaceInfo(true);
+          });
+        }
+      });
+
+      // park
+      seongSuData.park.forEach((place) => {
+        const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
+
+        if (distance <= radius) {
+          // 반경 내에 있는 장소만 마커로 표시
+          const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(place.latitude, place.longitude),
+            map: map,
+            title: place.name,
+            clickable: true,
+            icon: {
+              url: '/images/marker_tree_two.svg',
+              size: new naver.maps.Size(34, 42),
+              origin: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(17, 42),
+            },
+          });
+
+          naver.maps.Event.addListener(marker, 'click', () => {
+            setModalContent({
+              name: place.name,
+              address: place.address,
+              description: place.description,
+            });
+            setSinglePlaceInfo(true);
+          });
+        }
+      });
+
+      // art
+      seongSuData.art.forEach((place) => {
+        const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
+
+        if (distance <= radius) {
+          // 반경 내에 있는 장소만 마커로 표시
+          const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(place.latitude, place.longitude),
+            map: map,
+            title: place.name,
+            clickable: true,
+            icon: {
+              url: '/images/marker_art_two.svg',
+              size: new naver.maps.Size(34, 42),
+              origin: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(17, 42),
+            },
+          });
+
+          naver.maps.Event.addListener(marker, 'click', () => {
+            setModalContent({
+              name: place.name,
+              address: place.address,
+              description: place.description,
+            });
+            setSinglePlaceInfo(true);
+          });
+        }
+      });
+
+      // shop
+      seongSuData.shop.forEach((place) => {
+        const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
+
+        if (distance <= radius) {
+          // 반경 내에 있는 장소만 마커로 표시
+          const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(place.latitude, place.longitude),
+            map: map,
+            title: place.name,
+            clickable: true,
+            icon: {
+              url: '/images/marker_shop_two.svg',
+              size: new naver.maps.Size(34, 42),
+              origin: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(17, 42),
+            },
+          });
+
+          naver.maps.Event.addListener(marker, 'click', () => {
+            setModalContent({
+              name: place.name,
+              address: place.address,
+              description: place.description,
+            });
+            setSinglePlaceInfo(true);
+          });
+        }
       });
     };
 
@@ -180,7 +271,7 @@ export default function Map() {
     } else {
       const mapScript = document.createElement('script');
       mapScript.onload = () => loadMap();
-      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_ID}&submodules=geocoder`;
+      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_ID}&submodules=geocoder,geometry`;
       document.head.appendChild(mapScript);
     }
   }, [walkTime]);

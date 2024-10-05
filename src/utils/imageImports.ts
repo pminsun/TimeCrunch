@@ -29,6 +29,8 @@ import markerArt from '@/public/images/marker_art.svg';
 import markerLike from '@/public/images/marker_like.svg';
 import markerEmpty from '@/public/images/marker_empty.svg';
 
+import markerCafeTwo from '@/public/images/marker_cafe_two.svg';
+
 import iconBottomHome from '@/public/images/icon_bottom_home.svg';
 import iconBottomMap from '@/public/images/icon_bottom_map.svg';
 import iconBottomLike from '@/public/images/icon_bottom_like.svg';
@@ -55,6 +57,6 @@ export { logoMain, logoSnak, TitleLogoPink, characterMain, defaultProfile };
 export { iconClose, iconLikeCategory, iconCheck, rangeThumb, iconFillStar, iconBack, iconEmptyStar, iconfilterLike, iconDropArrow };
 
 export { placeCafe, placeArt, placeTree, placeShop };
-export { markerMy, markerCafe, markerTree, markerArt, markerLike, markerEmpty };
+export { markerMy, markerCafeTwo, markerCafe, markerTree, markerArt, markerLike, markerEmpty };
 
 export { iconBottomHome, iconBottomMap, iconBottomLike, iconBottomMypage };

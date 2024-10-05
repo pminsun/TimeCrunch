@@ -5,6 +5,7 @@ import * as LocalImages from '@/utils/imageImports';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { changeMoodName, cls } from '@/utils/config';
 import MoodCollection from '@/components/MoodCollection';
+import { seongSuData } from '../../../src/api/temData';
 
 export default function Home() {
   const { mood, findPlace, walkTime, setFindPlace, place } = useMoodSettingStore();
@@ -12,6 +13,8 @@ export default function Home() {
   const { likeList, setLikeList } = useLikeStore();
   const [showMoodCollection, setShowMoodCollection] = useState(false);
   const [moodCollectionType, setMoodCollectionType] = useState('');
+
+  console.log(seongSuData);
 
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
@@ -29,7 +32,7 @@ export default function Home() {
   useEffect(() => {
     setTempStoreMood(mood);
     setTempStoreWalkTime(walkTime);
-    setTempStorPlace(place)
+    setTempStorPlace(place);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

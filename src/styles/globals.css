@@ -941,7 +941,11 @@ input {
 .likepage_container {
   @apply px-[13px] pb-[37px] h-full;
 
-  > p {
+  .page_top {
+    @apply flex_xBetween;
+  }
+
+  p.page_title {
     @apply flex_vertical_center gap-[9px] pt-[23px] font-Jalnan text-[20px] text-black pb-[15px];
   }
   .content {

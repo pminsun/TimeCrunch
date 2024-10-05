@@ -35,6 +35,7 @@ import iconBottomLike from '@/public/images/icon_bottom_like.svg';
 import iconBottomMypage from '@/public/images/icon_bottom_mypage.svg';
 
 import iconfilterLike from '@/public/images/filter_like.svg';
+import iconLikeCategory from '@/public/images/like_menu.png';
 
 import moodTrandy from '@/public/images/mood_trandy.svg';
 import moodExotic from '@/public/images/mood_exotic.svg';
@@ -50,7 +51,7 @@ export { moodTrandy, moodGood, moodQuiet, moodJoy, moodHealing, moodExotic };
 
 export { logoMain, logoSnak, TitleLogoPink, characterMain, defaultProfile };
 
-export { iconClose, iconCheck, rangeThumb, iconFillStar, iconBack, iconEmptyStar, iconfilterLike, iconDropArrow };
+export { iconClose, iconLikeCategory, iconCheck, rangeThumb, iconFillStar, iconBack, iconEmptyStar, iconfilterLike, iconDropArrow };
 
 export { placeCafe, placeArt, placeTree, placeShop };
 export { markerMy, markerCafe, markerTree, markerArt, markerLike, markerEmpty };

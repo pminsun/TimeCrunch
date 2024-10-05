@@ -34,6 +34,7 @@ export default function Map() {
   const [showPlaceType, setShowPlaceType] = useState(false);
   const [singlePlaceInfo, setSinglePlaceInfo] = useState(false);
   const [modalContent, setModalContent] = useState({});
+  const noneLikeFilter = true;
 
   const openPlaceDetail = (placeName: any) => {
     setShowPlace(true);
@@ -294,6 +295,7 @@ export default function Map() {
           showLike={showLike}
           setShowFilter={setShowFilter}
           setShowLike={setShowLike}
+          noneLikeFilter={noneLikeFilter}
         />
       )}
     </React.Fragment>

@@ -1,14 +1,19 @@
 import { authorizationCodeLink, kkk } from '@/api/fetchData';
+import MapFilter from '@/components/MapFilter';
 import { useLikeStore, useUserStore } from '@/store/store';
 import * as LocalImages from '@/utils/imageImports';
 import { jwtDecode } from 'jwt-decode';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 export default function Like() {
   const router = useRouter();
   const { likeList, setLikeList } = useLikeStore();
   const { setUserEmail } = useUserStore();
+  const [showFilter, setShowFilter] = useState(false);
+  const [showLike, setShowLike] = useState(false);
+  const noneLikeFilter = false;
 
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
@@ -23,31 +28,42 @@ export default function Like() {
   };
 
   return (
-    <div className="likepage_container">
-      <p>
-        <Image
-          src={LocalImages.markerLike}
-          alt="markerLike"
-          width={30}
-          height={30}
-          className="-mt-1"
-        />
-        LIKE
-      </p>
-      <div className="content">
-        <div className="noLogin">
-          <p className="ment">
-            LIKE, MY PAGE는
-            <br /> 로그인 후 이용이 가능해요
+    <React.Fragment>
+      <div className="likepage_container">
+        <div className="page_top">
+          <p className="page_title">
+            <Image
+              src={LocalImages.markerLike}
+              alt="markerLike"
+              width={30}
+              height={30}
+              className="-mt-1"
+            />
+            LIKE
           </p>
-          <p
-            className="kakao_login"
-            onClick={loginHandler}
-          >
-            카카오 로그인
-          </p>
+          <div onClick={() => setShowFilter(true)}>
+            <Image
+              src={LocalImages.iconLikeCategory}
+              alt="iconLikeCategory"
+              width={30}
+              height={30}
+            />
+          </div>
         </div>
-        {/* <div className="noneLike">
+        <div className="content">
+          <div className="noLogin">
+            <p className="ment">
+              LIKE, MY PAGE는
+              <br /> 로그인 후 이용이 가능해요
+            </p>
+            <p
+              className="kakao_login"
+              onClick={loginHandler}
+            >
+              카카오 로그인
+            </p>
+          </div>
+          {/* <div className="noneLike">
           <Image
             src={LocalImages.iconEmptyStar}
             alt="iconEmptyStar"
@@ -56,7 +72,7 @@ export default function Like() {
           />
           <p>아직 찜한 컨텐츠가 없어요</p>
         </div> */}
-        {/* <div className="listLike">
+          {/* <div className="listLike">
           {['1', '2', '3', '4', '5', '6'].map((item) => (
             <div
               key={item}
@@ -77,7 +93,16 @@ export default function Like() {
             </div>
           ))}
         </div> */}
+        </div>
       </div>
-    </div>
+      {showFilter && (
+        <MapFilter
+          showLike={showLike}
+          setShowFilter={setShowFilter}
+          setShowLike={setShowLike}
+          noneLikeFilter={noneLikeFilter}
+        />
+      )}
+    </React.Fragment>
   );
 }

@@ -26,7 +26,7 @@ export default function Mypage() {
   return (
     <React.Fragment>
       <div className="mypage_container">
-        <p># MY PAGE</p>
+        <p className="page_title"># MY PAGE</p>
         <div className="content">
           {/* <div className="noLogin">
           <p className="ment">

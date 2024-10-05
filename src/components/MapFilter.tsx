@@ -4,7 +4,7 @@ import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import { useState } from 'react';
 
-export default function MapFilter({ showLike, setShowFilter, setShowLike }: any) {
+export default function MapFilter({ showLike, setShowFilter, setShowLike, noneLikeFilter }: any) {
   const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
   const { likeList, setLikeList } = useLikeStore();
   const [tempMood, setTempMood] = useState(mood);
@@ -143,29 +143,31 @@ export default function MapFilter({ showLike, setShowFilter, setShowLike }: any)
             </ul>
           </div>
         </div>
-        <div className="like_area">
-          <p>LIKE</p>
-          <div>
-            <ul>
-              <li
-                className="!bg-[#FFD787]"
-                onClick={() => setTempLike(!tempLike)}
-              >
-                <div className={cls('check', tempLike ? 'checked' : 'noneChecked')}>
-                  {tempLike && (
-                    <Image
-                      src={LocalImages.iconCheck}
-                      alt="iconCheck"
-                      width={18}
-                      height={18}
-                    />
-                  )}
-                </div>
-                저장한
-              </li>
-            </ul>
+        {noneLikeFilter && (
+          <div className="like_area">
+            <p>LIKE</p>
+            <div>
+              <ul>
+                <li
+                  className="!bg-[#FFD787]"
+                  onClick={() => setTempLike(!tempLike)}
+                >
+                  <div className={cls('check', tempLike ? 'checked' : 'noneChecked')}>
+                    {tempLike && (
+                      <Image
+                        src={LocalImages.iconCheck}
+                        alt="iconCheck"
+                        width={18}
+                        height={18}
+                      />
+                    )}
+                  </div>
+                  저장한
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <button
         type="button"

@@ -17,6 +17,7 @@ export default function Home() {
   const { filteredData, setFilteredData } = useFilterStore();
   const [showPlace, setShowPlace] = useState(false);
   const [selectPlace, setSelectPlace] = useState({});
+  const [noneMoodFilterData, setNoneMoodFilterData] = useState<any[]>([]);
   const [currentLocation, setCurrentLocation] = useState({ lat: 37.544579, lng: 127.055831 });
 
   const selectLike = (item: string) => {
@@ -27,8 +28,8 @@ export default function Home() {
     }
   };
 
-  const openMoodCollection = (mood: React.SetStateAction<string>) => {
-    setMoodCollectionType(mood);
+  const openMoodCollection = (moodType: React.SetStateAction<string>) => {
+    setMoodCollectionType(moodType);
     setShowMoodCollection(true);
   };
 
@@ -41,6 +42,7 @@ export default function Home() {
 
   const filterPlaces = (places: any) => {
     const filteredData: any[] = [];
+    const noneMoodFilteredData: any[] = [];
     const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
 
     places.forEach((place: any) => {
@@ -49,9 +51,17 @@ export default function Home() {
       if (distance <= radius && place.mood.includes(mood)) {
         filteredData.push(place);
       }
+
+      if (distance <= radius) {
+        // 무드를 제외하고 거리만 체크
+        noneMoodFilteredData.push(place);
+      }
     });
 
-    return filteredData;
+    return {
+      filteredData,
+      noneMoodFilteredData,
+    };
   };
 
   useEffect(() => {
@@ -72,26 +82,38 @@ export default function Home() {
     // 필터링 로직
     if (currentLocation.lat && currentLocation.lng) {
       let filtered: any[] = [];
+      let noneMoodFiltered: any[] = [];
 
       // 카테고리별 필터링
       if (place.includes('카페')) {
-        filtered = [...filtered, ...filterPlaces(seongSuData.cafe)];
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.cafe);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
       }
 
       if (place.includes('산책/공원')) {
-        filtered = [...filtered, ...filterPlaces(seongSuData.park)];
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.park);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
       }
 
       if (place.includes('공연/전시')) {
-        filtered = [...filtered, ...filterPlaces(seongSuData.art)];
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.art);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
       }
 
       if (place.includes('편집샵/쇼핑')) {
-        filtered = [...filtered, ...filterPlaces(seongSuData.shop)];
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.shop);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
       }
 
       // 필터링된 결과 전역 상태로 저장
       setFilteredData(filtered);
+
+      // noneMoodFilteredData를 로컬 상태로 저장
+      setNoneMoodFilterData(noneMoodFiltered);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mood, walkTime, place, currentLocation, setFilteredData]);
@@ -188,13 +210,13 @@ export default function Home() {
       <div className="re_watchMood">
         <p>#무드 다시찾기</p>
         <div>
-          {['분위기좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((mood: string) => (
-            <React.Fragment key={mood}>
+          {['분위기좋은', '조용한', '이국적인', '힐링', '즐거운', '트렌디한'].map((moodType: string) => (
+            <React.Fragment key={moodType}>
               <div
-                className={cls(changeMoodName(mood))}
-                onClick={() => openMoodCollection(mood)}
+                className={cls(changeMoodName(moodType))}
+                onClick={() => openMoodCollection(moodType)}
               >
-                # {mood}
+                # {moodType}
               </div>
             </React.Fragment>
           ))}
@@ -202,8 +224,9 @@ export default function Home() {
       </div>
       {showMoodCollection && (
         <MoodCollection
-          title={mood}
+          moodCollectionType={moodCollectionType}
           setShowMoodCollection={setShowMoodCollection}
+          noneMoodFilterData={noneMoodFilterData}
         />
       )}
       {showPlace && (

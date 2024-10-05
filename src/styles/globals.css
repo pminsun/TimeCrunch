@@ -17,6 +17,7 @@ body,
   position: fixed;
   overflow: hidden;
   @apply w-full h-screen overflow-y-hidden font-WantedSans bg-white;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 input {

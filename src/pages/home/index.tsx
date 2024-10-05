@@ -14,8 +14,6 @@ export default function Home() {
   const [showMoodCollection, setShowMoodCollection] = useState(false);
   const [moodCollectionType, setMoodCollectionType] = useState('');
 
-  console.log(seongSuData);
-
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
       setLikeList(likeList.filter((selected: string) => selected !== item));

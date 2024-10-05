@@ -35,7 +35,7 @@ export default function MoodCollection({ noneMoodFilterData, setShowMoodCollecti
                 className="place_area"
                 onClick={openPlaceDetail}
               >
-                <div className="img_area"></div>
+                <div className="img_area bg-[#ECE9E3]"></div>
                 <p className="place_name">{item.name}</p>
               </div>
               {showPlace && (

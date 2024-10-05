@@ -871,7 +871,7 @@ input {
       @apply w-full grid grid-cols-2 gap-[9px] mt-[18px];
 
       .img_area {
-        @apply aspect-square rounded-[10px] bg-[#ECE9E3];
+        @apply aspect-square rounded-[10px];
       }
 
       p.place_name {
@@ -899,7 +899,7 @@ input {
 
   .detailContent_area {
     .img_area {
-      @apply flex gap-[5px] overflow-x-auto pl-[15px];
+      @apply w-full flex gap-[5px] h-[151px] overflow-x-auto ml-[15px];
 
       /* scrollbar */
       &::-webkit-scrollbar {

@@ -80,6 +80,9 @@ export default function MoodSelect() {
     if (walkTime === 0) {
       setWalkTime(30);
     }
+    if (place.length === 0) {
+      setPlace(['카페', '공연/전시', '편집샵/쇼핑', '산책/공원']);
+    }
   };
 
   const circleRef = useRef<naver.maps.Circle | null>(null);

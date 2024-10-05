@@ -92,13 +92,13 @@ export default function MoodSelect() {
       const zoomLevel = walkTime === 0 ? 17 : walkTime === 5 ? 15 : walkTime === 10 ? 14 : walkTime === 15 ? 13 : walkTime === 20 ? 13 : 11;
       const mapOptions = {
         center: currentLocation,
-        zoom: zoomLevel,
+        zoom: 13,
       };
 
       const map = new naver.maps.Map('temmap', mapOptions);
 
       // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
-      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 100;
+      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 150;
 
       // 서클이 존재하지 않으면 새로 생성, 이미 있으면 업데이트
       if (!circleRef.current) {

@@ -3,15 +3,24 @@ import { useMoodSettingStore } from '@/store/store';
 import { useRouter } from 'next/router';
 import * as LocalImages from '@/utils/imageImports';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import MoodSelect from '@/components/MoodSelect';
 import Link from 'next/link';
 
 export default function Mypage() {
   const router = useRouter();
   const { setFindPlace, findPlace } = useMoodSettingStore();
+  const [withdrawalModal, setWithdrawalModal] = useState(false);
   const loginHandler = async () => {
     router.push('https://api.seongsu-snack.site/oauth2/authorization/kakao');
+  };
+
+  const openWithdrawalModal = () => {
+    setWithdrawalModal(true);
+  };
+
+  const closeWithdrawalModal = () => {
+    setWithdrawalModal(false);
   };
 
   return (
@@ -77,7 +86,7 @@ export default function Mypage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href={'/'}>
+                  <div onClick={openWithdrawalModal}>
                     <p>탈퇴하기</p>
                     <Image
                       src={LocalImages.iconBack}
@@ -85,7 +94,7 @@ export default function Mypage() {
                       width={24}
                       height={24}
                     />
-                  </Link>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -99,6 +108,33 @@ export default function Mypage() {
         </div>
       </div>
       {!findPlace && <MoodSelect />}
+      {withdrawalModal && (
+        <div className="withdrawalBox">
+          <div
+            className="close"
+            onClick={closeWithdrawalModal}
+          >
+            <Image
+              src={LocalImages.iconClose}
+              alt="iconClose"
+              width={30}
+              height={30}
+            />
+          </div>
+          <p>정말 탈퇴하시겠어요?</p>
+          <div className="bottom_btn">
+            <button
+              type="button"
+              onClick={closeWithdrawalModal}
+            >
+              취소
+            </button>
+            <button type="button">탈퇴하기</button>
+          </div>
+        </div>
+      )}
+
+      {withdrawalModal && <div className="backDrop"></div>}
     </React.Fragment>
   );
 }

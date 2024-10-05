@@ -7,13 +7,11 @@ import { getBusinessStatus } from '@/utils/config';
 
 export default function SinglePlaceModal({ modalContent }: any) {
   const [showPlace, setShowPlace] = useState(false);
-  const [showPlaceType, setShowPlaceType] = useState(false);
   const { likeList, setLikeList } = useLikeStore();
   const { mood } = useMoodSettingStore();
 
   const openPlaceDetail = (placeName: any) => {
     setShowPlace(true);
-    setShowPlaceType(placeName);
   };
 
   return (

@@ -44,10 +44,8 @@ export const changeTime = (time: number) => {
   } else if (time === 2) {
     return 10;
   } else if (time === 3) {
-    return 15;
-  } else if (time === 4) {
     return 20;
-  } else if (time === 5) {
+  } else if (time === 4) {
     return 30;
   } else {
     return 0;
@@ -82,4 +80,28 @@ export const getBusinessStatus = (hours: string) => {
 
   // 영업 중
   return '영업 중';
+};
+
+// 하버사인 공식을 이용한 거리 계산 함수
+export const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+  const R = 6371e3; // 지구 반지름 (미터 단위)
+  const toRad = (x: number) => (x * Math.PI) / 180;
+
+  const φ1 = toRad(lat1);
+  const φ2 = toRad(lat2);
+  const Δφ = toRad(lat2 - lat1);
+  const Δλ = toRad(lng2 - lng1);
+
+  const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c; // 두 지점 사이의 거리 반환 (미터 단위)
+};
+
+// 랜덤으로 배열에서 4개의 항목을 선택하는 함수
+export const getRandomPlaces = (data: any, count = 4) => {
+  // 배열을 무작위로 섞은 다음, 상위 count개만 추출
+  return data
+    .sort(() => Math.random() - 0.5) // 무작위로 섞기
+    .slice(0, count); // 상위 count개 추출
 };

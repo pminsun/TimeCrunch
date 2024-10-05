@@ -28,7 +28,7 @@ export default function DetailPlace({ modalContent, setShowPlace }: any) {
   };
 
   return (
-    <section className={cls('detailPlace_container', router.pathname === '/map' ? 'absolute' : 'sticky')}>
+    <section className={cls('detailPlace_container', router.pathname === '/map' || router.pathname === '/home' ? 'absolute' : 'sticky')}>
       <div className="btn_area">
         {router.pathname !== '/map' && (
           <Image

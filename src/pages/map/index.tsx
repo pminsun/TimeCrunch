@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
-import { cls } from '@/utils/config';
+import { cls, calculateDistance } from '@/utils/config';
 import { useLikeStore, useMoodSettingStore } from '@/store/store';
 import MapFilter from '@/components/MapFilter';
 import SinglePlaceModal from '@/components/SinglePlaceModal';
@@ -24,22 +24,6 @@ export default function Map() {
     } else {
       setPlace([...place, placeName]);
     }
-  };
-
-  // 하버사인 공식을 이용한 거리 계산 함수
-  const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
-    const R = 6371e3; // 지구 반지름 (미터 단위)
-    const toRad = (x: number) => (x * Math.PI) / 180;
-
-    const φ1 = toRad(lat1);
-    const φ2 = toRad(lat2);
-    const Δφ = toRad(lat2 - lat1);
-    const Δλ = toRad(lng2 - lng1);
-
-    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c; // 두 지점 사이의 거리 반환 (미터 단위)
   };
 
   useEffect(() => {

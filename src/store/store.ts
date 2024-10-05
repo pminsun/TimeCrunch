@@ -74,6 +74,16 @@ export const useTempMoodStore = create(
   ),
 );
 
+interface FilterState {
+  filteredData: [];
+  setFilteredData: (value: any) => void;
+}
+
+export const useFilterStore = create<FilterState>((set) => ({
+  filteredData: [],
+  setFilteredData: (data: any) => set({ filteredData: data }),
+}));
+
 //// 좋아요 선택 ////
 interface LikeState {
   likeList: string[];

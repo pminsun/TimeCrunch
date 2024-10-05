@@ -1,11 +1,12 @@
 import MoodSelect from '@/components/MoodSelect';
-import { useLikeStore, useMoodSettingStore, useTempMoodStore } from '@/store/store';
+import { useLikeStore, useMoodSettingStore, useTempMoodStore, useFilterStore } from '@/store/store';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
-import React, { ReactNode, useEffect, useState } from 'react';
-import { changeMoodName, cls } from '@/utils/config';
+import React, { useEffect, useState } from 'react';
+import { changeMoodName, calculateDistance, cls, getRandomPlaces } from '@/utils/config';
 import MoodCollection from '@/components/MoodCollection';
 import { seongSuData } from '../../../src/api/temData';
+import DetailPlace from '@/components/DetailPlace';
 
 export default function Home() {
   const { mood, findPlace, walkTime, setFindPlace, place } = useMoodSettingStore();
@@ -13,6 +14,10 @@ export default function Home() {
   const { likeList, setLikeList } = useLikeStore();
   const [showMoodCollection, setShowMoodCollection] = useState(false);
   const [moodCollectionType, setMoodCollectionType] = useState('');
+  const { filteredData, setFilteredData } = useFilterStore();
+  const [showPlace, setShowPlace] = useState(false);
+  const [selectPlace, setSelectPlace] = useState({});
+  const [currentLocation, setCurrentLocation] = useState({ lat: 37.544579, lng: 127.055831 });
 
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
@@ -34,6 +39,67 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const filterPlaces = (places: any) => {
+    const filteredData: any[] = [];
+    const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
+
+    places.forEach((place: any) => {
+      const distance = calculateDistance(currentLocation.lat, currentLocation.lng, place.latitude, place.longitude); // 거리 계산
+
+      if (distance <= radius && place.mood.includes(mood)) {
+        filteredData.push(place);
+      }
+    });
+
+    return filteredData;
+  };
+
+  useEffect(() => {
+    // 현재 위치 가져오기
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => console.error(error),
+        { enableHighAccuracy: true },
+      );
+    }
+
+    // 필터링 로직
+    if (currentLocation.lat && currentLocation.lng) {
+      let filtered: any[] = [];
+
+      // 카테고리별 필터링
+      if (place.includes('카페')) {
+        filtered = [...filtered, ...filterPlaces(seongSuData.cafe)];
+      }
+
+      if (place.includes('산책/공원')) {
+        filtered = [...filtered, ...filterPlaces(seongSuData.park)];
+      }
+
+      if (place.includes('공연/전시')) {
+        filtered = [...filtered, ...filterPlaces(seongSuData.art)];
+      }
+
+      if (place.includes('편집샵/쇼핑')) {
+        filtered = [...filtered, ...filterPlaces(seongSuData.shop)];
+      }
+
+      // 필터링된 결과 전역 상태로 저장
+      setFilteredData(filtered);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mood, walkTime, place, currentLocation, setFilteredData]);
+
+  const openPlaceDetail = () => {
+    setShowPlace(true);
+  };
+
   return mood !== '' && findPlace ? (
     <section className="home_conatiner">
       <div className="top_info">
@@ -52,7 +118,7 @@ export default function Home() {
         </p>
       </div>
       <div className="filterPlace_area">
-        {likeList.length !== 0 ? (
+        {filteredData.length === 0 ? (
           <div className="none_list_area">
             <div className="none_list">
               <Image
@@ -84,11 +150,14 @@ export default function Home() {
               나의 <span>#성수스낵</span> 다시찾기
             </button>
             <div className="randomPlace_area">
-              {['1', '2', '3', '4'].map((item) => (
+              {(filteredData.length > 4 ? getRandomPlaces(filteredData) : filteredData).map((item: any) => (
                 <div
-                  key={item}
+                  key={item.name}
                   className="randomPlace"
-                  onClick={() => selectLike(item)}
+                  onClick={() => {
+                    openPlaceDetail();
+                    setSelectPlace(item);
+                  }}
                 >
                   <div className="placeImage_area">
                     <div className="like">
@@ -109,7 +178,7 @@ export default function Home() {
                       )}
                     </div>
                   </div>
-                  <p>장소타이틀명은10자로</p>
+                  <p>{item.name}</p>
                 </div>
               ))}
             </div>
@@ -135,6 +204,12 @@ export default function Home() {
         <MoodCollection
           title={mood}
           setShowMoodCollection={setShowMoodCollection}
+        />
+      )}
+      {showPlace && (
+        <DetailPlace
+          modalContent={selectPlace}
+          setShowPlace={setShowPlace}
         />
       )}
     </section>

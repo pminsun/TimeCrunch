@@ -12,7 +12,7 @@ export default function Seo() {
       />
       <meta
         name="author"
-        content="_PLANX"
+        content="5P_PLANX"
       />
       <meta
         name="description"
@@ -34,9 +34,9 @@ export default function Seo() {
         property="og:type"
         content="website"
       />
-      {/* <meta
+      <meta
         property="og:url"
-        content="https://www.ttorang.site/"
+        content="https://seongsu-snack.vercel.app/"
       />
       <meta
         property="og:image"
@@ -45,7 +45,7 @@ export default function Seo() {
       <link
         rel="icon"
         href="/images/favicon.ico"
-      /> */}
+      />
     </Head>
   );
 }

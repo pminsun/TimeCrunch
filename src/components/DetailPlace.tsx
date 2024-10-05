@@ -49,8 +49,15 @@ export default function DetailPlace({ modalContent, setShowPlace }: any) {
       </div>
       <div className="detailContent_area">
         <div className="img_area">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item}></div>
+          {[1, 2, 3].map((item) => (
+            <div key={item}>
+              <Image
+                src={`/images/place/${modalContent.name}_${item}.jfif`}
+                width={151}
+                height={151}
+                alt="imgFirst"
+              />
+            </div>
           ))}
         </div>
         <div className="info_area">

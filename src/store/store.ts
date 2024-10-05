@@ -84,6 +84,16 @@ export const useFilterStore = create<FilterState>((set) => ({
   setFilteredData: (data: any) => set({ filteredData: data }),
 }));
 
+interface NoneMoodFilterState {
+  noneMoodFilterData: [];
+  setNoneMoodFilterData: (value: any) => void;
+}
+
+export const useNoneMoodFilterStore = create<NoneMoodFilterState>((set) => ({
+  noneMoodFilterData: [],
+  setNoneMoodFilterData: (data: any) => set({ noneMoodFilterData: data }),
+}));
+
 //// 좋아요 선택 ////
 interface LikeState {
   likeList: string[];

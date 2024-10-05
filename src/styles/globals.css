@@ -583,7 +583,11 @@ input {
         @apply min-h-[193px];
 
         > div.placeImage_area {
-          @apply relative w-full aspect-square rounded-[10px] bg-[#ECE9E3];
+          @apply relative w-full aspect-square overflow-hidden rounded-[10px] bg-[#ECE9E3];
+
+          > img {
+            @apply w-full h-full object-cover;
+          }
 
           .like {
             @apply absolute right-[16px] top-[13px];
@@ -750,7 +754,11 @@ input {
         @apply flex_xBetween gap-[14px] w-full h-[80px];
 
         > div {
-          @apply flex-1 h-full bg-[#ECE9E3] rounded-[6px];
+          @apply flex-1 h-full bg-[#ECE9E3] overflow-hidden rounded-[6px];
+
+          img {
+            @apply w-full h-full object-cover;
+          }
         }
       }
     }
@@ -872,6 +880,10 @@ input {
 
       .img_area {
         @apply aspect-square rounded-[10px];
+
+        img {
+          @apply w-full h-full object-cover;
+        }
       }
 
       p.place_name {
@@ -882,7 +894,7 @@ input {
 }
 
 .detailPlace_container {
-  @apply top-0 bottom-0 left-0 right-0 w-full h-full z-[200] overflow-y-auto colorBg;
+  @apply top-0 bottom-0 left-0 right-0 w-full h-full z-[200] overflow-x-hidden overflow-y-auto colorBg;
   /* scrollbar */
   &::-webkit-scrollbar {
     display: none;
@@ -907,7 +919,11 @@ input {
       }
 
       > div {
-        @apply h-[151px] aspect-square rounded-[10px] bg-[#ECE9E3];
+        @apply h-[151px] w-[151px] aspect-square overflow-hidden rounded-[10px] bg-[#ECE9E3];
+
+        img {
+          @apply w-full h-full object-cover;
+        }
       }
     }
 

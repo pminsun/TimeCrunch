@@ -35,7 +35,14 @@ export default function MoodCollection({ noneMoodFilterData, setShowMoodCollecti
                 className="place_area"
                 onClick={openPlaceDetail}
               >
-                <div className="img_area bg-[#ECE9E3]"></div>
+                <div className="img_area bg-[#ECE9E3] overflow-hidden">
+                  <Image
+                    src={`/images/place/${item.name}_1.jfif`}
+                    width={151}
+                    height={151}
+                    alt="imgFirst"
+                  />
+                </div>
                 <p className="place_name">{item.name}</p>
               </div>
               {showPlace && (

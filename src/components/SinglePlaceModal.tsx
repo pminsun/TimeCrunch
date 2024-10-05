@@ -57,7 +57,14 @@ export default function SinglePlaceModal({ modalContent }: any) {
           </div>
           <div className="img_area">
             {[1, 2, 3].map((img) => (
-              <div key={img}></div>
+              <div key={img}>
+                <Image
+                  src={`/images/place/${modalContent.name}_${img}.jfif`}
+                  width={96}
+                  height={80}
+                  alt="imgFirst"
+                />
+              </div>
             ))}
           </div>
         </div>

@@ -59,8 +59,9 @@ export default function Home() {
         { enableHighAccuracy: true },
       );
     }
+  }, []); // currentLocation 상태를 업데이트하기 위한 초기 effect
 
-    // 필터링 로직
+  useEffect(() => {
     if (currentLocation.lat && currentLocation.lng) {
       let filtered: any[] = [];
       let noneMoodFiltered: any[] = [];
@@ -97,7 +98,7 @@ export default function Home() {
       setNoneMoodFilterData(noneMoodFiltered);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mood, walkTime, place, currentLocation, setFilteredData]);
+  }, [mood, walkTime, place, currentLocation]);
 
   return tempStoreMood && findPlace ? (
     <section className="home_conatiner">

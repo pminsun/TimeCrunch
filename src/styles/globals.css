@@ -911,8 +911,9 @@ input {
   }
 
   .detailContent_area {
+    @apply w-full;
     .img_area {
-      @apply w-[463px] flex gap-[5px] h-[151px] overflow-x-auto ml-[15px];
+      @apply whitespace-nowrap w-auto h-[151px] overflow-x-auto overflow-y-hidden pl-[15px];
 
       /* scrollbar */
       &::-webkit-scrollbar {
@@ -920,7 +921,7 @@ input {
       }
 
       > div {
-        @apply h-[151px] w-[151px] aspect-square overflow-hidden rounded-[10px] bg-[#ECE9E3];
+        @apply inline-block h-[151px] w-[151px] mr-[5px] overflow-hidden rounded-[10px] bg-[#ECE9E3];
 
         img {
           @apply w-full h-full object-cover;

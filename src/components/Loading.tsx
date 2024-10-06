@@ -22,16 +22,49 @@ export default function Loading() {
   useEffect(() => {
     // 현재 위치 가져오기
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCurrentLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => console.error(error),
-        { enableHighAccuracy: true },
-      );
+      const seongsuBounds = {
+        north: 37.556237,
+        south: 37.535148,
+        east: 127.072175,
+        west: 127.042945,
+      };
+
+      const isWithinSeongsu = (lat: number, lng: number) => {
+        return lat <= seongsuBounds.north && lat >= seongsuBounds.south && lng <= seongsuBounds.east && lng >= seongsuBounds.west;
+      };
+
+      // 현재 위치 가져오기
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+
+            // 성수동 범위 내에 있는지 확인
+            if (isWithinSeongsu(latitude, longitude)) {
+              setCurrentLocation({
+                lat: latitude,
+                lng: longitude,
+              });
+            } else {
+              // 성수동 범위를 벗어난 경우 성수동 기본 좌표 설정
+              setCurrentLocation({
+                lat: 37.544579, // defaultLat
+                lng: 127.055831, // defaultLng
+              });
+            }
+          },
+          (error) => {
+            console.error(error);
+
+            // 위치 정보를 가져오지 못했을 경우에도 성수동 기본 좌표 설정
+            setCurrentLocation({
+              lat: 37.544579, // defaultLat
+              lng: 127.055831, // defaultLng
+            });
+          },
+          { enableHighAccuracy: true },
+        );
+      }
     }
 
     // 필터링 로직

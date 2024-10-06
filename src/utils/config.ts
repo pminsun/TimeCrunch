@@ -105,3 +105,27 @@ export const getRandomPlaces = (data: any, count = 4) => {
     .sort(() => Math.random() - 0.5) // 무작위로 섞기
     .slice(0, count); // 상위 count개 추출
 };
+
+export const filterPlaces = (places: any, walkTime: any, currentLocation: any, mood: any) => {
+  const filteredData: any[] = [];
+  const noneMoodFilteredData: any[] = [];
+  const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
+
+  places.forEach((place: any) => {
+    const distance = calculateDistance(currentLocation.lat, currentLocation.lng, place.latitude, place.longitude); // 거리 계산
+
+    if (distance <= radius && place.mood.includes(mood)) {
+      filteredData.push(place);
+    }
+
+    if (distance <= radius) {
+      // 무드를 제외하고 거리만 체크
+      noneMoodFilteredData.push(place);
+    }
+  });
+
+  return {
+    filteredData,
+    noneMoodFilteredData,
+  };
+};

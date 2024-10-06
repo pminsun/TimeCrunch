@@ -3,9 +3,10 @@ import { useLikeStore, useMoodSettingStore, useTempMoodStore, useFilterStore, us
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import React, { useEffect, useState } from 'react';
-import { changeMoodName, calculateDistance, cls, getRandomPlaces } from '@/utils/config';
+import { changeMoodName, filterPlaces, cls, getRandomPlaces } from '@/utils/config';
 import MoodCollection from '@/components/MoodCollection';
 import DetailPlace from '@/components/DetailPlace';
+import { seongSuData } from '../../../src/api/temData';
 
 export default function Home() {
   const { mood, findPlace, walkTime, setFindPlace, place } = useMoodSettingStore();
@@ -17,6 +18,7 @@ export default function Home() {
   const [showPlace, setShowPlace] = useState(false);
   const [selectPlace, setSelectPlace] = useState({});
   const { noneMoodFilterData, setNoneMoodFilterData } = useNoneMoodFilterStore();
+  const [currentLocation, setCurrentLocation] = useState({ lat: 37.544579, lng: 127.055831 });
 
   const selectLike = (item: string) => {
     if (likeList.includes(item)) {
@@ -36,12 +38,66 @@ export default function Home() {
     setTempStoreWalkTime(walkTime);
     setTempStorPlace(place);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredData]);
+  }, []);
 
   const openPlaceDetail = (item: any) => {
     setShowPlace(true);
     setSelectPlace(item);
   };
+
+  useEffect(() => {
+    // 현재 위치 가져오기
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => console.error(error),
+        { enableHighAccuracy: true },
+      );
+    }
+
+    // 필터링 로직
+    if (currentLocation.lat && currentLocation.lng) {
+      let filtered: any[] = [];
+      let noneMoodFiltered: any[] = [];
+
+      // 카테고리별 필터링
+      if (place.includes('카페')) {
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.cafe, walkTime, currentLocation, mood);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
+      }
+
+      if (place.includes('산책/공원')) {
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.park, walkTime, currentLocation, mood);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
+      }
+
+      if (place.includes('공연/전시')) {
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.art, walkTime, currentLocation, mood);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
+      }
+
+      if (place.includes('편집샵/쇼핑')) {
+        const { filteredData, noneMoodFilteredData } = filterPlaces(seongSuData.shop, walkTime, currentLocation, mood);
+        filtered = [...filtered, ...filteredData];
+        noneMoodFiltered = [...noneMoodFiltered, ...noneMoodFilteredData];
+      }
+
+      // 필터링된 결과 전역 상태로 저장
+      setFilteredData(filtered);
+
+      // noneMoodFilteredData를 로컬 상태로 저장
+      setNoneMoodFilterData(noneMoodFiltered);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mood, walkTime, place, currentLocation, setFilteredData]);
 
   return tempStoreMood && findPlace ? (
     <section className="home_conatiner">

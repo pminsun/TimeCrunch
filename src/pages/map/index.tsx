@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import * as LocalImages from '@/utils/imageImports';
 import { cls, calculateDistance } from '@/utils/config';
-import { useLikeStore, useMoodSettingStore } from '@/store/store';
+import { useFilterStore, useLikeStore, useMoodSettingStore } from '@/store/store';
 import MapFilter from '@/components/MapFilter';
 import SinglePlaceModal from '@/components/SinglePlaceModal';
 import { seongSuData } from '../../../src/api/temData';
@@ -14,6 +14,7 @@ export default function Map() {
   const [showFilter, setShowFilter] = useState(false);
   const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
   const [singlePlaceInfo, setSinglePlaceInfo] = useState(false);
+  const { filteredData, setFilteredData } = useFilterStore();
   const [modalContent, setModalContent] = useState({});
   const noneLikeFilter = false;
   const circleRef = useRef<naver.maps.Circle | null>(null);
@@ -86,10 +87,12 @@ export default function Map() {
 
       // 마커 생성 함수
       const createMarkers = (places: any, iconUrl: any) => {
+        const newFilteredData: any[] = [];
         places.forEach((place: any) => {
           const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
 
           if (distance <= radius && place.mood.includes(mood)) {
+            newFilteredData.push(place);
             const marker = new naver.maps.Marker({
               position: new naver.maps.LatLng(place.latitude, place.longitude),
               map: map,
@@ -118,6 +121,7 @@ export default function Map() {
             });
           }
         });
+        setFilteredData(newFilteredData);
       };
 
       // 카테고리별로 마커 생성

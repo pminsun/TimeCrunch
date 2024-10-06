@@ -3,16 +3,19 @@ import * as LocalImages from '@/utils/imageImports';
 import { useLikeStore } from '@/store/store';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { cls, getBusinessStatus } from '@/utils/config';
+import { calculateDistance, cls, getBusinessStatus } from '@/utils/config';
 
 export default function DetailPlace({ modalContent, setShowPlace }: any) {
   const router = useRouter();
   const { likeList, setLikeList } = useLikeStore();
+  const [currentLocation, setCurrentLocation] = useState({ lat: 37.544579, lng: 127.055831 });
 
   const openNaverMap = (address: string) => {
     const url = `https://m.map.naver.com/search2/search.naver?query=${encodeURIComponent(address)}`;
     window.open(url, '_blank');
   };
+
+  console.log(modalContent);
 
   const [isExpanded, setIsExpanded] = useState(false); // 설명이 확장되었는지 여부
 
@@ -26,6 +29,23 @@ export default function DetailPlace({ modalContent, setShowPlace }: any) {
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const distance = calculateDistance(currentLocation.lat, currentLocation.lng, modalContent.latitude, modalContent.longitude);
+  useEffect(() => {
+    // 현재 위치 가져오기
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => console.error(error),
+        { enableHighAccuracy: true },
+      );
+    }
+  }, []);
 
   return (
     <section className={cls('detailPlace_container', router.pathname === '/map' || router.pathname === '/home' ? 'absolute' : 'sticky')}>
@@ -64,7 +84,7 @@ export default function DetailPlace({ modalContent, setShowPlace }: any) {
           <div className="left">
             <p className="place_name">{modalContent.name}</p>
             <div>
-              <p>{Math.floor(modalContent.distance)}m</p>
+              <p>{Math.floor(modalContent.distance) || Math.floor(distance)}m</p>
               <p>{modalContent.placeType}</p>
             </div>
             <div className="mt-[4px]">

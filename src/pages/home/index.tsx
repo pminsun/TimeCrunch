@@ -36,10 +36,11 @@ export default function Home() {
     setTempStoreWalkTime(walkTime);
     setTempStorPlace(place);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [filteredData]);
 
-  const openPlaceDetail = () => {
+  const openPlaceDetail = (item: any) => {
     setShowPlace(true);
+    setSelectPlace(item);
   };
 
   return tempStoreMood && findPlace ? (
@@ -96,10 +97,7 @@ export default function Home() {
                 <div
                   key={item.name}
                   className="randomPlace"
-                  onClick={() => {
-                    openPlaceDetail();
-                    setSelectPlace(item);
-                  }}
+                  onClick={() => openPlaceDetail(item)}
                 >
                   <div className="placeImage_area">
                     <Image

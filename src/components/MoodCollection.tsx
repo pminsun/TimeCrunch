@@ -6,13 +6,14 @@ import { cls } from '@/utils/config';
 
 export default function MoodCollection({ noneMoodFilterData, setShowMoodCollection, moodCollectionType }: any) {
   const [showPlace, setShowPlace] = useState(false);
-  const [showPlaceType, setShowPlaceType] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   // 무드 필터링 함수
   const filteredPlaces = noneMoodFilterData.filter((place: any) => place.mood.includes(moodCollectionType));
 
-  const openPlaceDetail = () => {
+  const openPlaceDetail = (place: any) => {
     setShowPlace(true);
+    setSelectedPlace(place);
   };
 
   return (
@@ -33,7 +34,7 @@ export default function MoodCollection({ noneMoodFilterData, setShowMoodCollecti
             <React.Fragment key={item.name}>
               <div
                 className="place_area"
-                onClick={openPlaceDetail}
+                onClick={() => openPlaceDetail(item)}
               >
                 <div className="img_area bg-[#ECE9E3] overflow-hidden">
                   <Image
@@ -45,16 +46,16 @@ export default function MoodCollection({ noneMoodFilterData, setShowMoodCollecti
                 </div>
                 <p className="place_name">{item.name}</p>
               </div>
-              {showPlace && (
-                <DetailPlace
-                  setShowPlace={setShowPlace}
-                  modalContent={item}
-                />
-              )}
             </React.Fragment>
           ))}
         </div>
       </div>
+      {showPlace && (
+        <DetailPlace
+          setShowPlace={setShowPlace}
+          modalContent={selectedPlace}
+        />
+      )}
     </section>
   );
 }

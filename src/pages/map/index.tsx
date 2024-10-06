@@ -44,34 +44,18 @@ export default function Map() {
         const map = new naver.maps.Map('map', mapOptions);
 
         // 현재 위치 마커 생성
-        if (isInSeongsu) {
-          const currentLocationMarker = new naver.maps.Marker({
-            position: currentLocation,
-            map: map,
-            title: '현재 위치',
-            clickable: true,
-            icon: {
-              url: '/images/marker_my.svg',
-              size: new naver.maps.Size(43, 53),
-              origin: new naver.maps.Point(0, 0),
-              anchor: new naver.maps.Point(21.5, 53),
-            },
-          });
-        } else {
-          // 성수동 외부일 때 성수역 마커 표시
-          const defaultLocationMarker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(defaultLat, defaultLng),
-            map: map,
-            title: '성수역',
-            clickable: true,
-            icon: {
-              url: '/images/marker_seongsu.svg',
-              size: new naver.maps.Size(43, 53),
-              origin: new naver.maps.Point(0, 0),
-              anchor: new naver.maps.Point(21.5, 53),
-            },
-          });
-        }
+        const currentLocationMarker = new naver.maps.Marker({
+          position: currentLocation,
+          map: map,
+          title: '현재 위치',
+          clickable: true,
+          icon: {
+            url: '/images/marker_my.svg',
+            size: new naver.maps.Size(43, 53),
+            origin: new naver.maps.Point(0, 0),
+            anchor: new naver.maps.Point(21.5, 53),
+          },
+        });
 
         // 반경 100m 서클 생성
         // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
@@ -172,16 +156,7 @@ export default function Map() {
       const success = (position: GeolocationPosition) => {
         const { latitude, longitude } = position.coords;
 
-        // 성수동의 대략적인 범위 설정
-        const seongsuBounds = {
-          north: 37.546,
-          south: 37.543,
-          east: 127.058,
-          west: 127.054,
-        };
-
-        const isInSeongsu = latitude >= seongsuBounds.south && latitude <= seongsuBounds.north && longitude >= seongsuBounds.west && longitude <= seongsuBounds.east;
-
+        const isInSeongsu = latitude >= 37.543 && latitude <= 37.546 && longitude >= 127.054 && longitude <= 127.058;
         if (isInSeongsu) {
           initMap(latitude, longitude, isInSeongsu); // 성수동 내 위치
         } else {

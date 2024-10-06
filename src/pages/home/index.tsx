@@ -103,7 +103,7 @@ export default function Home() {
                 >
                   <div className="placeImage_area">
                     <Image
-                      src={`/images/place/${item.name}_1.jfif`}
+                      src={`/images/place/${item.name}_1.jpg`}
                       width={160}
                       height={160}
                       alt="imgFirst"

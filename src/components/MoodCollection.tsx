@@ -37,7 +37,7 @@ export default function MoodCollection({ noneMoodFilterData, setShowMoodCollecti
               >
                 <div className="img_area bg-[#ECE9E3] overflow-hidden">
                   <Image
-                    src={`/images/place/${item.name}_1.jfif`}
+                    src={`/images/place/${item.name}_1.jpg`}
                     width={151}
                     height={151}
                     alt="imgFirst"

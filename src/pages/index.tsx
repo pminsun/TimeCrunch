@@ -178,7 +178,13 @@ export default function Home() {
                 </div>
               </div>
               <div className="bottom_box login_area">
-                <p
+                <Link
+                  href={'/home'}
+                  className="kakao_login"
+                >
+                  성수 스낵 둘러보기
+                </Link>
+                {/* <p
                   className="kakao_login"
                   onClick={loginHandler}
                 >
@@ -189,7 +195,7 @@ export default function Home() {
                   className="none_login"
                 >
                   로그인 안하고 둘러보기
-                </Link>
+                </Link> */}
               </div>
             </section>
           </Slider>

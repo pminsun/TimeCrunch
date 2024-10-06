@@ -1,6 +1,7 @@
 import { authorizationCodeLink, kkk } from '@/api/fetchData';
 import MapFilter from '@/components/MapFilter';
-import { useLikeStore, useUserStore } from '@/store/store';
+import MoodSelect from '@/components/MoodSelect';
+import { useLikeStore, useUserStore, useMoodSettingStore } from '@/store/store';
 import * as LocalImages from '@/utils/imageImports';
 import { jwtDecode } from 'jwt-decode';
 import Image from 'next/image';
@@ -9,6 +10,7 @@ import React, { useState } from 'react';
 
 export default function Like() {
   const router = useRouter();
+  const { setFindPlace, findPlace } = useMoodSettingStore();
   const { likeList, setLikeList } = useLikeStore();
   const { setUserEmail } = useUserStore();
   const [showFilter, setShowFilter] = useState(false);
@@ -41,17 +43,17 @@ export default function Like() {
             />
             LIKE
           </p>
-          <div onClick={() => setShowFilter(true)}>
+          {/* <div onClick={() => setShowFilter(true)}>
             <Image
               src={LocalImages.iconLikeCategory}
               alt="iconLikeCategory"
               width={30}
               height={30}
             />
-          </div>
+          </div> */}
         </div>
         <div className="content">
-          <div className="noLogin">
+          {/* <div className="noLogin">
             <p className="ment">
               LIKE, MY PAGE는
               <br /> 로그인 후 이용이 가능해요
@@ -62,7 +64,18 @@ export default function Like() {
             >
               카카오 로그인
             </p>
+          </div> */}
+          <div className="noLogin">
+            <p className="ment">로그인 서비스 준비 중 입니다</p>
+            <button
+              className="re_selectMood"
+              type="button"
+              onClick={() => setFindPlace(false)}
+            >
+              나의 <span>#성수스낵</span> 다시찾기
+            </button>
           </div>
+
           {/* <div className="noneLike">
           <Image
             src={LocalImages.iconEmptyStar}
@@ -95,14 +108,15 @@ export default function Like() {
         </div> */}
         </div>
       </div>
-      {showFilter && (
+      {!findPlace && <MoodSelect />}
+      {/* {showFilter && (
         <MapFilter
           showLike={showLike}
           setShowFilter={setShowFilter}
           setShowLike={setShowLike}
           noneLikeFilter={noneLikeFilter}
         />
-      )}
+      )} */}
     </React.Fragment>
   );
 }

@@ -120,14 +120,15 @@ input {
       @apply absolute_xHalf bottom-[-2px] z-10 w-[101%] h-[227px] thick_border bg-[#FFFCF8] rounded-t-[26px] pt-[37px] pb-[26px] px-[18px];
 
       &.login_area {
-        @apply flex_vertical_center flex-col;
+        @apply flex_center flex-col;
       }
 
       > p {
         @apply text-center text-[#2D2D2D] text-[16px] font-[500] mb-[30px];
       }
 
-      p.kakao_login {
+      p.kakao_login,
+      a.kakao_login {
         @apply flex_center h-[56px] w-[215px] mb-[32px] mx-auto text-[18px] font-[700] bg-[#FFD787] thick_border rounded-[28px];
       }
 
@@ -911,7 +912,7 @@ input {
 
   .detailContent_area {
     .img_area {
-      @apply w-full flex gap-[5px] h-[151px] overflow-x-auto ml-[15px];
+      @apply w-[463px] flex gap-[5px] h-[151px] overflow-x-auto ml-[15px];
 
       /* scrollbar */
       &::-webkit-scrollbar {
@@ -992,7 +993,15 @@ input {
     }
 
     p.kakao_login {
-      @apply flex_center h-[56px] w-[215px] mb-[32px] mx-auto text-[18px] font-[700] bg-[#FFD787] thick_border rounded-[28px];
+      @apply flex_center h-[56px] px-[60px] mb-[32px] mx-auto text-[18px] font-[700] bg-[#FFD787] thick_border rounded-[28px];
+    }
+
+    button.re_selectMood {
+      @apply thick_border flex_center px-[60px] h-[56px]  text-[18px] font-[600] bg-[#FFD787] text-black rounded-[28px];
+
+      > span {
+        @apply font-[800];
+      }
     }
   }
 }

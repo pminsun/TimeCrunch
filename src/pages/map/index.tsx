@@ -15,7 +15,7 @@ export default function Map() {
   const { mood, setMod, walkTime, setWalkTime, place, setPlace } = useMoodSettingStore();
   const [singlePlaceInfo, setSinglePlaceInfo] = useState(false);
   const [modalContent, setModalContent] = useState({});
-  const noneLikeFilter = true;
+  const noneLikeFilter = false;
   const circleRef = useRef<naver.maps.Circle | null>(null);
 
   const selectPlace = (placeName: string) => {
@@ -226,7 +226,7 @@ export default function Map() {
             </li>
           </ul>
         </div>
-        <div
+        {/* <div
           onClick={() => setShowLike(!showLike)}
           className={cls('like', showLike ? 'selectLike' : 'noneSelectLike', singlePlaceInfo ? 'bottom-[254px]' : 'bottom-[15px]')}
         >
@@ -236,12 +236,12 @@ export default function Map() {
             width={20}
             height={20}
           />
-        </div>
+        </div> */}
         <div
           id="map"
           style={{ width: '480px', height: '100%' }}
         ></div>
-        {singlePlaceInfo && <SinglePlaceModal modalContent={modalContent}/>}
+        {singlePlaceInfo && <SinglePlaceModal modalContent={modalContent} />}
       </div>
 
       {showFilter && (

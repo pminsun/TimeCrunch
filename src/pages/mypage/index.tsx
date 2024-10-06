@@ -28,6 +28,16 @@ export default function Mypage() {
       <div className="mypage_container">
         <p className="page_title"># MY PAGE</p>
         <div className="content">
+          <div className="noLogin">
+            <p className="ment">로그인 서비스 준비 중 입니다</p>
+            <button
+              className="re_selectMood"
+              type="button"
+              onClick={() => setFindPlace(false)}
+            >
+              나의 <span>#성수스낵</span> 다시찾기
+            </button>
+          </div>
           {/* <div className="noLogin">
           <p className="ment">
             LIKE, MY PAGE는
@@ -40,7 +50,7 @@ export default function Mypage() {
             카카오 로그인
           </p>
         </div> */}
-          <div className="loggin">
+          {/* <div className="loggin">
             <div className="w-full">
               <div className="top">
                 <div className="userInfo">
@@ -104,11 +114,11 @@ export default function Mypage() {
             >
               로그아웃
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       {!findPlace && <MoodSelect />}
-      {withdrawalModal && (
+      {/* {withdrawalModal && (
         <div className="withdrawalBox">
           <div
             className="close"
@@ -132,9 +142,9 @@ export default function Mypage() {
             <button type="button">탈퇴하기</button>
           </div>
         </div>
-      )}
+      )} */}
 
-      {withdrawalModal && <div className="backDrop"></div>}
+      {/* {withdrawalModal && <div className="backDrop"></div>} */}
     </React.Fragment>
   );
 }

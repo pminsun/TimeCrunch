@@ -871,9 +871,16 @@ input {
   }
 
   .content_area {
-    @apply pb-[19px]  px-[15px];
+    @apply pb-[19px] px-[15px];
     .title {
       @apply text-black text-[22px] font-[600];
+    }
+
+    .none_list_area {
+      @apply flex_center mt-[25%] flex-col gap-0 w-full h-full;
+      p {
+        @apply text-[#2D2D2D] font-[500] text-[16px];
+      }
     }
 
     > div {

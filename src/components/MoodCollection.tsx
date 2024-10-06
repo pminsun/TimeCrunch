@@ -29,6 +29,12 @@ export default function MoodCollection({ noneMoodFilterData, setShowMoodCollecti
       </div>
       <div className="content_area">
         <p className="title">#{moodCollectionType} 무드</p>
+        {filteredPlaces.length === 0 && (
+          <div className="none_list_area">
+            <p>추천 장소가 주변에 없어요</p>
+            <p>필터 범위를 확대해 주세요</p>
+          </div>
+        )}
         <div>
           {filteredPlaces.map((item: any) => (
             <React.Fragment key={item.name}>

@@ -13,7 +13,7 @@ export default function MoodSelect() {
   const { mood, setMod, walkTime, setWalkTime, place, setPlace, setFindPlace, findPlace } = useMoodSettingStore();
   const { tempStoreMood, setTempStoreMood, tempStoreWalkTime, setTempStoreWalkTime, tempStorePlace, setTempStorPlace } = useTempMoodStore();
   const [loading, setLoading] = useState(false);
-  const [rangeWalkTime, setRangeWalkTime] = useState(0);
+  const [rangeWalkTime, setRangeWalkTime] = useState(tempStoreMood ? walkTime : 0);
 
   const selectMood = (mood: string) => {
     setMod(mood);

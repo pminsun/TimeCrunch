@@ -581,10 +581,10 @@ input {
       @apply grid grid-cols-2 gap-x-[9px] gap-y-[26px] w-full mt-[29px];
 
       > .randomPlace {
-        @apply min-h-[193px];
+        @apply w-full;
 
         > div.placeImage_area {
-          @apply relative w-full aspect-square overflow-hidden rounded-[10px] bg-[#ECE9E3];
+          @apply relative w-full h-[160px] aspect-square overflow-hidden rounded-[10px] bg-[#ECE9E3];
 
           > img {
             @apply w-full h-full object-cover;

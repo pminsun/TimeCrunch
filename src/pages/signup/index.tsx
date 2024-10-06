@@ -62,7 +62,6 @@ export default function SignUp() {
 
   const signUpWithNickName = async () => {
     setClick(true);
-    console.log(document.cookie);
   };
 
   return (

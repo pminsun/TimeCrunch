@@ -15,8 +15,6 @@ export default function DetailPlace({ modalContent, setShowPlace }: any) {
     window.open(url, '_blank');
   };
 
-  console.log(modalContent);
-
   const [isExpanded, setIsExpanded] = useState(false); // 설명이 확장되었는지 여부
 
   const maxChars = 65; // 최대 글자 수 설정

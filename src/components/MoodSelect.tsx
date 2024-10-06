@@ -98,27 +98,30 @@ export default function MoodSelect() {
         zoom: 13,
       };
 
-      const map = new naver.maps.Map('temmap', mapOptions);
+      const mapContainer = document.getElementById('temmap');
+      if (mapContainer) {
+        const map = new naver.maps.Map('temmap', mapOptions);
 
-      // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
-      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 150;
+        // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
+        const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : 150;
 
-      // 서클이 존재하지 않으면 새로 생성, 이미 있으면 업데이트
-      if (!circleRef.current) {
-        circleRef.current = new naver.maps.Circle({
-          map: map,
-          center: currentLocation,
-          radius: currentSlide === 1 ? 100 : radius,
-          strokeColor: '#FF977A',
-          strokeOpacity: 1,
-          strokeWeight: 1,
-          fillColor: '#FEAD97',
-          fillOpacity: 0.11,
-        });
-      } else {
-        circleRef.current.setMap(map);
-        circleRef.current.setCenter(currentLocation);
-        circleRef.current.setRadius(radius);
+        // 서클이 존재하지 않으면 새로 생성, 이미 있으면 업데이트
+        if (!circleRef.current) {
+          circleRef.current = new naver.maps.Circle({
+            map: map,
+            center: currentLocation,
+            radius: currentSlide === 1 ? 100 : radius,
+            strokeColor: '#FF977A',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: '#FEAD97',
+            fillOpacity: 0.11,
+          });
+        } else {
+          circleRef.current.setMap(map);
+          circleRef.current.setCenter(currentLocation);
+          circleRef.current.setRadius(radius);
+        }
       }
     };
 

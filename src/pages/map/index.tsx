@@ -37,108 +37,111 @@ export default function Map() {
         zoom: zoomLevel,
       };
 
-      const map = new naver.maps.Map('map', mapOptions);
+      const mapContainer = document.getElementById('map');
+      if (mapContainer) {
+        const map = new naver.maps.Map('map', mapOptions);
 
-      // 현재 위치 마커 생성
-      const currentLocationMarker = new naver.maps.Marker({
-        position: currentLocation,
-        map: map,
-        title: '현재 위치',
-        clickable: true,
-        icon: {
-          url: '/images/marker_my.svg',
-          size: new naver.maps.Size(43, 53),
-          origin: new naver.maps.Point(0, 0),
-          anchor: new naver.maps.Point(21.5, 53),
-        },
-      });
-
-      // 반경 100m 서클 생성
-      // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
-      // walkTime에 따른 반경 값 설정
-      const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
-      // 서클 객체가 없으면 생성, 있으면 업데이트
-      if (!circleRef.current) {
-        circleRef.current = new naver.maps.Circle({
+        // 현재 위치 마커 생성
+        const currentLocationMarker = new naver.maps.Marker({
+          position: currentLocation,
           map: map,
-          center: currentLocation,
-          radius: radius,
-          strokeColor: '#FF977A',
-          strokeOpacity: 1,
-          strokeWeight: 1,
-          fillColor: '#FEAD97',
-          fillOpacity: 0.11,
+          title: '현재 위치',
+          clickable: true,
+          icon: {
+            url: '/images/marker_my.svg',
+            size: new naver.maps.Size(43, 53),
+            origin: new naver.maps.Point(0, 0),
+            anchor: new naver.maps.Point(21.5, 53),
+          },
         });
-      } else {
-        circleRef.current.setMap(map);
-        circleRef.current.setCenter(currentLocation);
-        circleRef.current.setRadius(radius);
-      }
 
-      // InfoWindow 생성 (마커 클릭 시 표시될 정보 창)
-      const infoWindow = new naver.maps.InfoWindow({
-        content: '', // 내용은 빈 상태로 초기화
-      });
+        // 반경 100m 서클 생성
+        // walkTime에 따른 반경 값 설정 (400m, 800m, 1.2km, 1.6km, 2.4km)
+        // walkTime에 따른 반경 값 설정
+        const radius = walkTime === 30 ? 2400 : walkTime === 5 ? 400 : walkTime === 10 ? 800 : walkTime === 15 ? 1200 : walkTime === 20 ? 1600 : walkTime === 25 ? 1800 : 100;
+        // 서클 객체가 없으면 생성, 있으면 업데이트
+        if (!circleRef.current) {
+          circleRef.current = new naver.maps.Circle({
+            map: map,
+            center: currentLocation,
+            radius: radius,
+            strokeColor: '#FF977A',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: '#FEAD97',
+            fillOpacity: 0.11,
+          });
+        } else {
+          circleRef.current.setMap(map);
+          circleRef.current.setCenter(currentLocation);
+          circleRef.current.setRadius(radius);
+        }
 
-      // 지도 클릭 이벤트 - 빈 공간 클릭 시 placeInfo_area 닫기
-      naver.maps.Event.addListener(map, 'click', () => {
-        setSinglePlaceInfo(false); // 지도를 클릭하면 placeInfo_area가 닫힘
-      });
+        // InfoWindow 생성 (마커 클릭 시 표시될 정보 창)
+        const infoWindow = new naver.maps.InfoWindow({
+          content: '', // 내용은 빈 상태로 초기화
+        });
 
-      // 마커 생성 함수
-      const createMarkers = (places: any, iconUrl: any) => {
-        const newFilteredData: any[] = [];
-        places.forEach((place: any) => {
-          const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
+        // 지도 클릭 이벤트 - 빈 공간 클릭 시 placeInfo_area 닫기
+        naver.maps.Event.addListener(map, 'click', () => {
+          setSinglePlaceInfo(false); // 지도를 클릭하면 placeInfo_area가 닫힘
+        });
 
-          if (distance <= radius && place.mood.includes(mood)) {
-            newFilteredData.push(place);
-            const marker = new naver.maps.Marker({
-              position: new naver.maps.LatLng(place.latitude, place.longitude),
-              map: map,
-              title: place.name,
-              clickable: true,
-              icon: {
-                url: iconUrl,
-                size: new naver.maps.Size(34, 42),
-                origin: new naver.maps.Point(0, 0),
-                anchor: new naver.maps.Point(17, 42),
-              },
-            });
+        // 마커 생성 함수
+        const createMarkers = (places: any, iconUrl: any) => {
+          const newFilteredData: any[] = [];
+          places.forEach((place: any) => {
+            const distance = calculateDistance(lat, lng, place.latitude, place.longitude); // 거리 계산
 
-            naver.maps.Event.addListener(marker, 'click', () => {
-              setModalContent({
-                name: place.name,
-                address: place.address,
-                description: place.description,
-                hours: place.hours,
-                distance: distance,
-                placeType: place.placeType,
-                mood: place.mood,
-                submood: place.submood,
+            if (distance <= radius && place.mood.includes(mood)) {
+              newFilteredData.push(place);
+              const marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(place.latitude, place.longitude),
+                map: map,
+                title: place.name,
+                clickable: true,
+                icon: {
+                  url: iconUrl,
+                  size: new naver.maps.Size(34, 42),
+                  origin: new naver.maps.Point(0, 0),
+                  anchor: new naver.maps.Point(17, 42),
+                },
               });
-              setSinglePlaceInfo(true);
-            });
-          }
-        });
-        setFilteredData(newFilteredData);
-      };
 
-      // 카테고리별로 마커 생성
-      if (place.includes('카페')) {
-        createMarkers(seongSuData.cafe, '/images/marker_cafe_two.svg');
-      }
+              naver.maps.Event.addListener(marker, 'click', () => {
+                setModalContent({
+                  name: place.name,
+                  address: place.address,
+                  description: place.description,
+                  hours: place.hours,
+                  distance: distance,
+                  placeType: place.placeType,
+                  mood: place.mood,
+                  submood: place.submood,
+                });
+                setSinglePlaceInfo(true);
+              });
+            }
+          });
+          setFilteredData(newFilteredData);
+        };
 
-      if (place.includes('산책/공원')) {
-        createMarkers(seongSuData.park, '/images/marker_tree_two.svg');
-      }
+        // 카테고리별로 마커 생성
+        if (place.includes('카페')) {
+          createMarkers(seongSuData.cafe, '/images/marker_cafe_two.svg');
+        }
 
-      if (place.includes('공연/전시')) {
-        createMarkers(seongSuData.art, '/images/marker_art_two.svg');
-      }
+        if (place.includes('산책/공원')) {
+          createMarkers(seongSuData.park, '/images/marker_tree_two.svg');
+        }
 
-      if (place.includes('편집샵/쇼핑')) {
-        createMarkers(seongSuData.shop, '/images/marker_shop_two.svg');
+        if (place.includes('공연/전시')) {
+          createMarkers(seongSuData.art, '/images/marker_art_two.svg');
+        }
+
+        if (place.includes('편집샵/쇼핑')) {
+          createMarkers(seongSuData.shop, '/images/marker_shop_two.svg');
+        }
       }
     };
 
